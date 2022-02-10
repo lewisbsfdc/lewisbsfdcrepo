@@ -1,0 +1,6 @@
+<aura:component description="owner" access="global">
+    <!--
+    <aura:handler name="compEvent" event="c:compEvent" action="{!c.handleComponentEvent}"/>
+
+    <c:bubbleContainer/> -->
+</aura:component>

@@ -1,0 +1,25 @@
+<aura:component controller="LightningOutExampleController">
+    <aura:attribute name="contacts" type="Contact[]" default="[]"></aura:attribute>
+
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}" />
+
+    <!-- <aura:handler event="c:lightningAppEvent" action="{!c.lightningAppEventHandler}"/>  -->
+
+    <!--<aura:registerEvent name="lightningAppExternalEvent" type="c:lightningAppExternalEvent" /> -->
+
+    <aura:iteration items="{!v.contacts}" var="contact">
+   <!-- <label class="slds-form-element__label" for="combobox-id-1">Name</label>
+        <h1>{!contact.Name}</h1>
+         <label class="slds-form-element__label" for="combobox-id-1">Account </label>
+        <h1>{!contact.AccountId}</h1> 
+        <lightning:input aura:id="Name" type="string" label="Name" name="Name" value="{!contact.Name}"/>
+  		<lightning:input aura:id="Account"  label="Account" name="Account" value="{!contact.AccountId}"/> 
+-->
+        
+
+         <lightning:inputField fieldName="AccountId" />
+        <lightning:inputField fieldName="LastName" />
+    </aura:iteration> 
+    <ui:button label="Call Visualforce code from Lightning" press="{!c.callExternalFunction}"/>
+
+</aura:component>

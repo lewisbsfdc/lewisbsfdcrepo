@@ -1,0 +1,3 @@
+<aura:component >
+	<aura:attribute name="newItem" type="Camping_Item__c" />
+</aura:component>

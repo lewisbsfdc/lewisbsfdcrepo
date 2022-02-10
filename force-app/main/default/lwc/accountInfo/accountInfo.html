@@ -1,0 +1,16 @@
+<template>
+    <template if:true={account.data}> 
+         <lightning-card>
+            <h3 slot="title">
+                Infomation about: {account.data.fields.Name.value}
+            </h3>
+            <div class="slds-m-around_medium">
+                <b> Annual Revenue </b> 
+                <lightning-formatted-number value={account.data.fields.AnnualRevenue.value} format-style="currency" currency-code="USD"> </lightning-formatted-number>
+                <br/>
+                <b> Number of Employees </b> {account.data.fields.NumberOfEmployees.value}
+            </div>
+
+        </lightning-card>
+    </template>
+</template>

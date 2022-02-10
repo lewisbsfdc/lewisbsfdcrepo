@@ -1,0 +1,180 @@
+<aura:component >
+<style>
+
+    table{
+    border: 1px solid black; 
+}
+
+td:first-child { width: 33% ;}
+</style>
+
+<aura:attribute name="listCaseComment" type="CaseComment[]" />  
+    <section aria-labelledby="panel-heading-id" class="slds-popover slds-popover_panel " role="dialog">
+       <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_col-bordered" >
+           <thead>
+               <tr class="slds-text-title_caps">
+                     <th scope="col" >
+                       <div class="slds-truncate" title="Create Date">Date</div>
+                    </th>
+                    <th scope="col" >
+                       <div class="slds-truncate" title="Comment">Comment</div>
+                   </th>
+                   </tr>
+               </thead>
+           <tbody>
+               <aura:iteration var="cc" items="{!v.listCaseComment}" >
+                   <tr>
+ 			            <td >
+                        <div class="slds-truncate slds-cell-wrap  " title="Date" >
+                                <lightning:formattedDateTime value="{!cc.CreatedDate}" />
+                        </div>
+                        </td> 
+                        <td >
+                            <div class="slds-truncate  slds-cell-wrap 	" title="Body">{!cc.CommentBody}</div>
+                        </td> 
+                   </tr>
+               </aura:iteration>
+           </tbody>
+		</table>
+</section>    
+
+
+
+
+
+
+
+</aura:component>
+
+
+<!--
+  <aura:attribute name="colorPalette" type="List" default="['red', 'green', 'blue']" />
+<section aria-labelledby="panel-heading-id" class="slds-popover slds-popover_panel " role="dialog">
+
+      <div class="slds-media__body slds-align_absolute-center">
+        <h2 class="slds-text-heading_medium slds-hyphenate" id="panel-heading-id">Case Comments</h2>
+      </div>
+</section>  
+               <thead>
+               <tr class="slds-text-title_caps ">
+                   <th scope="col">
+                       <div class="slds-truncate slds-align_absolute-center" title="Title">Case Comments</div>
+                   </th>
+                </tr>
+               </thead>
+
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+           <thead>
+               <tr class="slds-text-title_caps">
+                   <th scope="col">
+                       <div class="slds-truncate" title="Opportunity Name">Color</div>
+                   </th>
+       					
+                   </tr>
+               </thead>
+           <tbody>
+               <aura:iteration var="Color" items="{!v.colorPalette}">
+               <tr>
+
+                                  <td>
+                    <div class="slds-truncate" title="Cloudhub">{!Color}</div>
+					</td>
+                   </tr>
+               </aura:iteration>
+           </tbody>
+		</table>
+
+<section aria-labelledby="panel-heading-id" class="slds-popover slds-popover_panel slds-nubbin_left-top" role="dialog">
+
+  <div class="slds-popover__header">
+    <header class="slds-media slds-media_center slds-m-bottom_small">
+      <span class="slds-icon_container slds-icon-standard-account slds-media__figure">
+
+      </span>
+      <div class="slds-media__body">
+        <h2 class="slds-text-heading_medium slds-hyphenate" id="panel-heading-id"><a href="javascript:void(0);">Tesla Motors</a></h2>
+      </div>
+    </header>
+    <footer class="slds-grid slds-wrap slds-grid_pull-padded">
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Billing Address">Billing Address</p>
+          </dt>
+          <dd>
+            <p class="slds-truncate" title="3500 Deer Creek Rd.">3500 Deer Creek Rd.</p>
+            <p class="slds-truncate" title="Palo Alto, CA 94304">Palo Alto, CA 94304</p>
+          </dd>
+        </dl>
+      </div>
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Phone">Phone</p>
+          </dt>
+          <dd><a href="javascript:void(0);">212-345-3485</a></dd>
+        </dl>
+      </div>
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Website">Website</p>
+          </dt>
+          <dd><a href="javascript:void(0);">teslamotors.com</a></dd>
+        </dl>
+      </div>
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Account Owner">Account Owner</p>
+          </dt>
+          <dd><a href="javascript:void(0);">Jeff Maguire</a></dd>
+        </dl>
+      </div>
+    </footer>
+  </div>
+
+
+
+</section>
+
+
+    <aura:attribute name="popoverMessage" type="String" default="message here"/>
+    <span onmouseenter="{!c.handleMouseEnter}" onmouseleave="{!c.handleMouseLeave}" class="slds-icon_container slds-icon-standard-case" >
+  sdddd
+    </span>
+    
+    <span  onclick="{!c.handleMouseEnter}" class="slds-icon_container slds-icon-standard-case" >
+  click on 
+    </span>
+    
+      <span  onclick="{!c.handleMouseLeave}" class="slds-icon_container slds-icon-standard-case" >
+  click off 
+    </span> 
+    
+    <span id="popover" aura:id="popover" class="slds-popover slds-nubbin- -left slds-hide" role="dialog" >
+        <div class="slds-popover__body">
+            <ui:outputText aura:Id="outputTextId" value="{!v.popoverMessage}" />
+            
+        </div>
+    </span>
+
+
+
+
+
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="popoverMessage" type="String" default="message here"/>
+    <span onmouseenter="{!c.handleMouseEnter}" onmouseleave="{!c.handleMouseLeave}" class="slds-icon_container slds-icon-standard-case" >
+        ddd
+         <lightning:buttonIcon iconName="utility:open" class="slds-col-bump-left" variant="bare"  onclick="{!c.handleMouseLeave}" />
+    </span>
+
+    <span id="popover" aura:id="popover" class="slds-popover slds-nubbin- -left slds-hide" role="dialog" >
+        <div class="slds-popover__body">
+            <p>{!v.popoverMessage}</p>
+        </div>
+    </span>
+</aura:component>
+-->

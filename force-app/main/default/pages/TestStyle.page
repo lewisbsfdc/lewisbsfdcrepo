@@ -1,0 +1,24 @@
+<!-- For this example to render properly, you must associate the Visualforce page
+with a valid account record in the URL.
+For example, if 001D000000IRt53 is the account ID, the resulting URL should be:
+https://Salesforce_instance/apex/myPage?id=0014100000Ddfid
+See the Visualforce Developer's Guide Quick Start Tutorial for more information. -->
+
+
+<!-- Page: -->
+<apex:page standardController="Account" lightningStylesheets="true">
+	<apex:slds />
+    <apex:form >
+        <apex:pageBlock title="My Test Page" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" styleClass="slds-button slds-button_neutral"  />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="My Content Section" columns="2">
+                <apex:inputField value="{!account.name}" styleClass="slds-input" />
+                <apex:inputField value="{!account.site}" styleClass="slds-input"/>
+                <apex:inputField value="{!account.type}" styleClass="slds-input"/>
+                <apex:inputField value="{!account.accountNumber}" styleClass="slds-input"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

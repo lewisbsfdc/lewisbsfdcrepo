@@ -1,0 +1,58 @@
+<aura:component >
+    <aura:attribute name="parentOptions" type="List" />
+    <aura:attribute name="dependentPicklist" type="Object" />
+    <aura:attribute name="oCountryOptions" type="Object" />
+    <aura:attribute name="dependentOptions" type="List" />
+    <aura:attribute name="options" type="List" />   
+    <aura:attribute name="lstRegions" type="List" /> 
+    <aura:attribute name="lstCountries" type="List" />   
+    <aura:attribute name="selectedCountries" type="List" />   
+
+
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <div class = "slds-container--center slds-container--small">
+
+ 
+        
+
+
+    <lightning:dualListbox name="Regions"  
+                           label= "Select Regions" 
+                           sourceLabel="Available" 
+                           selectedLabel="Selected" 
+                           fieldLevelHelp="This is a dual listbox" 
+                           options="{!v.lstRegions}" 
+                           onchange="{! c.handleChange }"/>       
+        
+     <lightning:dualListbox name="Countries"  
+                           label= "Select Countries" 
+                           sourceLabel="Available" 
+                           selectedLabel="Selected" 
+                           fieldLevelHelp="This is a dual listbox" 
+                           options="{!v.lstCountries}" 
+                           onchange="{! c.handleCountryChange }"/>     
+        
+         <lightning:button  label="Action" title="Action" onclick="{! c.handleButtonClick }" />
+        
+        
+        
+        <lightning:select name="parentPicklist" label="Country" aura:id="parentPicklist" onchange="{!c.pickChange}">
+            <option value="None">None</option>
+        	<aura:iteration items="{!v.parentOptions}" var="p" >
+                <option value='{!p.value}'>{!p.text}</option>
+            </aura:iteration>
+        </lightning:select>
+ 
+     	<lightning:select name="dependentPicklist" label="Cities" aura:id="dependentPicklist">
+            <option value="None">None</option>
+        	<aura:iteration items="{!v.dependentOptions}" var="d" >
+                <option value='{!d.value}'>{!d.text}</option>
+            </aura:iteration>
+        </lightning:select>
+
+
+    </div>
+                                                   
+</aura:component>

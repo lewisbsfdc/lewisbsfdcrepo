@@ -1,0 +1,27 @@
+<aura:component implements="lightning:recordHomeTemplate" description="Template Component usage testing">
+    
+    <aura:attribute name="firstElement" type="Aura.Component[]" />
+    <aura:attribute name="secondElement" type="Aura.Component[]" />
+    <aura:attribute name="thirdElement" type="Aura.Component[]" />
+    <aura:attribute name="fouthElement" type="Aura.Component[]" />
+    <aura:attribute name="centerElement" type="Aura.Component[]" />
+    <div>
+        <lightning:layout verticalAlign="stretch" multipleRows="true" class="x-large">
+            <lightning:layoutItem flexibility="auto" padding="around-small" class="custom-box">
+                <div>{!v.firstElement}</div>
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small" class="custom-box">
+                 <div>{!v.secondElement}</div>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    <div>
+        <lightning:layout horizontalAlign="space">
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                {!v.centerElement}
+            </lightning:layoutItem>
+            
+        </lightning:layout>
+    </div>
+    
+</aura:component>

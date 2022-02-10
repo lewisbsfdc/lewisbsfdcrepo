@@ -1,0 +1,78 @@
+<aura:component access="global" >
+<!--
+    <section aria-labelledby="panel-heading-id" class="slds-popover slds-popover_panel slds-nubbin_left-top" role="dialog">
+	<button class="slds-button slds-button_icon slds-button_icon slds-button_icon-small slds-float_right slds-popover__close" title="Close dialog">
+			<lightning:icon iconName="action:approval" size="large" alternativeText="Indicates approval"/>
+
+		<span class="slds-assistive-text">Close dialog</span>
+	</button>    
+</section>
+
+<section class="slds-popover slds-nubbin_left" role="dialog" aria-label="Dialog Title" aria-describedby="dialog-body-id-5">
+  <button class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon" title="Close dialog">
+			<lightning:icon iconName="action:approval" size="small" alternativeText="Indicates approval"/>
+
+    <span class="slds-assistive-text">Close dialog</span>
+  </button>
+  <div class="slds-popover__body" id="dialog-body-id-5">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+    
+   
+    
+    
+</section>   
+     -->
+ <section class="slds-popover__header slds-nubbin_right"> 
+    <header class="slds-media slds-media_center slds-m-bottom_small">
+      <span class="slds-icon_container slds-icon-standard-account slds-media__figure">
+			Comments
+      </span>
+      <div class="slds-media__body">
+        <h2 class="slds-text-heading_medium slds-hyphenate" id="panel-heading-id"><a href="javascript:void(0);">Tesla Motors</a></h2>
+      </div>
+    </header>
+    <body>
+     	Body
+     
+     </body> 
+    <footer class="slds-grid slds-wrap slds-grid_pull-padded">
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Billing Address">Billing Address</p>
+          </dt>
+          <dd>
+            <p class="slds-truncate" title="3500 Deer Creek Rd.">3500 Deer Creek Rd.</p>
+            <p class="slds-truncate" title="Palo Alto, CA 94304">Palo Alto, CA 94304</p>
+          </dd>
+        </dl>
+      </div>
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Phone">Phone</p>
+          </dt>
+          <dd><a href="javascript:void(0);">212-345-3485</a></dd>
+        </dl>
+      </div>
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Website">Website</p>
+          </dt>
+          <dd><a href="javascript:void(0);">teslamotors.com</a></dd>
+        </dl>
+      </div>
+      <div class="slds-p-horizontal_small slds-size_1-of-2 slds-p-bottom_x-small">
+        <dl>
+          <dt>
+            <p class="slds-text-title_caps slds-truncate" title="Account Owner">Account Owner</p>
+          </dt>
+          <dd><a href="javascript:void(0);">Jeff Maguire</a></dd>
+        </dl>
+      </div>
+    </footer>
+  </section>
+    
+</aura:component>

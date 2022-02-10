@@ -1,0 +1,146 @@
+<apex:page showHeader="true" sidebar="true" controller="CampaingSearchAndList" lightningStyleSheets="true">
+<apex:slds />
+<!-- $A.get("e.force:navigateToURL").setParams( {"url": "/apex/CampaignSearchAndList"}).fire(); -->
+
+    <script type="text/javascript">
+        function replaceEnter(e, tag){
+            if (tag === undefined) {
+                tag = "ENTER_BUTTON";
+            }
+            if (e.keyCode == 13){
+                var allElements = document.getElementsByTagName('*');
+                for (var i = 0; i < allElements.length; i++){
+                    if (allElements[i].id.indexOf(tag) !=-1) {
+                    allElements[i].click();
+                    }
+                }
+                return false;
+            } else {
+                return true;
+            }
+        },
+        function changeValue(input, textid) {
+            document.getElementById(textid).value = input.value;
+        } 
+
+    </script>
+<apex:form >
+	<apex:sectionHeader title="Campaigns" subtitle="All Campaigns" />
+            <div class="slds-align_absolute-center">
+                <apex:inputText value="{!filterName}" size="20" onkeypress="return replaceEnter(event)" label="Name">
+                    <apex:outputLabel >Name: </apex:outputLabel>
+                </apex:inputText>
+                <apex:inputText value="{!filterType}" size="20" onkeypress="return replaceEnter(event)" label="Name">
+                    <apex:outputLabel >&nbsp; Type: </apex:outputLabel>
+                </apex:inputText>
+        </div>
+        <br/>
+        <div class="slds-align_absolute-center">
+            <apex:selectRadio value="{!filterStatus}" id="selectRadioGroup">
+                <apex:selectOptions value="{!items}"/>
+            </apex:selectRadio>
+        </div> 
+        <!-- MultSelect -->
+        <div class="slds-align_absolute-center">
+
+        <apex:selectList value="{!countries}" multiselect="true">
+            <apex:selectOptions value="{!ACH}"/>
+        </apex:selectList><p/>
+
+        <!-- <apex:commandButton value="Test" action="{!test}" rerender="out" status="status"/> -->
+
+
+<!--     <apex:outputPanel id="out">
+        <apex:actionstatus id="status" startText="testing...">
+            <apex:facet name="stop">
+                <apex:outputPanel>
+                    <p>You have selected:</p>
+                    <apex:dataList value="{!ACH}" var="c">{!c}</apex:dataList>
+                </apex:outputPanel>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputPanel> -->
+
+        </div>
+        <!-- MultSelect -->
+        <br/>
+        <div class="slds-align_absolute-center">
+              <apex:commandButton value="Apply Filters" action="{!applyFilters}" rerender="bigTable" id="ENTER_BUTTON" status="filterStatus"/>
+              <apex:commandButton value="Clear Filters" action="{!clearSearchFields}" rerender="bigTable" id="ESC_BUTTON" status="filterStatus"/>
+        </div>
+	<apex:pageBlock id="bigTable">
+
+
+		<apex:pageBlockSection title="Empty List" rendered="{!campaignList.Size = 0}" collapsible="false">
+            <apex:outputText value="No List members to Display."  /> 
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Campaigns" rendered="{!campaignList.Size > 0}" collapsible="false">
+            <!-- <apex:outputText value="There are Campaigns to Display." rendered="{!campaignList.Size > 0}" />  -->
+            <apex:pageBlockTable value="{!campaignList}" var="campList" style="width:100%">
+
+
+                           <apex:column >
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!ViewData}">
+                                        <apex:outputText value="Campaign" />
+                                        <apex:outputText escape="false" rendered="{!sortExpression=='Name'&&sortDirection=='ASC'}">
+                                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                        <!-- <apex:outputText escape="false" rendered="{!sortExpression=='Campaign.Name'&&sortDirection=='ASC'}">     -->
+                                        </apex:outputText>
+                                        <apex:outputText escape="false" rendered="{!sortExpression=='Name'&&sortDirection=='DESC'}">
+                                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                        </apex:outputText>
+                                        <apex:param value="Name" name="column" assignTo="{!sortExpression}" />
+                                    </apex:commandLink>
+                                </apex:facet>     
+                                    <a href="/{!campList.Id}" id="{!campList.Id}" 
+                                        onblur="LookupHoverDetail.getHover('{!campList.Id}').hide();" 
+                                        onfocus="LookupHoverDetail.getHover('{!campList.Id}', '/{!campList.Id}/m?retURL=%2F{!campList.Id}&isAjaxRequest=1').show();" 
+                                        onmouseout="LookupHoverDetail.getHover('{!campList.Id}').hide();" 
+                                        onmouseover="LookupHoverDetail.getHover('{!campList.Id}', '/{!campList.Id}/m?retURL=%2F{!campList.Id}&isAjaxRequest=1').show();">
+                                        {!campList.Name}
+                                         <apex:param name="campaignId" value="{!campList.Id}"/>
+                                    </a>
+                            </apex:column>
+
+                           <apex:column value="{!campList.Type}" >
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!ViewData}">
+                                        <apex:outputText value="Type" />
+                                        <apex:outputText escape="false" rendered="{!sortExpression=='Type'&&sortDirection=='ASC'}">
+                                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                        <!-- <apex:outputText escape="false" rendered="{!sortExpression=='Campaign.Name'&&sortDirection=='ASC'}">     -->
+                                        </apex:outputText>
+                                        <apex:outputText escape="false" rendered="{!sortExpression=='Type'&&sortDirection=='DESC'}">
+                                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                        </apex:outputText>
+                                        <apex:param value="Type" name="column" assignTo="{!sortExpression}" />
+                                    </apex:commandLink>
+
+                                </apex:facet> 
+                                 <!-- <apex:param name="campaignId" value="{!campList.Type}"/>     -->
+                            </apex:column>
+
+                           <apex:column value="{!campList.Status}" >
+                                <apex:facet name="header">
+                                    <apex:commandLink action="{!ViewData}">
+                                        <apex:outputText value="Status" />
+                                        <apex:outputText escape="false" rendered="{!sortExpression=='Type'&&sortDirection=='ASC'}">
+                                            <img src="/s.gif" alt="Sorted Ascending" class="sortAsc" title="Sorted Ascending" />
+                                        <!-- <apex:outputText escape="false" rendered="{!sortExpression=='Campaign.Name'&&sortDirection=='ASC'}">     -->
+                                        </apex:outputText>
+                                        <apex:outputText escape="false" rendered="{!sortExpression=='Type'&&sortDirection=='DESC'}">
+                                            <img src="/s.gif" alt="Sorted Descending" class="sortDesc" title="Sorted Descending" />
+                                        </apex:outputText>
+                                        <apex:param value="Status" name="column" assignTo="{!sortExpression}" />
+                                    </apex:commandLink>
+
+                                </apex:facet> 
+                                 <!-- <apex:param name="campaignId" value="{!campList.Type}"/>     -->
+                            </apex:column>
+
+            </apex:pageBlockTable>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:form>
+</apex:page>

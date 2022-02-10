@@ -1,0 +1,25 @@
+<aura:component >
+<!--   	<aura:attribute name="item" type="Camping_Item__c" required="true"/>
+    
+    <p>Name: <ui:outputText value="{!v.item.Name}" /></p>
+    <p>Price: <ui:outputCurrency value="{!v.item.Price__c}" /></p>
+    <p>Quantity: <ui:outputNumber value="{!v.item.Quantity__c}"  /></p>
+    <p>Packed: <ui:outputCheckbox value="{!v.item.Packed__c}" /></p>
+    
+    <ui:button label="Packed!"
+            press="{!c.packItem}"/>
+-->
+<aura:attribute name="items" type="Camping_Item__c" 
+          default="{'sObjectType':'Camping_Item__c',
+         'Name':'Item1',
+         'Quantity__c':10,
+         'Price__c':100,
+         'Packed__c':false}"/>
+    <aura:attribute name="item" type="Camping_Item__c"/>
+
+    <p><ui:outputText value="{!v.item.Name}" />ssds</p>
+    <p><ui:outputNumber value="{!v.item.Quantity__c}" /></p>
+    <p><ui:outputCurrency value="{!v.item.Price__c}" /></p>
+    <p><ui:outputCheckbox value="{!v.item.Packed__c}" /></p>
+    <p><ui:button label="Packed!" press="{!c.packItem}"/></p>    
+</aura:component>

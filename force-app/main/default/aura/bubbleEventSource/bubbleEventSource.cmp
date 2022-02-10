@@ -1,0 +1,14 @@
+<aura:component description="eventSource" access="global">
+    <aura:registerEvent name="compEvent" type="c:bubbleEvent" />
+
+    <div class="slds-grid slds-grid_align-center slds-p-vertical_large">
+        <div>
+            <lightning:button label="Fire Component Event"
+                              name="componentevent"
+                              onclick="{!c.fireComponentEvent}"
+                              variant="brand"/>
+        </div>
+    </div>
+    <br/>
+    bubble Event Source
+</aura:component>

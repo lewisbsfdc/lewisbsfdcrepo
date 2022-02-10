@@ -1,0 +1,63 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+	One Time Payment
+<!-- 
+
+
+	    <aura:attribute name="options" type="List" default="[
+    {'label': 'apples', 'value': 'option1'},
+    {'label': 'oranges', 'value': 'option2'}
+    ]"/>
+    <aura:attribute name="value" type="String" />
+    <lightning:radioGroup
+        aura:id="mygroup"
+        name="radioButtonGroup"
+        label="Radio Button Group"
+        options="{! v.options }"
+        value="{! v.value }"
+        onchange="{! c.handleChange }"
+        required="true" />
+
+<center>
+<lightning:button  label="Submit" title="Base action" onclick="{! c.handleChange }"/>
+</center> -->
+    <aura:attribute name="invoice" type="Object"/>
+    <aura:attribute name="simpleAccount" type="Object"/>
+    <aura:attribute name="accountError" type="String"/>
+    <aura:attribute name="lstOfInvoices" type="List"/>
+    <aura:attribute name="paymentAmount" type="Double"/>
+    <aura:attribute name="paymentDate" type="Date"/>
+    <aura:handler  name="compEvent" event="c:LightningDataTableEvent" action="{!c.handleBubbleEvent}"/>
+	<aura:attribute name="recordId" type="Id" />
+    <div class="slds-modal__header">
+      <h2 id="header43" class="slds-text-heading--large">New Payment</h2>
+    </div>
+
+	<div class="slds-grid slds-wrap">
+		<div class="slds-col slds-size_3-of-6">
+			<lightning:input aura:id="field" type="date" value="{!v.paymentDate}" required="true" name="date1" label="Enter a date" />
+		</div>
+		<div class="slds-col slds-size_1-of-6">
+			
+		</div>
+		<div class="slds-col slds-size_2-of-6">
+			<lightning:input aura:id="field" type="number" value="{!v.paymentAmount}" required="true" name="amount" label="Amount"  formatter="currency" step="0.01"/>
+		</div> 
+
+		<div class="slds-text-heading_medium slds-p-top_small slds-p-bottom_small">Select Invoice</div>
+		<div class="slds-col slds-size_1-of-1">
+            <c:LightningDataTable2 recordId="{!v.recordId}"/>
+<!-- 			<lightning:input type="search" name="invoices" />
+				<lightning:buttonMenu aura:id="menu" iconName="utility:settings" alternativeText="Show menu" onselect="{! c.handleSelect }">
+		        <lightning:menuItem label="Invoice 1" value="MenuItemOne" />
+		        <lightning:menuItem label="Invoice 2" value="MenuItemTwo" />
+		        <lightning:menuItem label="Invoice 3" value="MenuItemThree" />
+		        <lightning:menuItem label="Invoice 4" value="MenuItemFour" /> 
+    		</lightning:buttonMenu>-->
+    	</div>
+    	<p>&nbsp;</p>
+
+		<div class="slds-col slds-size_1-of-1 slds-align_absolute-center ">
+			<lightning:button  label="Submit" onclick="{! c.handleClick }"/>
+		</div>
+
+	</div></aura:component>

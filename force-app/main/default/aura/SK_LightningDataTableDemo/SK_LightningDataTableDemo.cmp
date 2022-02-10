@@ -1,0 +1,51 @@
+<aura:component controller="SK_LightningDataTableController" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+    
+    <aura:attribute name="acctList" type="object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    <aura:attribute name="accSearchValue" type="String" default=""/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:button label="Error" title="Error" onclick="{! c.handleClick}" />
+    <lightning:button label="Success" title="Sucess" onclick="{! c.handleClick1}" />
+    <lightning:button label="Success2" title="Sucess" onclick="{! c.handleClick2}" />
+    <!--Markup start-->
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning:Icon iconName="standard:account"  size="small" 
+                             class="slds-icon slds-input__icon slds-input__icon_right " />
+                </div>
+                <div class="slds-media__body">
+                    <h2>
+                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Account List">
+                            <span class="slds-text-heading_small">Searched Account List</span>
+                        </a>
+                    </h2>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                    <lightning:input value="{!v.accSearchValue}" placeholder="Search" type="text" label="" name="Account Search" onchange="{!c.doInit}"/>
+                </div>      
+            </div>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <div >
+                <lightning:datatable data="{!v.acctList}" 
+                             columns="{!v.mycolumns}" 
+                             keyField="id"
+                             hideCheckboxColumn="true"
+                             onsort="{!c.updateColumnSorting}"
+                             sortedBy="{!v.sortedBy}"  
+                             sortedDirection="{!v.sortedDirection}"
+                             onrowaction="{! c.handleRowAction }"
+                             showRowNumberColumn="true"/>
+            </div>
+        </div>
+        <footer class="slds-card__footer"></footer>
+    </div>
+    <!--Markup ends-->
+</aura:component>

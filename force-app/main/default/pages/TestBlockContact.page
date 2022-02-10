@@ -1,0 +1,52 @@
+<!-- For this example to render fully, associate the page
+with a valid account record in the URL.
+
+apex/TestBlock?id=001n000000SJCcL
+For example: https://Salesforce_instance/apex/myPage?id=001D000000IRt53 -->
+
+<apex:page standardController="Contact" lightningStylesheets="true">
+
+  	<apex:slds />
+
+
+    <apex:form >
+        <apex:pageBlock title="My Content" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="My Content Section" columns="2">
+                <apex:inputField value="{!contact.name}"/>
+                <apex:inputField value="{!contact.title}"/>
+                <apex:inputField value="{!contact.phone}"/>
+                <apex:inputField value="{!contact.accountId}" />
+
+    <label class="slds-form-element__label" for="select-01">Account</label>
+    <div class="slds-form-element__control">     
+         <apex:inputField label="" style="width:97%; line-height:1.875em;" value="{!contact.accountId}" />
+    </div>
+
+
+    <div class="slds-form-element__control">   
+        <label class="slds-form-element__label" for="combobox-id-1">Account Id</label>
+         <apex:inputField label="" style="width:97%; line-height:1.875em;" value="{!contact.accountId}" />
+    </div>
+                
+                
+                <label class="slds-form-element__label" for="combobox-id-1">Account x</label>
+		
+<div class="slds-form-element__control">
+<div class="slds-combobox_container">
+<div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+<div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+	<span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right"  >
+             
+</span>
+    </div>
+    </div>
+    </div>            
+                </div>                
+                
+            </apex:pageBlockSection>	
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

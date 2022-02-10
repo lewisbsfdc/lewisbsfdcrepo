@@ -1,0 +1,14 @@
+<apex:page controller="GoogleAddressController">
+    <!--<c:Google_Component id="billing" idcomponent="billingid" ></c:Google_Component> -->
+<apex:form >
+    <c:GoogleAddressComponent id="billing" idcomponent="billingid" ></c:GoogleAddressComponent>
+
+        <apex:outputPanel id="eval">
+            {!addressData}
+        </apex:outputPanel>    
+
+        <apex:actionfunction name="rerenderZ" rerender="eval">
+            <apex:param assignTo="{!addressData}" name="addressData" value="sds"/>
+        </apex:actionfunction>
+</apex:form>
+</apex:page>

@@ -1,0 +1,1967 @@
+<apex:page sidebar="false" showHeader="false" controller="ApplicationContactController" standardStylesheets="false" language="{!Locale}"
+  action="{!checkPageAuthentication}" docType="html-5.0" id="pageId"
+  >
+  <apex:stylesheet value="{!URLFOR($Resource.BrowseButton)}"/>
+  <!--PandolQ-->
+  <script src="https://tracking.pandoiq.com/8950" async="async"></script>
+  <noscript><img src="https://tracking.pandoiq.com/8950?noscript" height="0" width="0"></img></noscript>
+  <!-- HVHSF-3079 Start-->
+  <!-- Global site tag (gtag.js) - Google Ads: 926287871 -->
+  <script async="async" src="https://www.googletagmanager.com/gtag/js?id=AW-926287871"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-926287871');
+  </script>
+  <!--App Cast-->
+  <script type='text/javascript' src='https://click.appcast.io/pixels/force1-7090.js?ent=147'></script>
+  <!-- HVHSF-3079 End-->
+  <!-- HVHSF-2558 ADA Tag Start>
+    <!-- Use of this pixel is subject to the Amazon ad specs and policies at http://www.amazon.com/b/?&node=7253015011 --><script type='text/javascript'>var _pix = document.getElementById('_pix_id_5f336a4e-cad4-e0c1-dc4d-4c2f53092a78');if (!_pix) { var protocol = '//'; var a = Math.random() * 1000000000000000000; _pix = document.createElement('iframe'); _pix.style.display = 'none'; _pix.setAttribute('src', protocol + 's.amazon-adsystem.com/iu3?d=generic&ex-fargs=%3Fid%3D5f336a4e-cad4-e0c1-dc4d-4c2f53092a78%26type%3D31%26m%3D7&ex-fch=416613&ex-src=https://www.amazon.com/&ex-hargs=v%3D1.0%3Bc%3D7118658940901%3Bp%3D5F336A4E-CAD4-E0C1-DC4D-4C2F53092A78' + '&cb=' + a); _pix.setAttribute('id','_pix_id_5f336a4e-cad4-e0c1-dc4d-4c2f53092a78'); document.body.appendChild(_pix);}</script>
+  <noscript> <img height='1' width='1' border='0' alt='' src='https://s.amazon-adsystem.com/iui3?d=forester-did&ex-fargs=%3Fid%3D5f336a4e-cad4-e0c1-dc4d-4c2f53092a78%26type%3D31%26m%3D7&ex-fch=416613&ex-src=https://www.amazon.com/&ex-hargs=v%3D1.0%3Bc%3D7118658940901%3Bp%3D5F336A4E-CAD4-E0C1-DC4D-4C2F53092A78' /></noscript>
+  <!-- HVHSF-2558 ADA Tag End>
+    <!-- Tag for Activity Group: Visits, Activity Name: Visits_PL, Activity ID: 7566726 -->
+  <!-- Expected URL: https://www.amazon.jobs/pl/landing_pages/praca -->
+  <!--
+    Activity ID: 7566726
+    Activity Name: Visits_PL
+    Activity Group Name: Visits
+    -->
+  <!--
+    Start of DoubleClick Floodlight Tag: Please do not remove
+    Activity name of this tag: Visits_PL
+    URL of the webpage where the tag is expected to be placed: https://www.amazon.jobs/pl/landing_pages/praca
+    This tag must be placed between the <body> and </body> tags, as close as possible to the opening tag.
+    Creation Date: 07/12/2018
+    -->
+  <script type="text/javascript">
+    var axel = Math.random() + "";
+    var a = axel * 10000000000000;
+    document.write('<iframe src="https://8760660.fls.doubleclick.net/activityi;src=8760660;type=visit0;cat=visit0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;ord=1;num=' + a + '?" width="1" height="1" frameborder="0" style="display:none"></iframe>');
+  </script>
+
+
+  <noscript>
+    <iframe src="https://8760660.fls.doubleclick.net/activityi;src=8760660;type=visit0;cat=visit0;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe>
+  </noscript>
+  <!-- End of DoubleClick Floodlight Tag: Please do not remove -->
+  <!-- Tag for Activity Group: Visits, Activity Name: Visits_SK, Activity ID: 7586723 -->
+  <!-- Expected URL: http://test.ro -->
+  <!--
+    Activity ID: 7586723
+    Activity Name: Visits_SK
+    Activity Group Name: Visits
+    -->
+  <!--
+    Start of DoubleClick Floodlight Tag: Please do not remove
+    Activity name of this tag: Visits_SK
+    URL of the webpage where the tag is expected to be placed: https://www.amazon.jobs/pl/landing_pages/praca
+    This tag must be placed between the <body> and </body> tags, as close as possible to the opening tag.
+    Creation Date: 07/12/2018
+    -->
+  <script type="text/javascript">
+    var axel = Math.random() + "";
+    var a = axel * 10000000000000;
+    document.write('<iframe src="https://8760660.fls.doubleclick.net/activityi;src=8760660;type=visit0;cat=visit00;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;ord=1;num=' + a + '?" width="1" height="1" frameborder="0" style="display:none"></iframe>');
+  </script>
+  <noscript>
+    <iframe src="https://8760660.fls.doubleclick.net/activityi;src=8760660;type=visit0;cat=visit00;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;npa=;ord=1;num=1?" width="1" height="1" frameborder="0" style="display:none"></iframe>
+  </noscript>
+  <!-- End of DoubleClick Floodlight Tag: Please do not remove -->
+  <apex:composition template="PortalHeader">
+    <apex:define name="content">
+      <!-- TAGS -->
+      <script type="text/javascript">
+        var axel = Math.random() + "";
+        var a = axel * 10000000000000;
+        document.write('<iframe src="https://5200239.fls.doubleclick.net/activityi;src=5200239;type=liczn0;cat=amz-l006;u6=[language];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=' + a + '?" width="1" height="1" frameborder="0" style="display:none"></iframe>');
+      </script>
+      <noscript>
+        <iframe src="https://5200239.fls.doubleclick.net/activityi;src=5200239;type=liczn0;cat=amz-l006;u6=[language];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;ord=1?" width="1" height="1" frameborder="0" style="display:none"></iframe>
+      </noscript>
+      <!-- Use of this pixel is subject to the Amazon ad specs and policies at http://www.amazon.com/b/?&node=7253015011 --><script type='text/javascript'>var _pix = document.getElementById('_pix_id_1fa563d0-35c0-9ead-e75f-cd1f2de31dc1');if (!_pix) { var protocol = '//'; var a = Math.random() * 1000000000000000000; _pix = document.createElement('iframe'); _pix.style.display = 'none'; _pix.setAttribute('src', protocol + 's.amazon-adsystem.com/iu3?d=generic&ex-fargs=%3Fid%3D1fa563d0-35c0-9ead-e75f-cd1f2de31dc1%26type%3D31%26m%3D1&ex-fch=416613&ex-src=https://www.amazon.com/&ex-hargs=v%3D1.0%3Bc%3D4122616640701%3Bp%3D1FA563D0-35C0-9EAD-E75F-CD1F2DE31DC1' + '&cb=' + a); _pix.setAttribute('id','_pix_id_1fa563d0-35c0-9ead-e75f-cd1f2de31dc1'); document.body.appendChild(_pix);}</script>
+      <noscript> <img height='1' width='1' border='0' alt='' src='https://s.amazon-adsystem.com/iui3?d=forester-did&ex-fargs=%3Fid%3D1fa563d0-35c0-9ead-e75f-cd1f2de31dc1%26type%3D31%26m%3D1&ex-fch=416613&ex-src=https://www.amazon.com/&ex-hargs=v%3D1.0%3Bc%3D4122616640701%3Bp%3D1FA563D0-35C0-9EAD-E75F-CD1F2DE31DC1' /></noscript>
+      <!-- END TAGS -->
+      <div class="header-info imgHeader " >
+        <div class="container">
+          <div class="row">
+            <div class="info-wrapper col-xs-12 col-md-6 col-lg-7 col-xl-8">
+              <div class="info">
+                <h1 class="title">{!reqName}</h1>
+                <div class="details-line">
+                  <p class="first">{!$Label.PortalRequisitionJobID}: {!oApplication.Requisition_ID__c} |
+                    {!IF(useStates, (oApplication.Requisition__r.Location_Code__r.City__c & ", " & oApplication.Requisition__r.Location_Code__r.State__c ), (oApplication.Requisition__r.Location_Code__r.City__c & ", "))}  {!oApplication.Requisition__r.Location_Code__r.Country__c}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--  Start breadcrumb -->
+      <div class="container" style="padding:0px;">
+        <apex:composition template="ApplicationNavbar" />
+      </div>
+<!--  End Breadcrumb    -->
+      <div class="container-bs">
+        <div class="row">
+          <div class="col-sm-12">
+            <article>
+              <!-- Start Error Messages from Salesforce -->
+              <apex:outputPanel id="pgMsgs">
+                <div class="pagemessages">
+                  <apex:pageMessages />
+                </div>
+              </apex:outputPanel>
+              <!-- End Error Messages from Salesforce -->
+              <!-- Start of Contact Form with document attachment?-->
+              <apex:outputPanel id="attachmentsPanel" rendered="{!showAttachments}">
+                <apex:form id="form" styleClass="form-horizontal">
+                  <apex:actionfunction name="save" action="{!save}"/>
+                  <apex:actionStatus id="overlayStatus" onStart="lockScreenWithoutMsg(true);" onstop="lockScreenWithoutMsg(false);"/>
+                  <div class="container-bs" >
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="col-sm-12 whitebkgd" style="padding:15px;">
+                          <p>
+                            <apex:outputText value="{!$Label.AttachmentsOverview}" escape="false" ></apex:outputText>
+                          </p>
+                          <apex:pageBlock >
+                            <apex:actionRegion >
+                              <apex:outputPanel id="pnlData" layout="block" styleclass="table table-bordered no-more-tables" rendered="{!uploadedAttachmentList}">
+                                <table style="width: 100%" id="attachTable">
+                                  <thead>
+                                    <tr style="background: #dddddd" class="institution">
+                                      <th class="institution">
+                                        <apex:outputText >{!$Label.DocumentName}</apex:outputText>
+                                      </th>
+                                      <th  class="institution">
+                                        <apex:outputText >{!$Label.AdditionalAttachmentDetails}</apex:outputText>
+                                      </th>
+                                      <th  class="institution">
+                                        <apex:outputText >{!$Label.Action}</apex:outputText>
+                                      </th>
+                                      <th style="display:none">
+                                        FileName
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <apex:variable var="i" value="{!0}"/>
+                                    <apex:repeat value="{!lstAttachmentWrap}" var="att">
+                                      <tr style="width: auto" >
+                                        <td data-title="{!$Label.DocumentName}" style="min-height: 110px;">
+                                          <text class="document; wrapCell">{!att.AttachmentConnector.Document_Title__C}</text>
+                                        </td>
+                                        <td data-title="{!$Label.AdditionalAttachmentDetails}" style="min-height: 110px;">
+                                          <text class="document; wrapCell" >{!att.attachment.description}</text>
+                                        </td>
+                                        <td data-title="{!$Label.Action}">
+                                          <apex:outputLink value="/servlet/servlet.FileDownload?file={!att.attachment.Id}" target="_blank">{!$Label.View}</apex:outputLink>
+                                          <span> / </span>
+                                          <apex:commandLink action="{!deleteRow}" value="{!$Label.Delete}" rerender="pnlData,attachmentsPanel">
+                                            <apex:param value="{!att.attachment.Id}" name="row" assignTo="{!rowNumber}"/>
+                                          </apex:commandLink>
+                                        </td>
+                                        <td style="display:none">
+                                          {!att.attachment.Name}
+                                        </td>
+                                      </tr>
+                                    </apex:repeat>
+                                  </tbody>
+                                </table>
+                              </apex:outputPanel>
+                              <!-- pnlData -->
+                            </apex:actionRegion>
+                          </apex:pageBlock>
+                          <apex:pageBlock id="subblockId">
+                            <apex:actionRegion >
+                              <apex:outputPanel id="pnlUpload" layout="block" styleclass="table table-bordered no-more-tables" >
+                                <!-- rendered to false in order to move to contact page -->
+                                <table style="width: 100%">
+                                  <thead>
+                                    <tr >
+                                      <th  class="documentName">{!$Label.DocumentName}<span id="docNameOpt"> {!$Label.Label_Optional}</span></th>
+                                      <th  class="file">{!$Label.BrowseAttachDocument}<span id="attachDocNameOpt"> {!$Label.Label_Optional}</span></th>
+                                      <th  class="documentdetails">{!$Label.AdditionalAttachmentDetails}<span> {!$Label.Label_Optional}</span></th>
+                                      <th  class="institution">{!$Label.Action}</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr/>
+                                    <tr >
+                                      <td  class="documentName docNameForJS" data-title="{!$Label.DocumentName} {!$Label.Label_Optional}" style="min-height: 130px;">
+                                        <!-- <apex:inputField required="false" styleclass="form-control input-sm" value="{!oAttachment.name}" /> -->
+                                        <apex:inputText styleclass="form-control input-sm" value="{!documentTitle}" html-autocomplete="off"/>
+                                      </td>
+                                      <td  class="file docFileForJS" data-title="{!$Label.BrowseAttachDocument} {!$Label.Label_Optional}" style="min-height: 110px;">
+                                        <label class="btn btn-apply btn-xs" id="labelId" style="padding-top: 10px;" >
+                                          <apex:inputFile id="inputId" fileSize="{!oAttachment.bodylength}" value="{!oAttachment.body}"
+                                            fileName="{!oAttachment.Name}" contentType="{!oAttachment.ContentType}"  onchange="validatefile(this);"/>
+                                          <!-- input id="CustomChooseFileButton" type="text" size="23" name="CustomChooseFileButton" value="Browse" class=" OverlayButton btn" / -->
+                                          {!$Label.PortalFileUploadButton}
+                                        </label>
+                                        <label id="lbltipAddedComment" style="width:70%;"></label>
+                                      </td>
+                                      <td  class="documentdetails" data-title="{!$Label.AdditionalAttachmentDetails} {!$Label.Label_Optional}" style="min-height: 110px;">
+                                        <apex:inputField styleclass="form-control input-sm" value="{!oAttachment.description}" />
+                                      </td>
+                                      <td class="delete" data-title="{!$Label.Action}">
+                                        <apex:commandButton styleClass="btn btn-apply btn-xs" onclick="if(!validateAttachment()) return false;"
+                                          action="{!addAttRow}" value="{!$Label.Upload}" />
+                                        <img src="{!$Resource.Help_Icon}" width="11" height="11" data-toggle="tooltip" title="{!$Label.Attachment_HelpText}" style="float:center; margin-center:2px; margin-bottom:2px"/>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </apex:outputPanel>
+                              <!-- pnlUpload -->
+                              <!-- Modal -->
+                              <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title" id="myModalLabel">{!$Label.PortalDupeFilenameHeader}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p><strong>{!$Label.PortalDupeFileOverwriteConfirm}</strong></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <div class="col-sm-12 col-md-4 "  style="padding-right:2px;padding-left:2px;">
+                                        <apex:actionregion >
+                                          <apex:commandButton styleClass="btn btn-gold" style="border-style: solid;border-width: 0px;border-color: #000000; width:100%; margin:2px;" action="{!overwriteAttach}" value="{!$Label.PortalOverwriteFile}" />
+                                        </apex:actionregion>
+                                      </div>
+                                      <div class="col-sm-12 col-md-4 " style="padding-right:2px;padding-left:2px;">
+                                        <apex:commandButton styleClass="btn btn-secondary" html-data-dismiss="modal"  style="width:100%; margin:2px;"
+                                          value="{!$Label.PortalProvideNewFile}"  />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                              <!-- /.modal -->
+                            </apex:actionRegion>
+                          </apex:pageBlock>
+                        </div>
+                        <div class="col-sm-12 ">
+                          <hr />
+                          <apex:pageBlock >
+                            <apex:actionRegion >
+                              <apex:outputPanel id="pnlSaveAndContinue" layout="block" styleclass="responsive-table" >
+                                <div class="col-sm-12">
+                                  <div class="progress-buttons2">
+                                    <div class="row">
+                                      <div class="col-sm-12">
+                                        <div class="col-sm-12 col-md-4 pull-right">
+                                          <apex:commandButton style="border-style: solid;border-width: 0px;border-color: #000000; width:100%;"
+                                            styleClass="btn btn-gold" rendered="{!lstAttachmentWrap.size!=0}" action="{!forwardFromAttachments}" value="{!$Label.PortalButtonSaveAndContinue}"  />
+                                          <apex:commandButton style="border-style: solid;border-width: 0px;border-color: #000000; width:100%;"
+                                            styleClass="btn btn-gold" rendered="{!lstAttachmentWrap.size==0}" action="{!forwardFromAttachmentsNoAttach}" value="{!$Label.PortalContinueWithoutUpload}"  />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </apex:outputPanel>
+                              <!-- pnlSaveAndContinue -->
+                            </apex:actionRegion>
+                          </apex:pageBlock>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </apex:form>
+              </apex:outputPanel>
+              <!-- End Contact Form with document attachment -->
+              <!-- attachmentsPanel -->
+              <apex:outputPanel id="contactInfoPanel" rendered="{!showContactInfo}">
+                <apex:form id="form2" styleclass="form-horizontal">
+                  <!-- Save Modal -->
+                  <div id="saveModal" class="modal fade" tabindex="-1">
+                    <div class="modal-dialog schedule">
+                      <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header shift-modal-header">
+                          <h4 class="shift-modal-header-text" id="saveModalHeaderText">
+                            {!$Label.SMS_Invalid_Number_Header}
+                          </h4>
+                        </div>
+                        <!-- Modal Body -->
+                        <div class="modal-body shift-modal-body" id="saveModalBodyText"></div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer shift-modal-footer">
+                          <!-- Modal Action Btn -->
+                          <div class="col-sm-12 col-md-4 shift-modal-footer-col">
+                            <button type="button"
+                              id="saveModalSaveBtn"
+                              class="btn btn-gold"
+                              style="width:100%; margin: 2px;">
+                            {!$Label.SMS_Invalid_Number_Continue}
+                            </button>
+                          </div>
+                          <!-- Modal Cancel Btn -->
+                          <div class="col-sm-12 col-md-4 shift-modal-footer-col">
+                            <button type="button"
+                              class="btn btn-secondary shift-modal-close-btn" 
+                              data-dismiss="modal">
+                            {!$Label.SMS_Invalid_Number_Correct}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <apex:actionRegion >
+                    <!-- Navigation ON top -->
+                    <div class="col-sm-12">
+                      <div class="progress-buttons2" style="display:none;">
+                        <div class="row row-centered">
+                          <!--<div class="col-sm-12 col-lg-offset-1">-->
+                          <apex:outputPanel id="backPanelId-top" rendered="{!showButton}">
+                            <div class="col-sm-12 col-md-3 col-centered">
+                              <button type="button" class="btn btn-gold" data-toggle="modal" data-target="#myModal" style=" width:100%; margin:2px;">{!$Label.PortalButtonBack}</button>
+                              <!--<button type="button" class="btn btn-save" onclick="window.location.href='/JobDetails?reqid={!reqId}&isapply=1';">{!$Label.PortalButtonBack}</button>-->
+                            </div>
+                          </apex:outputPanel>
+                          <div class="col-sm-12 col-md-3 col-centered">
+                            <apex:commandButton styleClass="btn btn-gold" style=" width:100%; margin:2px;" onclick="setStyleClass();" action="{!save}" value="{!$Label.PortalButtonSave}" rendered="{!showButton || tier1Exceptions}"/>
+                          </div>
+                          <div class="col-sm-12 col-md-3 col-centered">
+                            <apex:commandButton style="border-style: solid;border-width: 0px;border-color: #000000; width:100%; margin:2px;"
+                              styleClass="btn btn-gold" onclick="setStyleClass();" action="{!saveContinue}" value="{!$Label.PortalButtonSaveAndContinue}" />
+                            <!-- <p class="note">Note: <a href="#" data-toggle="modal" data-target="#myModal">Popup message if user cancels before saving.</a></p> -->
+                          </div>
+                          <!-- </div>-->
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End: Navigation ON top -->
+                    <div class="col-sm-12 whitebkgd" >
+                      <h2 style="display:none">{!$Label.EnterContactInformation}</h2>
+                      <apex:outputLabel value="{!$Label.PortalContactEntryHint}" rendered="{!useGermanPrivacyRules}"/>
+                      <!-- ADDRESS LINE 2 -->
+                      <!-- <apex:outputPanel id="addressLine2" rendered="{!addressLine2Box.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                        
+                            </div>
+                          </div>
+                        </div>
+                        </apex:outputPanel>-->
+                      <!-- NAME BLOCK -->
+                      <apex:outputPanel id="name" rendered="{!nameBox.isVisible}">
+                        <div class="row">
+                          <div class="text-right"><span style="color: red;">*</span> = <em>required</em></div>
+                        </div>
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12 col-md-4">
+                              <label for="First-Name" class="control-label">{!$Label.PortalFirstName}<span style="color: red;">*</span></label>
+                              <apex:inputText styleclass="{!nameBox.StyleClass}"  id="First-Name"  maxlength="30" value="{!oContact.firstName}" html-autocomplete="off"/>
+                            </div>
+                            <div class="col-sm-12 col-md-4 div-Wrapper">
+                              <label for="Middle-Name" class="control-label">
+                              {!$Label.PortalProfileContactMiddleName}
+                              <span>{!$Label.Label_Optional}</span>
+                              </label>
+                              <apex:inputText styleclass="form-control input-sm" id="Middle-Name" maxlength="30" value="{!oContact.Middle_Name__c}" html-autocomplete="off"/>
+                            </div>
+                            <div class="col-sm-12 col-md-4 div-Wrapper">
+                              <label for="LastName" class="control-label">{!$Label.PortalLastName}<span style="color: red;">*</span></label>
+                              <apex:inputText styleclass="{!nameBox.StyleClass}" id="LastName"  maxlength="30" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" value="{!oContact.lastName}" html-autocomplete="off"/>
+                            </div>
+                          </div>
+                          <hr/>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- PREFERRED NAME BLOCK -->
+                      <apex:outputPanel id="preferredName" rendered="{!preferredNameBox.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label for="PrefereFName" class="control-label">
+                              {!$Label.PortalProfileContactPreferredFirstName}
+                              <span id="preferredNameOptionalLabel" class="fieldIsRequired"> {!$Label.Label_Optional} </span>
+                              </label>
+                              <apex:inputText styleclass="{!preferredNameBox.StyleClass}" onkeypress="return inputLimiter(event,'NameCharacters');" id="PrefereFName" maxlength="30" value="{!oContact.Preferred_First_Name__c}" html-autocomplete="off"/>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- ADDRESS Search -->
+
+
+                      <apex:outputPanel id="addressSearch" rendered="{!addressLine1Box.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label for="Search" >
+                              Search Address
+                                <!-- <span style="color: red;">*</span> -->
+                              <span id="Address1OptionalLabel"  style="display:none"> {!$Label.Label_Optional}</span> <!-- class="fieldIsRequired"-->
+                              </label>
+                              <!-- <apex:inputText styleclass="{!addressLine1Box.StyleClass}"  id="Search" html-placeholder="Search Address" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" value="{!oContact.MailingStreet}" html-autocomplete="off"/> -->
+                                <div id="locationField">
+                                  <input class="form-control input-sm" id="autocomplete" placeHolder="Enter your address" onFocus="geolocate()" type="text" />
+                                </div>
+                            </div>
+                          </div> 
+                        </div>
+                      </apex:outputPanel>
+                      <apex:includeScript value="{!$Resource.GoogleAddress_js}"/>
+
+                      Address:
+                      <input type="text" 
+                        onkeyup="addressAutocompleteOnChange()"
+                        autocomplete="false"
+                        id="userInputAddressForAutocomplete"/>
+
+                      <div style="background-color:orange" id="addressAutocompleteResults">
+                        Empty...
+                      </div>
+
+
+
+                      <!-- Will need to get Google Key for Amazon This is someone else's key. also need to encrypt call as to not expose key -->
+
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJpqM1gX8A3tzRBb13op5ci9tiZOJZWeY&signed_in=true&libraries=places&callback=initAutocomplete"></script>
+
+                        <!-- ADDRESS LINE 1 -->
+
+                      <apex:outputPanel id="addressLine1" rendered="{!addressLine1Box.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label for="StreetOne" >
+                              {!$Label.PortalProfileContactAddressLine1}
+                                <span style="color: red;">*</span>
+                              <span id="Address1OptionalLabel" class="fieldIsRequired" style="display:none"> {!$Label.Label_Optional}</span>
+                              </label>
+                              <apex:inputText styleclass="{!addressLine1Box.StyleClass}"  id="StreetOne" html-placeholder="{!$Label.PortalStreetAddressLabel}" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" value="{!oContact.MailingStreet}" html-autocomplete="off"/>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- ADDRESS LINE 2 -->
+                      <apex:outputPanel id="addressLine2" rendered="{!addressLine2Box.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <apex:outputLabel for="StreetTwo" html-class="control-label">
+                                {!$Label[line2AddressLabel]}
+                                <span>{!$Label.Label_Optional}</span>
+                              </apex:outputLabel>
+                              <apex:inputText maxlength="30" styleclass="{!addressLine2Box.StyleClass}"  id="StreetTwo" value="{!oContact.Address_Line_2__c}" html-autocomplete="off" html-placeholder="{!$Label.PortalApartmentAddressLabel}"/>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- COUNTRY/STATE/CITY -->
+                      <apex:outputPanel id="countryStateCity" rendered="{!countryStateCity.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12 col-md-6">
+                              <label for="Country" class="control-label">{!$Label.PortalProfileCountry}<span style="color: red;">*</span></label>
+                              <apex:actionRegion >
+                                <apex:outputPanel >
+                                  <apex:inputfield styleclass="form-control input-sm requiredselect"
+                                    required="required"
+                                    id="Country"
+                                    html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);"  value="{!oContact.MailingCountryCode}" onChange="preferredNationalIdType(this.value,document.getElementById('{!$Component.pageId:portId:form2:NIdTypeFlex}').value);setStyleClass();" >
+                                    <script>
+                                      var NIDTypeEle1 = document.getElementById('{!$Component.pageId:portId:form2:NIdTypeFlex}');
+                                      console.log("NIDTypeEle1="+document.getElementById('{!$Component.NIdTypeFlex}'));
+                                      
+                                      var NIdTypeFlex;
+                                      if( NIDTypeEle1 ){
+                                          NIdTypeFlex = NIdTypeFlex.value;
+                                      }
+                                      console.log("NIDTypeEle2="+NIDTypeEle1);
+                                      console.log("NIdTypeFlex="+NIdTypeFlex);
+                                    </script>
+                                  </apex:inputfield>
+                                </apex:outputPanel>
+                              </apex:actionRegion>
+                            </div>
+                            <div class="col-sm-12 col-md-6 div-Wrapper">
+                              <label for="City" class="control-label">{!$Label.PortalProfileCity}<span style="color: red;">*</span></label>
+                              <apex:inputText maxlength="30" styleclass="{!countryStateCity.StyleClass}"  id="City"  html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" value="{!oContact.MailingCity}" html-autocomplete="off"/>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-12 col-md-6 cPickList1">
+                              <label for="State" class="control-label">
+<!--                                  <apex:outputLabel >{!$Label.ProfileContactProvinceState}</apex:outputLabel>-->
+                                  {!$Label.ProfileContactProvinceState}
+                              </label>
+                              <!--<apex:inputField required="{!countryStateCity.isRequired}" id="State" html-oninvalid="InvalidMsg(this);"  html-oninput="InvalidMsg(this);" value="{!oContact.MailingStateCode}" onChange="setStyleClass();" />-->
+                              <apex:inputField required="required" id="State" html-oninvalid="InvalidMsg(this);"  html-oninput="InvalidMsg(this);" value="{!oContact.MailingStateCode}" onChange="setStyleClass();" />
+                            </div>
+                            <!-- ZIP CODE -->
+                            <apex:outputPanel rendered="{!!isFlex}">
+                              <apex:outputPanel rendered="{!OR(NOT(isFlex),AND(oContact.MailingCountryCode!=NULL,!ZIP_REQUIRED_BY_COUNTRYCODE_MAP[oContact.MailingCountryCode]),oContact.MailingCountryCode==NULL)}">
+                                <div class="col-sm-12 col-md-6 div-Wrapper">
+                                  <label for="Zip" class="control-label">{!$Label.PortalProfileContactPostalCode}<span style="color: red;">*</span></label>
+                                  <apex:inputText styleclass="form-control input-sm requiredfield" required="required" id="Zip" html-placeholder="123456" maxlength="12" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-autocomplete="off" value="{!oContact.MailingPostalCode}" />
+                                </div>
+                              </apex:outputPanel>
+                              <apex:outputPanel rendered="{!AND(oContact.MailingCountryCode!=NULL,ZIP_REQUIRED_BY_COUNTRYCODE_MAP[oContact.MailingCountryCode])}">
+                                <div class="col-sm-12 col-md-6 div-Wrapper">
+                                  <label for="zipOptional" class="control-label">
+                                  {!$Label.PortalProfileContactPostalCode}
+                                  <span>{!$Label.Label_Optional}</span>
+                                  </label>
+                                  <apex:inputText styleclass="form-control input-sm" id="zipOptional" maxlength="60" html-autocomplete="off" value="{!oContact.MailingPostalCode}" />
+                                </div>
+                              </apex:outputPanel>
+                            </apex:outputPanel>
+                            <!-- Flexi -->
+                            <apex:outputPanel rendered="{!isFlex}">
+                              <div class="col-sm-12 col-md-6 div-Wrapper">
+                                <label for="ZipFlex" class="control-label">{!$Label.PortalProfileContactPostalCode}<span style="color: red;">*</span></label>
+                                <apex:inputText styleclass="{!countryStateCity.StyleClass}"  id="ZipFlex" html-placeholder="123456" maxlength="12" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-autocomplete="off" value="{!oContact.MailingPostalCode}" >
+                                </apex:inputText>
+                              </div>
+                            </apex:outputPanel>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- COUNTRY FLEX -->
+                      <!-- EMAIL ADDRESS -->
+                      <apex:outputPanel id="EmailAddress">
+                      <div class="form-group">
+                        <div class="form-section">
+                          <div class="col-sm-12 col-md-12">
+                            <!-- Email Address -->
+                              <label for="candidate-email" class="control-label">{!$Label.PortalEmailAddress}<span style="color: red;">*</span></label>
+                              <apex:inputfield styleclass="{!emailAddressBox.StyleClass}"
+                                required="required" id="candidate-email"
+                                html-oninvalid="InvalidMsg(this);"
+                                html-oninput="InvalidMsg(this);"
+                                html-autocomplete="off"
+                                value="{!oContact.email}"
+                                rendered="{!ISNULL(oContact.email)}" />
+                              &nbsp;
+                              <div class="noninput-container disabled">
+                                <apex:outputfield styleclass="form-control input-sm not-active"
+                                  id="candEmail"
+                                  value="{!oContact.email}"
+                                  rendered="{!NOT(ISNULL(oContact.email))}" />
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                      </apex:outputPanel>
+
+
+
+                      <!-- PHONE -->
+                      <apex:outputPanel id="Phone" rendered="{! phoneBox.isVisible}">
+                        <div class="form-section">
+                          <!-- INDIA EXCEPTIONS -->
+                          <apex:outputPanel id="IndiaPhone" rendered="{! OR(AND(isFlex,phoneBox.isRequired==true), AND(NOT(isFlex),nacsIndiaExceptions))}">
+                            <div class="form-group">
+                              <div class="col-sm-12 col-md-12" >
+                                <label for="candidatePrefer Phone" class="control-label" >{!$Label.PortalProfileContactCandidatePrePhone}<span style="color: red;">*</span></label>
+                                <apex:selectList multiselect="false" size="1" value="{!preferPhone}"  required="false" styleClass="form-control input-sm" >
+                                  <apex:selectOptions value="{!PhoneOptions}"  html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-class="requiredfield" />
+                                </apex:selectList>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="col-sm-12 col-md-6" style="padding-bottom: 10px;">
+                                <label for="mobilePhone" id="mobilePhoneLbl" class="control-label" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left;">{!$Label.PortalProfileContactAlternatePhone}<span style="color: red;">*</span></label>
+                                <div class="row">
+                                  <div class="col-md-7 col-sm-7 col-xs-7" style="padding-right:0px;">
+                                    <div class="input-group">
+                                      <span class="input-group-addon" style="width:100%;">
+                                        <apex:selectList id="countryList" 
+                                          value="{!oContact.Mobile_Phone_Country_Iso2__c}" 
+                                          size="1"
+                                          style="width:95%;"
+                                          multiselect="false">
+                                          <apex:selectOptions value="{!countries}" />
+                                          <apex:actionSupport event="onchange" 
+                                            action="{!MobilePhoneCountryChanged}"
+                                            rerender="mobile-country-code-dropdown"
+                                            immediate="false"/>
+                                        </apex:selectList>
+                                      </span>
+                                      <apex:outputPanel id="mobile-country-code-dropdown">
+                                        <apex:outputText value="{!oContact.Mobile_Phone_Country_Code__c}"
+                                          id="mobilePhoneCountryCode"
+                                          styleclass="form-control countrycode-outputtext"/>
+                                      </apex:OutputPanel>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-5 col-sm-5 col-xs-5" style="padding-left:0px;">
+                                    <apex:inputText id="mobilePhone"
+                                      styleclass="form-control input-sm requiredmobilePhone"
+                                      onkeypress="return isNumber(event)"
+                                      maxlength="30"
+                                      html-oninvalid="NumOnlyMsg(this);"
+                                      html-autocomplete="off"
+                                      value="{!oContact.MobilePhone}">
+                                      <apex:actionSupport event="onchange"
+                                        action="{!mobileNumberOnChange}"
+                                        rerender="boxValue, smsDisclaimerSection, smsvalidationmessagepanel" 
+                                      />
+                                    </apex:inputText>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-12 col-md-6" style="padding-bottom: 10px;">
+                                <label for="alternatePhone" id="alternatePhoneLbl" class="control-label"  style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left;">{!$Label.AlternatePhone}<span style="color: red;">*</span></label>
+                                <div class="row">
+                                  <div class="col-md-7 col-sm-7 col-xs-7" style="padding-right:0px;">
+                                    <div class="input-group">
+                                      <span class="input-group-addon" style="width:100%;" >
+                                        <apex:selectList id="countryList2" 
+                                          value="{!oContact.Home_Phone_Country_Iso2__c}" 
+                                          size="1"
+                                          style="width:95%;"
+                                          multiselect="false">
+                                          <apex:selectOptions value="{!countries}" />
+                                          <apex:actionSupport event="onchange" 
+                                            action="{!HomePhoneCountryChanged}"
+                                            rerender="home-country-code-dropdown"
+                                            immediate="false"/>
+                                        </apex:selectList>
+                                      </span>
+                                      <apex:outputPanel id="home-country-code-dropdown">
+                                        <apex:outputText value="{!oContact.Home_Phone_Country_Code__c}"
+                                          id="alternatePhoneCountryCode"
+                                          styleclass="form-control countrycode-outputtext"
+                                          />
+                                      </apex:OutputPanel>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-5 col-sm-5 col-xs-5" style="padding-left:0px;">
+                                    <apex:inputText styleclass="form-control input-sm requiredalternatePhone" onkeypress="return isNumber(event)"  id="alternatePhone" maxlength="30" html-oninvalid="NumOnlyMsg(this);" html-autocomplete="off" value="{!oContact.Phone}"/>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </apex:outputPanel>
+                          <!-- Flexi -->
+                          <apex:outputPanel id="FlexPhone" rendered="{! OR(AND(isFlex,phoneBox.isRequired==false), AND(NOT(isFlex),NOT(nacsIndiaExceptions)))}">
+                            <div class="form-group">
+                              <div class="col-sm-12 col-md-12" >
+                                <label for="candidatePrefer Phone" class="control-label" >{!$Label.PortalProfileContactCandidatePrePhone}<span style="color: red;">*</span></label>
+                                <apex:selectList multiselect="false" size="1" value="{!preferPhone}"  required="false" styleClass="form-control input-sm" >
+                                  <apex:selectOptions value="{!PhoneOptions}"  html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-class="requiredfield" />
+                                </apex:selectList>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="col-sm-12 col-md-6" style="padding-bottom: 10px;">
+                                <label id="altphoneLbl" for="altphone" class="control-label" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left;">{!$Label.PortalProfileContactAlternatePhone}<span style="color: red;">*</span></label>
+                                <div class="row">
+                                  <div class="col-md-7 col-sm-7 col-xs-7" style="padding-right:0px;">
+                                    <div class="input-group">
+                                      <span class="input-group-addon phone-selector-number-country-input-container">
+                                        <apex:selectList id="countryList3" 
+                                          value="{!oContact.Mobile_Phone_Country_Iso2__c}" 
+                                          size="1"
+                                          styleClass="phone-selector-number-country-input form-control"
+                                          multiselect="false">
+                                          <apex:selectOptions value="{!countries}" />
+                                          <apex:actionSupport event="onchange" 
+                                            action="{!MobilePhoneCountryChanged}"
+                                            rerender="mobile-country-code-dropdown2"
+                                            immediate="false"/>
+                                        </apex:selectList>
+                                      </span>
+                                      <apex:outputPanel id="mobile-country-code-dropdown2">
+                                        <apex:outputText value="{!oContact.Mobile_Phone_Country_Code__c}"
+                                          id="altphoneCountryCode"
+                                          styleclass="form-control countrycode-outputtext"/>
+                                      </apex:OutputPanel>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-5 col-sm-5 col-xs-5" style="padding-left:0px;">
+                                    <apex:inputText id="altphone"
+                                      styleclass="form-control input-sm requiredaltphone phone-selector-number-input"
+                                      onkeypress="return isNumber(event)"
+                                      maxlength="30"
+                                      html-oninvalid="NumOnlyMsg(this);"
+                                      html-autocomplete="off"
+                                      value="{!oContact.MobilePhone}">
+                                      <apex:actionSupport event="onchange" 
+                                        action="{!mobileNumberOnChange}"
+                                        rerender="boxValue, smsDisclaimerSection, smsvalidationmessagepanel"
+                                      />
+                                    </apex:inputText>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-12 col-md-6" style="padding-bottom: 10px;">
+                                <label for="mainphoneCountryCode" class="control-label">{!$Label.AlternatePhone}<span style="color: red;">*</span></label>
+                                <div class="row">
+                                  <div class="col-md-7 col-sm-7 col-xs-7" style="padding-right:0px;">
+                                    <div class="input-group">
+                                      <span class="input-group-addon phone-selector-number-country-input-container">
+                                        <apex:selectList id="countryList4" 
+                                          value="{!oContact.Home_Phone_Country_Iso2__c}" 
+                                          size="1"
+                                          styleClass="phone-selector-number-country-input form-control"
+                                          multiselect="false">
+                                          <apex:selectOptions value="{!countries}" />
+                                          <apex:actionSupport event="onchange" 
+                                            action="{!HomePhoneCountryChanged}"
+                                            rerender="home-country-code-dropdown2"
+                                            immediate="false"/>
+                                        </apex:selectList>
+                                      </span>
+                                      <apex:outputPanel id="home-country-code-dropdown2">
+                                        <apex:outputText value="{!oContact.Home_Phone_Country_Code__c}"
+                                          id="mainPhoneCountryCode"
+                                          styleclass="form-control countrycode-outputtext"/>
+                                      </apex:OutputPanel>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-5 col-sm-5 col-xs-5" style="padding-left:0px;">
+                                    <apex:inputText id="mainphone"
+                                      value="{!oContact.Phone}"
+                                      onkeypress="return isNumber(event)"
+                                      maxlength="30"
+                                      html-oninvalid="NumOnlyMsg(this);"
+                                      html-autocomplete="off"
+                                      styleclass="form-control input-sm requiredmainphone phone-selector-number-input"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <br class="clear" />
+                            </div>
+                          </apex:outputPanel>
+                          <!-- SMS Messages -->
+                          <apex:outputPanel id="smsvalidationmessagepanel">
+                            <!--
+                              We apologize but we are unable to subscribe this number for text messages at this time. Please check your email for all communications.
+                            -->
+                            <apex:outputLabel styleClass="sms-optin-container-message"
+                                rendered="{!isDuplicateMobileNumber}">
+                              {!$Label.PortalRegisterSMSDuplicateAlertMessage}
+                            </apex:outputLabel>
+
+                            <!-- 
+                                If you have previously opted into receiving SMS notifications, removing your mobile phone number will unsubscribe you from receiving SMS notifications.
+                            -->
+                            <apex:outputLabel styleClass="sms-optin-container-message"
+                                rendered="{!showMobilePhoneRemovedMessage}">
+                              {!$Label.EU_SMS_Error_Three}
+                            </apex:outputLabel>
+
+                            <!-- 
+                              If you have previously opted into receiving SMS notifications, you will receive another opt-in confirmation text
+                            -->
+                            <apex:outputLabel styleClass="sms-optin-container-message"
+                                rendered="{!showMobilePhoneNumberChangeMessage && smsAgreed}">
+                              {!$Label.PortalContactPhoneNumberChange}
+                            </apex:outputLabel>
+                          </apex:outputPanel>
+
+                          <!-- Render the following SMS panel for all -->
+                          <apex:outputPanel id="smsDisclaimerSection" >
+                            <div class="form-group">
+                              <div class="col-sm-12" style="padding-left: 7px;">
+                                <div class="checkbox checkbox-gold checkbox-gold-div" style="height:100%">
+                                  <apex:inputCheckbox id="boxValue"
+                                    value="{!smsAgreed}"
+                                    disabled="{!isduplicatemobilenumber}"
+                                    immediate="true"
+                                  />
+                                  <label class="help-block" >
+                                  {!$Label.PortalSMSAgreement}
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-sm-12" >
+                                <div id="smsDisclaimerBlock">
+                                  <!-- <apex:outputPanel id="smsDisclaimerMessage" rendered="{!if(smsAgreed == true,true,false)}" > -->
+                                  <apex:outputPanel >
+                                    <p> {!$Label.PortalSMSDisclaimer}</p>
+                                  </apex:outputPanel>
+                                </div>
+                              </div>
+                            </div>
+                          </apex:outputPanel>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- PREVIOUSLY USED NAME -->
+                      <apex:outputPanel id="previouslyUsedName">
+                        <div class="form-section">
+                          <apex:outputPanel id="previouslyUsedName1" rendered="{!previouslyUsedName1.isVisible}">
+                            <div class="form-group">
+                              <div class="col-sm-12">
+                                <label for="FullNameOne" class="control-label">
+                                  1. {!$Label.PortalProfileContactFullName}
+                                  <span>{!$Label.Label_Optional}</span>
+                                  <span class="vfHelpText">
+                                    <apex:outputLink value="javascript:return false;">
+                                      <img src="{!$Resource.Help_Icon}"  width="11" height="11" alt="" class="helpOrb" data-toggle="tooltip" title="{!$Label.PreviouslyUsedFullNameHelpText}" />
+                                    </apex:outputLink>
+                                  </span>
+                                </label>
+                                <apex:inputText maxlength="60" styleclass="{!previouslyUsedName1.StyleClass}" id="FullNameOne" value="{!oContact.Previously_Used_Full_Name_1__c}" html-autocomplete="off"/>
+                              </div>
+                            </div>
+                          </apex:outputPanel>
+                          <apex:outputPanel id="previouslyUsedName2" rendered="{!previouslyUsedName2.isVisible}">
+                            <div class="form-group">
+                              <div class="col-sm-12">
+                                <label for="FullNameTwo" class="control-label">
+                                  2. {!$Label.PortalProfileContactFullName}
+                                  <span>{!$Label.Label_Optional}</span>
+                                  <span class="vfHelpText">
+                                    <apex:outputLink value="javascript:return false;">
+                                      <img src="{!$Resource.Help_Icon}"  width="11" height="11" alt="" class="helpOrb" data-toggle=  "tooltip" title="{!$Label.PreviouslyUsedFullNameHelpText}" />
+                                    </apex:outputLink>
+                                  </span>
+                                </label>
+                                <apex:inputText maxlength="60" styleclass="{!previouslyUsedName2.StyleClass}" id="FullNameTwo" value="{!oContact.Previously_Used_Full_Name_2__c}" html-autocomplete="off"/>
+                              </div>
+                            </div>
+                          </apex:outputPanel>
+                          <apex:outputPanel id="previouslyUsedName3" rendered="{!previouslyUsedName3.isVisible}">
+                            <div class="form-group">
+                              <div class="col-sm-12">
+                                <label for="FullNameThree" class="control-label">
+                                  3. {!$Label.PortalProfileContactFullName}
+                                  <span>{!$Label.Label_Optional}</span>
+                                  <span class="vfHelpText">
+                                    <apex:outputLink value="javascript:return false;">
+                                      <img src="{!$Resource.Help_Icon}"  width="11" height="11" alt="" class="helpOrb" data-toggle="tooltip" title="{!$Label.PreviouslyUsedFullNameHelpText}"/>
+                                    </apex:outputLink>
+                                  </span>
+                                </label>
+                                <apex:inputText maxlength="60" styleclass="{!previouslyUsedName3.StyleClass}" id="FullNameThree" value="{!oContact.Previously_Used_Full_Name_3__c}" html-autocomplete="off"/>
+                              </div>
+                            </div>
+                          </apex:outputPanel>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- Disable BGC Notification for tier1 workflow -->
+                      <apex:outPutPanel id="IdNotification" rendered="{!And(!BGCDisclaimerFlag,!tier1Exceptions)}">
+                        <div class="form-group" style="padding-left: 15px;">
+                          <label for="suffix" >{!$Label.PortalUSNationalIdNotification}</label>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- NID -->
+                      <apex:outputPanel id="NIDPanel" rendered="{!NIDBox.isVisible}">
+                        <div class="form-group">
+                          <div class="col-sm-12 col-md-6">
+                            <label for="suffix" class="control-label">
+                              {!$Label.PortalProfileContactNationalIDType}
+                              <span class="NID-required" style="color: red;">*</span>
+                            </label>
+                            <apex:outputPanel rendered="{!NIDBox.isRequired == false}">
+                              <label for="suffix" class="control-label">
+                                {!$Label.Label_Optional}
+                                <span class="vfHelpText">
+                                  <apex:outputLink value="javascript:return false;" rendered="{!!displayNIDToolTip}">
+                                    <img src="{!$Resource.Help_Icon}"  width="11" height="11" alt="" class="helpOrb" data-toggle="tooltip" title="{!$Label.NationalIDTypeHelpText}" />
+                                  </apex:outputLink>
+                                </span>
+                                <span class="vfHelpText">
+                                  <apex:outputLink value="javascript:return false;" rendered="{!displayNIDToolTip}">
+                                    <img src="{!$Resource.Help_Icon}"  width="11" height="11" alt="" class="helpOrb" data-toggle="tooltip" title="{!$Label.SelectNationalIdType}" />
+                                  </apex:outputLink>
+                                </span>
+                              </label>
+                            </apex:outputPanel>
+                            <apex:inputfield styleclass="{!NIDBox.StyleClass}" id="NIdTypeFlex"  html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" value="{!oContact.National_ID_Type__c}"/>
+                          </div>
+                          <div class="col-sm-12 col-md-6">
+                            <label for="idnumberF" class="control-label">
+                              {!$Label.PortalProfileContactNationalID}
+                              <span class="NID-required" style="color: red;">*</span>
+                              <span class="vfHelpText">
+                                <apex:outputLink value="javascript:return false;">
+                                  <img src="{!$Resource.Help_Icon}"  width="11" height="11" alt="" class="helpOrb" data-toggle="tooltip" title="{!$Label.NationalIDNumberHelpText}" />
+                                </apex:outputLink>
+                              </span>
+                            </label>
+                            <apex:inputField styleclass="{!NIDBox.StyleClass}"  id="idnumberF" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-autocomplete="off" value="{!oContact.National_ID_Social_Security_Number__c}" />
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- BIRTH MONTH DATE -->
+                      <apex:outputPanel id="birthDayMonth" rendered="{!birthDMVBox.isVisible}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label for="dobMon1" class="control-label">{!$Label.PortalContactBirthMonth}</label>
+                              <apex:inputfield id="dobMon1" styleclass="{!birthDMVBox.StyleClass}" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-autocomplete="off" value="{!oContact.Birth_Month_Text__c}"> </apex:inputfield>
+                            </div>
+                          </div>
+                          <div class="form-group cPickList1">
+                            <div class="col-sm-12">
+                              <label for="dobDay2" class="control-label">{!$Label.PortalContactBirthDay}</label>
+                              <apex:inputfield id="dobDay2" styleclass="{!birthDMVBox.StyleClass}"   html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" html-autocomplete="off" value="{!oContact.Birth_Day_Text__c}"> </apex:inputfield>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- BIRTH DAY MM DD YYYY -->
+                      <apex:outputPanel layout="none" rendered="{!dobExemptionCheck='No' && !tier1Exceptions}" id="nonGermanPII2">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label for="DOB" class="control-label">{!$Label.PortalProfileDateofBirth}<span style="color: red;">*</span></label>
+                              <apex:inputfield id="dobDate" styleclass="form-control input-sm requiredfield makeItDatePicker" showDatePicker="false"  html-autocomplete="off" rendered="{!!nacsIndiaExceptions}" value="{!oContact.Birthdate}"/>
+                              <apex:inputText id="dobDate1" styleclass="form-control input-sm requiredfield makeItDatePicker" rendered="{!nacsIndiaExceptions}" html-autocomplete="off" value="{!datestring}"/>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- is Flex -->
+                      <apex:outputPanel id="birthDate" rendered="{!AND(isFlex,birthDateBox.isVisible)}">
+                        <div class="form-section">
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <label for="DOB" class="control-label">{!$Label.PortalProfileDateofBirth}<span style="color: red;">*</span></label>
+                              <apex:inputfield id="dobDateFlex" styleclass="{!birthDateBox.StyleClass}" showDatePicker="false"  html-autocomplete="off"  value="{!oContact.Birthdate}"/>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- FIRST AVAIL START DATE (USED FOR CS-COL) -->
+                      <apex:outputPanel layout="none" id="firstAvailStartDateContainer" rendered="{!firstAvailStartDate.isVisible}">
+                        <div class="form-group">
+                          <div class="col-sm-12">
+                            <label for="firstAvailStartDate" class="control-label">{!$Label.First_Available_Start_Date}</label>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <apex:inputfield id="firstAvailStartDate"
+                                  styleclass="form-control input-sm makeItDatePicker" html-autocomplete="off"
+                                  showDatePicker="false" value="{!oContact.First_Available_Start_Date__c}" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- TIME ZONE -->
+                      <apex:outputpanel rendered="{!oContact.Time_Zone__c == null}">
+                        <div class="form-group">
+                          <div class="col-sm-12 cPickList1">
+                            <label for="timezone" class="control-label">{!$Label.TimeZone}<span style="color: red;">*</span></label>
+                            <apex:inputfield styleclass="form-control input-sm requiredselect" required="required" id="timezone" html-oninvalid="InvalidMsg(this);" html-oninput="InvalidMsg(this);" value="{!oContact.Time_Zone__c}"/>
+                          </div>
+                        </div>
+                      </apex:outputPanel>
+                      <!-- REFERRAL -->
+                      <div class="form-section">
+                        <div class="form-group">
+                          <div class="col-sm-12 col-md-6">
+                            <label for="Referal" class="control-label">
+                            {!$Label.PortalProfileContactHowdidyouhearaboutthisjob}
+                              <span style="color: red;">*</span>
+                            </label>
+                            <apex:selectList size="1" styleClass="form-control input-sm requiredselect" required="required" id="referral" value="{!appSrc}" onchange="processRequired(); setEmployeeReferralText(document.getElementById('{!$Component.referral}').value,this.value); setStyleClass();">
+                              <apex:selectOptions value="{!jobSourcePrimaryOptions}" />
+                            </apex:selectList>
+                          </div>
+                          <div class="cPickList1 col-sm-12 col-md-6 div-Wrapper">
+                            <label class="control-label" >Referral type<span style="color: red;">*</span></label>
+                            <apex:selectList size="1" multiselect="false" styleClass="form-control input-sm requiredselect" id="referraltype" value="{!appSubSrc}"  onchange="setEmployeeReferralText(document.getElementById('{!$Component.referral}').value,this.value); setStyleClass();">
+                              <apex:selectOptions value="{!jobSourceDetailOptions}" />
+                            </apex:selectList>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <label class="control-label" id="other-type-label" for="other-type" style="display: none;">{!$Label.PortalApplicationEmployeeReferralHint}<span style="color: red;">*</span></label>
+<!--                          <apex:outputLabel html-class="control-label" value="{!employeeReferralHintText}" id="other-type-label" />-->
+                          <apex:inputText styleClass="form-control input-sm requiredfield" id="other-type" value="{!oApplication.Source_Other__c}" style="display:none" html-placeholder="" />
+                        </div>
+                      </div>
+                      <!-- END REFERRAL -->
+                      <!-- END SECTION OF CONTACT FIELDS -->
+                    </div>
+                    <hr />
+                    <div class="col-sm-12">
+                      <div class="progress-buttons2" style="padding-top: 30px;">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <!-- Save Continue -->
+                            <div class="col-sm-12 col-md-3 pull-right">
+                              <apex:commandButton id="apexSaveContinueBtn"
+                                action="{!saveContinue}"
+                                style="display:none"
+                                />
+                              <button type="button"
+                                id="jsSaveContinueBtn"
+                                class="btn btn-gold"
+                                style="width:100%; margin: 2px;" 
+                                onclick="validateWithPinpoint('apexSaveContinueBtn')">
+                              {!$Label.PortalButtonSaveAndContinue}
+                              </button>
+                            </div>
+                            <!-- Save -->
+                            <apex:outputPanel id="savePanelId" rendered="{!showButton || tier1Exceptions}">
+                              <div class="col-sm-12 col-md-3 pull-right">
+                                <apex:commandButton id="apexSaveBtn"
+                                  action="{!save}"
+                                  style="display:none"
+                                  />
+                                <button type="button"
+                                  id="jsSaveButton"
+                                  class="btn btn-gold"
+                                  style="width:100%; margin: 2px;" 
+                                  onclick="validateWithPinpoint('apexSaveBtn')">
+                                {!$Label.PortalButtonSave}
+                                </button>
+                              </div>
+                            </apex:outputPanel>
+                            <!-- Back -->
+                            <apex:outputPanel id="backPanelId" rendered="{!showButton}">
+                              <div class="col-sm-12 col-md-3 pull-right">
+                                <button type="button"
+                                  id="jsBackButton"
+                                  class="btn btn-secondary"
+                                  data-toggle="modal"
+                                  data-target="#myModal"
+                                  style="width:100%; margin: 2px;">
+                                {!$Label.PortalButtonBack}
+                                </button>
+                              </div>
+                            </apex:outputPanel>
+                            <!-- Action function: setWirelessCarrier -->
+                            <apex:actionFunction name="setWirelessCarrier" 
+                              action="{!setWirelessCarrier}"
+                              reRender="">
+                              <apex:param value="" name="wirelesscarrier"/>
+                            </apex:actionFunction>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog schedule">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">{!$Label.PortalBackButtonUnsavedInfoHeader}</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p><strong>Hello, {!$Label.PortalBackButtonUnsavedInfo}<br />{!$Label.PortalBackButtonSaveInfoNow}</strong></p>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="col-sm-12 col-md-4 "  style="padding-right:2px;padding-left:2px;">
+                              <!-- Hidden APEX Save Back button -->
+                              <apex:commandButton id="apexSaveBackBtn"
+                                action="{!saveBack}"
+                                style="display:none"
+                                />
+                              <button type="button"
+                                class="btn btn-gold"
+                                style="width:100%; margin: 2px;"
+                                data-dismiss="modal"
+                                onclick="validateWithPinpoint('apexSaveBackBtn')">
+                              {!$Label.PortalBackButtonYesSave}
+                              </button>
+                            </div>
+                            <div class="col-sm-12 col-md-4 " >
+                              <button type="button"
+                                style="padding-right:2px;padding-left:2px;"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                                onclick="window.location.href='/JobDetails?reqid={!reqId}&isapply=1';">{!$Label.PortalBackButtonNoSave}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                  </apex:actionRegion>
+                  <c:DatePickerComponent clsName="makeItDatePicker" locale="{!Locale}" />
+                  <apex:actionFunction name="preferredNationalIdType" action="{!preferredNationalIdType}"
+                    reRender="CanadaPII,CanadaPII_DOB,nonGermanPII,zipBlock"
+                    oncomplete="setStyleClass();">
+                    <apex:param name="countryCode" assignTo="{!countryCode}" value=""></apex:param>
+                    <apex:param name="nationalIdType" assignTo="{!nationalIdType}" value=""></apex:param>
+                    <apex:param name="nationalIdNumber" assignTo="{!nationalIdNumber}" value=""></apex:param>
+                  </apex:actionFunction>
+                  <apex:actionFunction name="setEmployeeReferralText" action="{!setEmployeeReferralText}"
+                    reRender="other-type-label,dependentPickListChange,referraltype" immediate="true">
+                    <apex:param name="appSrc" assignTo="{!appSrc}" value=""/>
+                    <apex:param name="appSubSrc" assignTo="{!appSubSrc}" value=""/>
+                  </apex:actionFunction>
+                </apex:form>
+              </apex:outputPanel>
+              <!-- contactInfoPanel -->
+            </article>
+          </div>
+        </div>
+      </div>
+    </apex:define>
+    <c:HVH_Modal />
+  </apex:composition>
+  <apex:outputpanel id="dependentPickListChange">
+    <script>
+      // alert($('#referraltype ').val());
+           if('{!SourceDetailList}'.indexOf($('select[id$=referraltype]').val() || $('select[id$=referraltype]').val() != "") > -1){
+
+             $('#other-type-label').css("display", "initial");
+             $('input[id$=other-type]').show();
+             //
+               // $('input[id$=other-type]').val('{!employeeReferralHintText}');
+               $('input[id$=helpTextId]').show();
+               $('input[id$=other-type]').attr('class', 'form-control input-sm requiredfield');
+           } else {
+               $('label[id$=other-type-error]').hide();
+               $('input[id$=other-type]').hide();
+      
+               $('input[id$=other-type]').attr('class', 'form-control input-sm');
+               $('input[id$=other-type]').removeAttr('required').removeClass('vRequired');;
+           }
+    </script>
+  </apex:outputpanel>
+  <apex:includeScript value="{!$Resource.TimeZoneNameDetection}"/>
+  <script type="text/javascript">
+    function NIDRequired(){
+      if ({!NIDBox.isRequired == false}) {
+        $(".NID-required").css("display", "none")
+      } else {
+        $(".NID-required").css("display", "inline")
+      }
+    }
+    //Attachment panel
+    function validateAttachment(){
+    
+             //Fetch the details of the file name being submitted:
+             var docName=document.getElementById("lbltipAddedComment").innerHTML;
+             var tabl = document.getElementById("attachTable");
+             var count=0;
+             var l = tabl.rows.length;
+    
+    
+             var s = "";
+             for (var i = 1; i < l; i++ )
+             {
+    
+                 var tr = tabl.rows[i];
+                 var cl7=tr.childNodes[7];
+                 var ct7 = cl7.innerHTML.replace( /<[^<>]+>/g, '' );
+                 var ct8=ct7.trim();
+                 if(docName.toUpperCase()==ct8.toUpperCase()){
+                     count=1;
+                     break;
+                 }
+             }
+             if(count==1){
+                 $('#myModal2').modal('show')
+                 return false;
+             }
+             else{
+                 return true;
+             }
+    
+         }
+    function validatefile(obj){
+         var fu1 = document.getElementById("pageId:portId:form:subblockId:inputId");
+         var str = fu1.value;
+         var parts=str.split("\\");
+         var beforeLast = parts[parts.length - 1];
+         document.getElementById("lbltipAddedComment").innerHTML = beforeLast;
+    
+         document.getElementById("docNameOpt").style.display="none";
+         document.getElementById("attachDocNameOpt").style.display="none";
+    
+         $(".docNameForJS").attr("data-title","{!$Label.DocumentName}");
+         $(".docFileForJS").attr("data-title","{!$Label.BrowseAttachDocument}");
+     }
+    
+     //Contact panel
+    // Referral text
+    
+    
+      function ValidateDiv(details){
+           if(details==null)  return;
+    
+          if(details.value=="Home Phone" && details.checked){
+              if(document.getElementById("pageId:portId:form2:altphone")!=null){
+                 document.getElementById("pageId:portId:form2:altphone").style.display="none";
+                 document.getElementById("pageId:portId:form2:mainphone").style.display="inline";
+    
+                 document.getElementById("altphoneLbl").style.display="none";
+                 document.getElementById("mainphoneLbl").style.display="inline";
+                 }
+    
+          }
+          if(details.value=="Mobile Phone" && details.checked){
+             if(document.getElementById("pageId:portId:form2:altphone")!=null){
+                 document.getElementById("pageId:portId:form2:altphone").style.display="inline";
+                 document.getElementById("pageId:portId:form2:mainphone").style.display="none";
+                 document.getElementById("altphoneLbl").style.display="inline";
+                 document.getElementById("mainphoneLbl").style.display="none";
+    
+             }
+    
+             }
+    
+         }
+    
+     // used in preferred name
+     function inputLimiter(e,allow) {
+             var AllowableCharacters = '';
+    
+             if (allow == 'Letters'){AllowableCharacters=' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';}
+             if (allow == 'Numbers'){AllowableCharacters='1234567890';}
+             if (allow == 'NameCharacters'){AllowableCharacters=' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-.\'';}
+             if (allow == 'NameCharactersAndNumbers'){AllowableCharacters='1234567890 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-\'';}
+             if (allow == 'Currency'){AllowableCharacters='1234567890.';}
+    
+             var k = document.all?parseInt(e.keyCode): parseInt(e.which);
+             if (k!=13 && k!=8 && k!=0){
+                 if ((e.ctrlKey==false) && (e.altKey==false)) {
+                 return (AllowableCharacters.indexOf(String.fromCharCode(k))!=-1);
+                 } else {
+                 return true;
+                 }
+             } else {
+                 return true;
+             }
+         }
+    
+    function onMobileNumberChange()
+    {
+    
+     var block = document.getElementById('smsPhoneChangeAlert');
+     var mobilephone =  '{!oContact.MobilePhone}';
+     var inputvalue = document.getElementById("pageId:portId:form2:altphone").value;
+     if (mobilephone.replace(/[^\d\+]/g,"") != inputvalue.replace(/[^\d\+]/g,"")){
+         block.style.display = 'block';
+     }
+     else{
+         block.style.display = 'none';
+     }
+    }
+    function displayDisclaimer()
+    {
+     var block = document.getElementById('smsDisclaimerBlock');
+    
+     if (block.style.display === 'none') {
+         block.style.display = 'block';
+     } else {
+         block.style.display = 'none';
+     }
+    }
+    function isChecked()
+    {
+    
+     var answer = {!smsAgreed};
+     if (answer == true)
+     {
+         if (document.getElementById('smsDisclaimerBlock') != null){
+               document.getElementById('smsDisclaimerBlock').style.display = "block";
+         }
+         if (document.getElementById('boxValue') != null){
+               document.getElementById('boxValue').checked = true;
+         } 
+    }
+    }
+    
+     // Autopopulate TimeZone Picklist Value
+     function setTimeZone(){
+         var tz = jstz.determine();
+         var timezonename = tz.name();
+         var map = jQuery.parseJSON('{!timeZoneJSONMap}');
+         if (document.getElementById('{!$Component.pageId:portId:form2:timezone}') != null){
+         var existingTimeZoneValue = document.getElementById('{!$Component.pageId:portId:form2:timezone}').value;
+         }else {
+             existingTimeZoneValue = null;
+             }
+         if(map[timezonename] != null){
+             var timeZonePicklistValue = map[timezonename];
+             }
+         if(timeZonePicklistValue !== 'undefined' && timeZonePicklistValue!= null &&
+            existingTimeZoneValue !== 'undefined' && existingTimeZoneValue!=null){
+             document.getElementById('{!$Component.pageId:portId:form2:timezone}').value = timeZonePicklistValue;
+         }
+     }
+     function isNumber(evt) {
+    
+           var theEvent = evt || window.event;
+           var key = theEvent.keyCode || theEvent.which;
+           key = String.fromCharCode(key);
+           if (key.length == 0) return;
+           var regex = /^[0-9-+() \b]+$/;
+           if (!regex.test(key)) {
+               theEvent.returnValue = false;
+               if (theEvent.preventDefault) theEvent.preventDefault();
+           }
+    }
+    
+     function translatePicklist() {
+         // This page has two sets of countryList options, only one set will be displayed at any time:
+         // Set 1) "countryList" and "countryList2"
+         // Set 2) "countryList3" and "countryList4"
+         var countryListId = 'countryList';
+         var countryList2Id = 'countryList2';
+    
+         var set2 = $("select[id$='countryList3'] option").length;
+         if (set2 > 0) {
+           countryListId = 'countryList3';
+           countryList2Id = 'countryList4';
+         }
+    
+         var countryListSelectedValue = $("select[id$='" + countryListId +"'] option:selected")[0].value;
+         var countryList2SelectedValue = $("select[id$='" + countryList2Id + "'] option:selected")[0].value;
+    
+         /**
+          * Handle sorting
+          */
+         var sortable = [];
+         var relatedObjects = {};
+    
+         for(var i = 1; i < $("select[id$='" + countryListId +"'] option").length; i++){
+             var ele = $("select[id$='" + countryListId +"'] option").eq(i);
+             
+             // Original
+             var original_value = ele.val();
+             var original_text = ele.text();
+             
+             // Determine actual value
+             var translatedCountryName = $("select[id$='Country'] option[value="+ original_value +"]").text();
+    
+             // New
+             var new_value = original_value;
+             var new_text = translatedCountryName + ' + ' + original_text;
+    
+             // Rebuild new picklist label text
+             var locationOfPlusSign = original_text.indexOf(" +");
+             var countryCodeNumber = original_text.slice(locationOfPlusSign, original_text.length);
+             var new_text = translatedCountryName + countryCodeNumber;
+    
+             var obj = {
+                 new_value: new_value,
+                 new_text: new_text
+             }
+    
+             relatedObjects[new_text] = obj;
+             sortable.push(new_text);
+         }
+         sortable.sort();
+    
+         /**
+          * Rebuild
+          */
+         var selectHackValue = "{!$Label.SelectPhoneCountryCode}";
+         $("select[id$='" + countryListId +"'] option").eq(0).text(selectHackValue);
+         $("select[id$='" + countryList2Id + "'] option").eq(0).text(selectHackValue);
+    
+         for(var i = 1; i < $("select[id$='" + countryListId +"'] option").length; i++){
+             var j = i-1;
+             // Get object to set as
+             var objKey = sortable[j];
+             var obj = relatedObjects[objKey];
+    
+             var element = $("select[id$='" + countryListId +"'] option").eq(i);
+             element.text(obj.new_text);
+             element.val(obj.new_value);
+             if (obj.new_value == countryListSelectedValue) {
+                 element.attr('selected', 'selected');
+             }
+    
+             var element2 = $("select[id$='" + countryList2Id + "'] option").eq(i);
+             element2.text(obj.new_text);
+             element2.val(obj.new_value);
+             if (obj.new_value == countryList2SelectedValue) {
+                 element2.attr('selected', 'selected');
+             }
+         }
+     }
+    
+    
+     $(window).load(function() {
+     //    pageload();
+      setStyleClass();
+      NIDRequired();
+      });
+    
+    $(document).ready(function () {
+         updateRadio();
+         isChecked();
+         //Spanish countries are not translating in controller so translate on the client
+         //TODO: figure out why and fix in controller, then remove this
+         if("{!Locale}"=='es_US')
+         {
+             translatePicklist();
+         }
+     });
+    
+    function updateRadio(){
+         $('input:checkbox').click(function(e){
+             e.stopPropagation();
+         });
+     }
+    
+     // When the document is ready
+     $(document).ready(function () {
+    
+         $.validator.addMethod("cRequired", $.validator.methods.required,
+           "{!$Label.PortalRequiredCheckbox}");
+         $.validator.addMethod("rRequired", $.validator.methods.required,
+           "{!$Label.PortalRequiredRadio}");
+         $.validator.addMethod("fRequiredtext", $.validator.methods.required,
+           "{!$Label.PortalRequiredFieldValidation}");
+         $.validator.addMethod("fRequiredselect", $.validator.methods.required,
+           "{!$Label.PortalRequiredFieldValidationSelect}");
+         $.validator.addMethod("mainphoneRequired", $.validator.methods.required,
+           "{!$Label.PortalRequiredFieldValidation}");
+         $.validator.addMethod("altphoneRequired", $.validator.methods.required,
+           "{!$Label.PortalRequiredFieldValidation}");
+    
+         $.validator.addMethod("mobilePhoneRequired", $.validator.methods.required,
+           "{!$Label.PortalRequiredFieldValidation}");
+         $.validator.addMethod("alternatePhoneRequired", $.validator.methods.required,
+           "{!$Label.PortalRequiredFieldValidation}");
+    
+         // alias minlength, too
+         $.validator.addClassRules("requiredCB", { cRequired: true });
+         $.validator.addClassRules("requiredradio", { rRequired: true });
+         $.validator.addClassRules("requiredfield", { fRequiredtext: true });
+         $.validator.addClassRules("requiredselect", { fRequiredselect: true });
+    
+         $.validator.addClassRules("requiredmainphone", { mainphoneRequired: function(element) {
+                         return $(esc('{!$Component.pageId.portId.form2.altphone}')).is(':blank');
+                     } });
+         $.validator.addClassRules("requiredaltphone", { altphoneRequired: function(element) {
+                         return $(esc('{!$Component.pageId.portId.form2.mainphone}')).is(':blank');
+                     }});
+    
+         $.validator.addClassRules("requiredmobilePhone", { mobilePhoneRequired: function(element) {
+                         return $(esc('{!$Component.pageId.portId.form2.mobilePhone}')).is(':blank');
+                     } });
+         $.validator.addClassRules("requiredalternatePhone", { alternatePhoneRequired: function(element) {
+                         return $(esc('{!$Component.pageId.portId.form2.alternatePhone}')).is(':blank');
+                     }});
+    
+         //validation rules
+    
+         $(esc('{!$Component.pageId.portId.form2}')).validate({
+             //set this to false if you dont what to set focus on the first invalid input
+             focusInvalid: false,
+             invalidHandler: function(form, validator) {
+    
+                 if (!validator.numberOfInvalids())
+                     return;
+    
+                 $('html, body').animate({
+                     scrollTop: $(validator.errorList[0].element).offset().top-50
+                 }, 1000);
+    
+             },
+             highlight: function(element, errorClass, validClass) {
+             },
+             //debug: true,
+             //by default validation will run on input keyup and focusout
+             //set this to false to validate on submit only
+             onkeyup: false,
+             errorPlacement: function(error, element) {
+                 error.prependTo(element.parent("div"));
+                 error.prependTo(element.parent("span"));
+                 error.prependTo(element.parent("td").parent("tr").parent("tbody").parent("table").parent("fieldset").parent("div"));
+                 error.prependTo(element.parent("span").parent("div"));
+             },
+             onfocusout: false
+         });
+    
+         if(document.getElementById("pageId:portId:form2:candEmail")!=null)
+             document.getElementById("pageId:portId:form2:candEmail").className = "not-active";
+    
+    
+         setStyleClass();
+    
+    
+    $('.radio-gold-div tr td').click(function() {
+    ele = $(this).find('input:radio')[0];
+    ele.checked = ! ele.checked;
+    ValidateDiv(ele);
+    });
+    
+    $('input:radio').click(function(e){
+    e.stopPropagation();
+    });
+     });
+    function setStyleClass(){
+        // alert('in set style');
+        // console.log('Test');
+      if (document.getElementById("NIdTypeFlex") != null) console.log("NIdTypeFlex="+document.getElementById("NIdTypeFlex").value);
+      console.log("Parameter:"+document.getElementById("pageId:portId:form2:State"));
+      if( document.getElementById("pageId:portId:form2:State")!=null)
+         document.getElementById("pageId:portId:form2:State").className = "form-control input-sm requiredselect";
+      if(document.getElementById("pageId:portId:form2:referraltype")!=null)
+         document.getElementById("pageId:portId:form2:referraltype").className = "form-control input-sm requiredselect";
+    
+     }
+    
+    window.addEventListener('load', function() {
+     if(document.getElementById("pageId:portId:form2:State")!=null)
+      document.getElementById("pageId:portId:form2:State").className = "form-control input-sm requiredselect";
+    });
+    
+    
+    
+     $(window).bind("load", function() {
+              ValidateDiv(document.getElementById('pageId:portId:form2:prefer-phone:0'));
+              ValidateDiv(document.getElementById('pageId:portId:form2:prefer-phone:1'));
+              setStyleClass();
+         setTimeZone();
+    
+     });
+    
+    function refresh(){
+         $('input[name$="[]"]').each(function() {
+             $(this).prop('disabled', true);
+         });
+     }
+    
+     $(document).ready(function(){
+         $('[data-toggle="tooltip"]').tooltip();
+     });
+    
+    
+    
+     function activateSaveModal(bodyText, btnIdToClick) {
+       $('#saveModalBodyText').html(bodyText);
+       $("#saveModalSaveBtn").click(function(){clickButtonId(btnIdToClick)});
+       $('#saveModal').modal()
+     }
+    
+     function userOptedInForSms() {
+       return $('[id="pageId:portId:form2:boxValue"]').prop("checked");
+     }
+    
+     function clickButtonId(btnIdToClick) {
+       $('[id="pageId:portId:form2:' + btnIdToClick + '"]').click();
+     }
+    
+     function validateWithPinpoint(btnIdClicked) {
+       // Clean the carrier variable in the apex controller
+       setWirelessCarrier(' ');
+    
+       // Get validated phone number
+       var phoneNumberObj = validatedPhoneNumber();
+    
+       /**
+        * Skip the Pinpoint Integration and continue to APEX save under the following conditions:
+        *   1) Page required elements are not populated
+        *   2) If the candidate has not opted in for SMS
+        *   3) If a mobile number has not been populated (APEX controller has 
+        *      support for phone number validation, so let the controller handle this)
+        */
+       if (!pageRequiredElementsSatisfied()
+             || !userOptedInForSms()
+             || !phoneNumberObj) {
+    
+         clickButtonId(btnIdClicked);
+         return;
+       }
+    
+       // Execute the pinpoint validation
+       executePinpointValidation(phoneNumberObj, btnIdClicked);
+    
+       /**
+        * Helper functions
+        */
+       function pageRequiredElementsSatisfied() {
+         var pageRequiredElements = $('input,textarea,select').filter('[required]:visible');
+         if (!pageRequiredElements || !pageRequiredElements.length) {
+           return true;
+         }
+    
+         for (var i=0; i<pageRequiredElements.length; i++) {
+           if (!pageRequiredElements[i].value) {
+             return false;
+           }
+         }
+    
+         return true;
+       }
+    
+       function validatedPhoneNumber() {
+         // Phone number
+         var phoneNumber = {
+           number: getCleanNumber('pageId:portId:form2:altphone'),
+           countryCode: $('[id="pageId:portId:form2:countryList3"]').val()
+         };
+    
+         // Validations
+         var noNulls = !!phoneNumber.number && !!phoneNumber.countryCode;
+    
+         return noNulls ? phoneNumber : null;
+    
+         function getCleanNumber(id) {
+           var val = $('[id="' + id + '"]').val();
+           return val ? val.replace(/\D/g,'') : '';
+         }
+       }
+    
+       function executePinpointValidation(phoneNumberObj, btnIdClicked) {
+         ApplicationContactController.validateMobilePhoneWithPinpointRA(
+           phoneNumberObj.number,
+           phoneNumberObj.countryCode,
+           callbackFn
+         );
+    
+         function callbackFn(response, event) {
+           // Set the carrier property in APEX
+           var carrier = response && response.Carrier ? response.Carrier : '';
+           setWirelessCarrier(carrier);
+          
+           // Proceed to save if any exception has occurred as to not block the user
+           var hasException = event.type === 'exception' || !response;
+           
+           // If there was an exception or there is no need to display a warning (valid number) save to apex
+           if (hasException || response.validForMobile) {
+             clickButtonId(btnIdClicked);
+             return;
+           }
+           
+           // Activate modal with invalid SMS number message
+           activateSaveModal('{!$Label.SMS_Invalid_Number}', btnIdClicked);
+
+         }
+       }
+     }
+
+     function addressAutocompleteOnChange() {
+       console.log('called js function');
+
+       // Get user address input
+       var addressElement = $('#userInputAddressForAutocomplete');
+       if (!addressElement) {
+         return;
+       }
+
+       var addressForAutocomplete = addressElement.val();
+       if (addressForAutocomplete == '' 
+            || addressForAutocomplete == undefined
+            || addressForAutocomplete == null) {
+         return;
+       }
+
+       // TODO: Get geolocation from browser
+       var addressLatitude = 40.8437777;
+       var addressLongitutde = -73.1136284;
+
+       // Execute remote action
+       ApplicationContactController.addressAutoComplete(
+         addressLatitude,
+         addressLongitutde,
+         addressForAutocomplete,
+         callbackFn
+       );
+       
+       function callbackFn(response, event) {
+         if (event.type === 'exception' || !response) {
+           console.log('Autocomplete RA failed');
+           return;
+         }
+
+         // Update results
+         var autocompleteResults = response;
+         var autocompleteResultsElement = $('#addressAutocompleteResults');
+         if (!autocompleteResultsElement) {
+           return;
+         }
+
+         autocompleteResultsElement.text(autocompleteResults);
+       }
+     }
+  </script>
+  <style type="text/css">
+    .sms-optin-container-message {
+      padding-bottom: 20px;
+      padding-left: 0px;
+      color: #1f82da;
+      font-weight: bold !important;
+      font-size: 14px;
+    }
+    .noninput-container {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .noninput-container.disabled {
+      border: 1px solid #eee;
+      background-color: #eee;
+      padding: 10px;
+    }
+    .phone-selector-number-country-input-container {
+      width:100%;
+      padding:0;
+      border:0;
+      background: none;
+    }
+    .phone-selector-number-country-input {
+      /* Remove border radius */
+      -webkit-appearance: none;
+      -webkit-border-radius: 0px;
+      background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%);
+      background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+      background-size: 5px 5px, 5px 5px, 1px 1.5em;
+      background-repeat: no-repeat;
+      -moz-appearance: none;
+      display: block;
+      padding: 0.3rem;
+      height: 2rem;
+      width: 100%;
+      /* Actual styling */
+      background-color: #FFF;
+      padding-left: 10px;
+      border-top-left-radius: 4px !important;
+      border-bottom-left-radius: 4px !important;
+    }
+    .countrycode-outputtext {
+      border-right: 0;
+      border-left: 0;
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      float: right !important;
+      width: 55px !important;
+      background-color: #eeeeee;
+      text-align: center;
+      line-height: 31px;
+      font-size: 16px;
+    }
+    .phone-selector-number-input {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 4px !important;
+      border-bottom-right-radius: 4px !important;
+    }
+    input[type="file"] {
+    display: none;
+    }
+    .custom-file-upload {
+    color: #004b91;
+    background: url("{!URLFOR($Resource.hvhportal,'/img/bkg-button-active.png')}") repeat-x left bottom white;
+    background-position :center;
+    border-color: #c3b29e;
+    background-size : contain;
+    text-transform: uppercase;
+    font-size: 13px;
+    text-align: center;
+    margin-left: 40px;
+    margin-top: 5px;
+    padding: 1px 5px;
+    line-height: 1.5;
+    border-radius: 3px;
+    box-sizing: border-box;
+    width: 80%;
+    height: 30px;
+    }
+    /* Styling for the standard button */
+    .ChooseFileContainer {
+    position:relative;
+    display:inline;
+    }
+    /*Styling for the custom button that would overlay on top of the standard choose file button */
+    .OverlayButton {
+    position:absolute;
+    left:105px;
+    right:0;
+    height:100% !immediate;
+    }
+    @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    .responsive-table td.file:before { float:left;word-wrap: normal;white-space: pre-line;content: "{!$Label.BrowseAttachDocument}: "
+    ;margin-right: 10px;display: inline-block !important;height: auto !important;}
+    .responsive-table td.documentName:before {float:left;word-wrap: normal;white-space: pre-line; content: "{!$Label.DocumentName}: "
+    ;margin-right: 10px;display: inline-block !important;height: auto !important;}
+    .responsive-table td.documentdetails:before {float:left;word-wrap: normal;white-space: pre-line; content: "{!$Label.AdditionalAttachmentDetails}: "
+    ;margin-right: 10px;display: inline-block !important;height: auto !important;}
+    .responsive-table td.file:after { content:"*";float:left;position: relative;margin-left: 130px;margin-top: 5px;color: red;}
+    .responsive-table td.documentName:after { content:"*";float:left;position: relative;margin-left: 130px;margin-top: 5px;color: red;}
+    .responsive-table td.documentName {height:100px !important;display: inline-block !important;}
+    .responsive-table td.file {height:100px !important;display: inline-block !important;}
+    .responsive-table td.documentdetails {height:105px !important;display: inline-block !important;}
+    .custom-file-upload {width:50% !important;height:40px !important;float:right;display: inline-block !important;text-align: center;}
+    }
+    select {
+    class : form-control input-sm requiredselect;
+    }
+    .wrapCell {
+    white-space: wrap
+    }
+    .noWrapCell {
+    white-space: nowrap
+    }
+    .error {
+    font-weight: bold !important;
+    color: red;
+    width:100% !important;
+    }
+    .radio label{
+    font-weight: normal;
+    display: inline-block;
+    margin-bottom: 5px;
+    width:150px;
+    }
+    .radio{
+    margin-left: 20px;
+    }
+    .col-tem-1 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
+    }
+    .col-tem-1 label {
+    font-weight: normal;
+    margin-bottom: 5px;
+    width:130px;
+    }
+    @media(max-width:991px){
+    .div-Wrapper{
+    margin-top: 15px;
+    }
+    }
+    .vfHelpText a            {position:relative;}
+    .vfHelpText a span       {display: none;}
+    .vfHelpText a:hover span {display: block;
+    position:absolute;
+    top:1.25em;
+    padding:2px 5px;
+    left:-15em; width:15em;
+    z-index:100;
+    border:1px solid orange;
+    background-color:#FEFDB9;
+    color:black;
+    }
+    .cPickList1 select{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #555555;
+    background-color: white;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+    height: 30px;
+    padding: 5px 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    border-radius: 3px;
+    height:44px;
+    line-height: 30px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    .tooltip-inner {
+    max-width: 400px;
+    min-width: 200px;
+    padding: 3px 8px;
+    color: #fff;
+    text-align: center;
+    background-color: #000;
+    border-radius: .25rem;
+    margin-right: 5px;
+    margin-left: 5px;
+    }
+    .checkbox-gold input:checked{
+    background: url({!URLFOR($Resource.HVHIcons, 'checkbox-selected.svg')}) center no-repeat;
+    /* border: 1px solid #EE6723;*/
+    }
+    .checkbox-gold{
+    padding-left: 25px;
+    padding-top: 8px;
+    margin-top: 8px;
+    margin-left: 0px;
+    height: 45px;
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    padding-bottom:10px;
+    border-radius: 2px;
+    }
+    .checkbox-gold:hover{
+    background-color: white;
+    }
+    .checkbox-gold input, .checkbox-gold input:not(:checked){
+    width: 25px; /*Desired width*/
+    height: 25px; /*Desired height*/
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    border-color: grey !important;
+    border: 1px solid;
+    box-shadow: none !important;
+    background-color: white;
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-left: -17px;
+    }
+    .checkbox-gold input:checked{
+    background-color: white;
+    padding-top: 10px;
+    margin-top: 10px;
+    margin-left: -17px;
+    }
+    .checkbox-gold input[type="checkbox"]:hover{
+    border-color: #82368C !important;
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px #D9BEED !important;
+    outline: 0 none !important;
+    }
+    .checkbox-gold label, .checkbox-gold span{
+    background-image: none;
+    padding-left: 10px;
+    line-height: 25px;
+    font-family:Arial;
+    font-weight: 300;
+    vertical-align: text-bottom;
+    padding-left: 20px;
+    padding-top: 10px;
+    }
+    .radio-gold, .checkbox-gold {
+    background-color: transparent;
+    border: 0px solid #CCCCCC;
+    }
+    @media (max-width: 48em){
+    .radio-gold, .checkbox-gold {
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    }
+    .checkbox-gold input:checked{
+    background: url({!URLFOR($Resource.HVHIcons, 'checkbox-selected.svg')}) center no-repeat;
+    /* border: 1px solid #EE6723;*/
+    }
+  </style>
+</apex:page>

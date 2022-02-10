@@ -1,0 +1,24 @@
+<apex:page controller="LoginUserIP_Ctrl">
+  <br/> 
+  <br/>
+  <apex:slds />
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1> CONGRATULATIONS <br/> <br/> </h1>
+       {!$User.FirstName} &nbsp;  {!$User.LastName}
+  <br/>
+  <br/>
+  <apex:pageBlock title="Login User IP Address">
+      <apex:pageBlockSection >
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Your Current IP Address Is ">
+                 <apex:outputText value="{!userIpAddress}"/>
+              </apex:outputLabel>             
+          </apex:pageBlockSectionItem>
+          <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Your Current Country Is ">
+                 <apex:outputText value="{!userCountry}"/>
+              </apex:outputLabel>             
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+</apex:page>

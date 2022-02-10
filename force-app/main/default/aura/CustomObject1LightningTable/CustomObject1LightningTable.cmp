@@ -1,0 +1,21 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" controller="CustomObject1LightningTable" access="global">
+
+<lightning:button variant="brand" label="Next" onclick="{!c.createRecord}"/>
+
+    <aura:registerEvent name="compEvent" type="c:LightningDataTableEvent" />
+    <aura:attribute name="mydata" type="Object"/>
+    <aura:attribute name="mycolumns" type="List"/>
+    <aura:attribute name="recordId" type="String"/>
+
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" /> 
+    <lightning:datatable data="{! v.mydata }" 
+        columns="{! v.mycolumns }" 
+        keyField="Id"
+        onrowselection="{!c.onRowSelection }"/>
+
+  <!--   <lightning:button label="Fire Component Event"
+                              name="componentevent"
+                              onclick="{!c.fireComponentEvent}"
+                              variant="brand"/>  -->
+</aura:component>

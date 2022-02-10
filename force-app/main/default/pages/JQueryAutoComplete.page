@@ -1,0 +1,208 @@
+<apex:page showHeader="true" sidebar="true" controller="Searchclass" >
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>jQuery UI Autocomplete - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" href="/resources/demos/style.css" /> 
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+
+  var availableTags;
+
+function addressAutocompleteOnChange() {
+ console.log('In: addressAutocompleteOnChange');
+     var tags = $('#tags').val();
+    console.log('tags -> ', tags);
+    Searchclass.getContactName(
+        $('#tags').val(),
+        function (response, event) {
+        var displayResults = [];
+        if (response) {
+            for (var i=0; i<response.length; i++) {
+             displayResults.push({label: response[i].Name, response: response[i].Id, email: response[i].Email});
+          }
+        }
+        console.log('class autocomplete', displayResults);
+        availableTags = displayResults;
+    } 
+    );
+
+}
+
+
+
+  $( function() {
+    console.log('getTags');
+    console.log('apiKey', document.getElementById('apiKey').value);
+
+    var scriptTag = document.createElement("script");
+    scriptTag.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBJpqM1gX8A3tzRBb13op5ci9tiZOJZWeY&signed_in=true&libraries=places&callback=initAutocomplete";
+    document.head.appendChild(scriptTag);
+    navigator.geolocation.getCurrentPosition(function(e) {
+        console.log(e.coords.latitude + ', ' + e.coords.longitude);
+       //component.set("v.latitude",e.coords.latitude);
+       //component.set("v.longitude",e.coords.longitude);
+        Searchclass.createSearchLIst(
+            e.coords.latitude,
+            e.coords.longitude,
+            function (response, event) {
+                console.log(response);
+            }
+        );
+        }, function() {
+            console.log('There was an error.');
+    });
+    //var searchString = document.getElimentById('tags');
+    // var searchString = 'b';
+    // Searchclass.getContactName(
+    //     searchString,
+    //     callbackFn
+    // );
+
+//SELECT Id,MailingCity,MailingCountry,MailingGeocodeAccuracy,MailingLatitude,MailingLongitude,MailingPostalCode,MailingState,MailingStreet,Name, Location__c FROM Contact
+
+
+// Contact con = [Select Name, MailingLatitude, MailingLongitude from Contact where Id = '0031K00002jcGf8'];
+// Double theLatitude = con.MailingLatitude;
+// Double theLongitude = con.MailingLongitude;
+// system.debug('lat -> ' + theLatitude + '; long -> ' + theLongitude + '; Name -> ' + con.name);
+
+
+// //40.5437964, -74.6846798
+// Location loc1 = Location.newInstance(40.5437964,-74.6846798);
+// Location loc2 = Location.newInstance(47.61324,-122.334404);
+// Double dist = Location.getDistance(loc1, loc2, 'mi');
+// Double dist2 = loc1.getDistance(loc2, 'mi');
+// system.debug('dist -> ' + dist + '; dist2 -> ' + dist2 );
+
+
+
+
+    //  function callbackFn(response, event) {
+    //     console.log('callback fn response', response);
+    //     availableTags = response;
+    // }   
+    
+    // var availableTags = [
+    //   "1234 Alpha Street Seattle, WA 98101",
+    //   "123 Argon Road Seattle, WA 98102",
+    //   "12 Aspen Terrace Seattle, WA 98103",
+    //   "BASIC",
+    //   "C",
+    //   "C++",
+    //   "Clojure",
+    //   "COBOL",
+    //   "ColdFusion",
+    //   "Erlang",
+    //   "Fortran",
+    //   "Groovy",
+    //   "Haskell",
+    //   "Java",
+    //   "JavaScript",
+    //   "Lisp",
+    //   "Perl",
+    //   "PHP",
+    //   "Python",
+    //   "Ruby",
+    //   "Scala",
+    //   "Scheme"
+    // ];
+    $( "#tags" ).autocomplete({
+    // source: availableTags
+
+     source: function(request, response) {
+        console.log('In Source');
+
+        // var displayResults = [];
+        
+        // if (addresses) {
+        //   for (var i=0; i<addresses.length; i++) {
+        //     displayResults.push({label: addresses[i].description, value: i});
+        //   }
+        // }
+        // console.log('displayResults',displayResults)
+        response(availableTags);
+
+     },
+        select: function( event, ui ) {
+        // Not working for now..
+        console.log('ui', ui);
+        console.log('ui.item.value', ui.item.value);
+        console.log('ui.item.value', ui.item.response);
+
+        document.getElementById('Id').value = ui.item.response;
+        document.getElementById('eMail').value = ui.item.email;
+        //var selected = addresses[ui.item.value];
+        // console.log('selected', selected);
+        // console.log('addresses=[0]', addresses[0]);
+        // console.log('addresses=[1]', addresses[1]);
+        //console.log('addresses[selected]', addresses[selected]);
+
+        // if (ui &&  ui.item) {
+        //   alert('Label: ' + ui.item.label + '\nValue: ' + ui.item.value);
+        // }
+      }
+
+
+ //);
+    });
+
+
+
+  } 
+
+
+  );
+
+
+
+
+  </script>
+
+<script>
+function initAutocomplete() {
+    console.log('initAutoComplete');
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  //autocomplete = new google.maps.places.Autocomplete(
+   //   document.getElementById('autocomplete'), {types: ['geocode']});
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  //autocomplete.setFields(['address_component']);
+
+  // When the user selects an address from the drop-down, populate the
+  // address fields in the form.
+ 
+ // autocomplete.addListener('place_changed', fillInAddress);
+}
+</script>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJpqM1gX8A3tzRBb13op5ci9tiZOJZWeY&signed_in=true&libraries=places&callback=initAutocomplete"></script> -->
+
+</head>
+<body>
+<div >  
+        <input id="apiKey" value="{!apiKey}"  type="hidden"/> 
+</div>
+<div class="ui-widget">
+  <label for="tags">Tags: </label>
+  <input id="tags" onkeyup="addressAutocompleteOnChange()" />
+</div>
+ <br/>
+ <div class="ui-widget">
+  <label for="Id">Id: </label>
+  <input id="Id"  />
+</div>
+  <br/>
+ <div class="ui-widget">
+  <label for="eMail">Email: </label>
+  <input id="eMail"  />
+</div>
+</body>
+
+	
+</apex:page>

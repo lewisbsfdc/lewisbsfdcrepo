@@ -1,0 +1,36 @@
+<apex:page standardController="Contact" lightningStylesheets="true">
+	<apex:slds />
+<style>
+    .lookupInput a{
+    position: absolute;
+    width: 33px !important;
+    margin-left: 5px;
+    background-image: url(/img/setup/search-icon.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    display: inline-flex !important;
+    }
+    .lookupInput input{
+    width:91% !important;
+    }
+    .lookupInput a img{
+    display:none !important;
+    }
+    </style>
+    <apex:form >
+         <apex:sectionHeader title="Section Header" subtitle="SubHeader"  />
+        <apex:pageBlock title="My Test Page" mode="edit">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!save}" value="Save" styleClass="slds-button slds-button_neutral"  />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="My Content Section" columns="2">
+                <apex:inputField value="{!contact.LastName}" styleClass="slds-input" />
+                <apex:inputField value="{!contact.Level__c}" styleClass="slds-input"/>
+                <apex:inputField value="{!contact.Phone}" styleClass="slds-input"/>
+                <apex:inputField value="{!contact.AccountId}" styleClass="slds-input"/>
+                <apex:inputField value="{!contact.Multi_Select__c}" styleClass="slds-input"/>
+                
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

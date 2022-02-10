@@ -1,0 +1,69 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="GetMetadataValues">
+    <aura:attribute name="parentOptions" type="List" />
+    <aura:attribute name="dependentPicklist" type="Object" />
+    <aura:attribute name="oCountryOptions" type="Object" />
+    <aura:attribute name="dependentOptions" type="List" />
+    <aura:attribute name="options" type="List" />   
+    <aura:attribute name="lstRegions" type="List" /> 
+    <aura:attribute name="lstCountries" type="List" />   
+    <aura:attribute name="selectedCountries" type="List" />   
+	<aura:attribute type="string" name="ControllingField" />
+	<aura:attribute type="string" name="DependentField" />
+
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <div class = "slds-container--center ">
+
+ 
+  <div class="slds-grid slds-gutters">
+  	<div class="slds-col slds-size_1-of-2">
+  		<span>
+     		<lightning:dualListbox name="Regions"  
+                           label= "Select Regions" 
+                           sourceLabel="Available" 
+                           selectedLabel="Selected" 
+                           fieldLevelHelp="This is a dual listbox" 
+                           options="{!v.lstRegions}" 
+                           onchange="{! c.handleChange }"/>         
+      	</span>
+  	</div>
+  <div class="slds-col slds-size_1-of-2">
+    <span>
+      <lightning:dualListbox name="Countries"  
+                           label= "Select Countries" 
+                           sourceLabel="Available" 
+                           selectedLabel="Selected" 
+                           fieldLevelHelp="This is a dual listbox" 
+                           options="{!v.lstCountries}" 
+                           onchange="{! c.handleCountryChange }"/>        
+  	</span>
+  </div>
+</div>   
+
+<!--
+    <lightning:dualListbox name="Regions"  
+                           label= "Select Regions" 
+                           sourceLabel="Available" 
+                           selectedLabel="Selected" 
+                           fieldLevelHelp="This is a dual listbox" 
+                           options="{!v.lstRegions}" 
+                           onchange="{! c.handleChange }"/>       
+        
+     <lightning:dualListbox name="Countries"  
+                           label= "Select Countries" 
+                           sourceLabel="Available" 
+                           selectedLabel="Selected" 
+                           fieldLevelHelp="This is a dual listbox" 
+                           options="{!v.lstCountries}" 
+                           onchange="{! c.handleCountryChange }"/>     
+        
+      
+        
+        
+ --> 
+
+
+    </div>
+                                                   
+</aura:component>

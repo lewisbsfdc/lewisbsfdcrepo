@@ -1,0 +1,40 @@
+.THIS {
+    
+}
+
+.THIS .parent:hover div.innerDiv
+{
+display:block;
+}
+
+.THIS .parent .innerDiv
+{
+display:none;
+height:100px;
+width:100px;
+background-color: blue;
+}
+
+.THIS.tooltip {
+position: relative;
+display: inline-block;
+border-bottom: 1px dotted black;
+}
+
+.THIS.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: white;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.THIS.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

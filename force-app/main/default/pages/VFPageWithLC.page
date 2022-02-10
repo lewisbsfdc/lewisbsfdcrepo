@@ -1,0 +1,31 @@
+<apex:page >
+    <apex:includeLightning />
+    <apex:slds />
+
+    <head>
+      <apex:includeScript value="/lightning/lightning.out.js"/>
+
+    </head>    
+    <div id="lightning" />
+
+    <script>
+    console.log('runScript');
+    function initPicklist(){
+        console.log('initPicklist');
+        $Lightning.use("c:DependentPicklistApp", function() {
+          $Lightning.createComponent("c:GEOMultiSelectPicklist",
+          { 
+           ControllingField : "Geo__c", 
+ 		   DependentField : "Country__c"      
+          },
+          "lightning",
+          function(cmp) {
+            console.log('Component Created');
+          });
+        });
+     }
+    initPicklist();
+    </script>
+    
+
+</apex:page>

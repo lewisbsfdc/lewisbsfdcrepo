@@ -1,0 +1,49 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="GetPicklistMetaValues">
+    <aura:attribute name="parentOptions" type="List" />
+    <aura:attribute name="dependentPicklist" type="Object" />
+    <aura:attribute name="oDependentOptions" type="Object" />
+    <aura:attribute name="dependentOptions" type="List" />
+    <!--<aura:attribute name="options" type="List" />   -->
+    <aura:attribute name="lstControlling" type="List" /> 
+    <aura:attribute name="lstDepends" type="List" />   
+    <aura:attribute name="selectedDepends" type="List" />   
+	<aura:attribute type="string" name="ControllingField" />
+	<aura:attribute type="string" name="DependentField" default="None" />	
+    <aura:attribute type="string" name="ObjectName"  />
+    <aura:attribute type="string" name="msControlLabel" default="Controlling" />
+    <aura:attribute type="string" name="msDependLabel" default="Depending" />
+    <aura:attribute type="string" name="ListBoxes" />
+
+    
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+    <div class = "slds-container--center ">
+
+ 
+  <div class="slds-grid slds-gutters">
+  	<div aura:id="controllingPicklist" class="slds-col slds-size_1-of-1">
+  		<span>
+     		<lightning:dualListbox name="Controlling"  
+                           label= "{!v.msControlLabel}" 
+                           sourceLabel= "Available"
+                           selectedLabel="Selected" 
+                           options="{!v.lstControlling}" 
+                           onchange="{! c.handleChange }"/>         
+      	</span>
+  	</div>
+  <div aura:id="dependentPicklist" class="slds-col slds-size_1-of-2 ">
+    <span>
+      <lightning:dualListbox name="Dependent"  
+                           label= "{!v.msDependLabel}"  
+                           sourceLabel="Available" 
+                           selectedLabel="Selected"  
+                           options="{!v.lstDepends}" 
+                           onchange="{! c.handleDependChange }"/>        
+  	</span>
+  </div>
+</div>   
+
+
+    </div>
+                                                   
+</aura:component>

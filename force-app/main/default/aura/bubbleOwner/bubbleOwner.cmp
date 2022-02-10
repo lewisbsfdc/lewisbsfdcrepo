@@ -1,0 +1,8 @@
+<aura:component description="owner" access="global">
+    
+    <aura:handler name="compEvent" event="c:bubbleEvent" action="{!c.handleComponentEvent}"/>
+
+    <c:bubbleContainer/> 
+    <br/>
+    <p>Bubble Owner</p>
+</aura:component>

@@ -1,0 +1,59 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="Dealmaker"  >
+	<aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="lstOpp" type="List" />
+    <aura:attribute name="mapOpp" type="Map" />
+    <aura:attribute name="numberOfChildren" type="String" default="0" />
+    <aura:attribute name="errMessage" type="String" />
+    <aura:attribute name="accountId" type="String" />
+    <aura:attribute name="showOppList" type="Boolean" default="true"/>
+ 
+    
+    <force:recordData aura:id="getOppRecords"
+                      recordId="0064100000APdn1AAD"
+                      targetRecord="{!v.lstOpp}"
+                      recordUpdated="{!c.doinit}"
+                      layoutType="FULL" 
+                      /><!-- 
+     <aura:if isTrue="{!v.showOppList}"> -->
+
+   <!-- <lightning:card iconName="standard:case" title="{! 'Cases Associated (' + v.numberOfCases + ')'}" class="slds-is-relative"> -->
+     <!-- <lightning:card iconName="standard:opportunity"  > iconName="standard:opportunity" -->
+
+        <aura:set attribute="title">
+         <b>  {! 'Opportunities (' + v.numberOfChildren + ')'} </b>
+        </aura:set>     
+        <div class="slds-p-left--medium slds-p-right--medium">
+            <ul class="slds-list--vertical slds-has-dividers--top-space">
+                
+              <lightning:accordion >
+
+                <aura:iteration items="{!v.lstOpp}" var="opp" indexVar="key">
+                            
+
+				<lightning:accordionSection name="Opportunity" label="{!opp.Id+ ' Name: ' + opp.Name}"> 
+
+				<aura:set attribute="actions">
+                <lightning:buttonIcon iconName="utility:open" class="slds-col-bump-left" variant="bare" alternativeText="Open Opp" onclick="{!c.navToRecord}"/>
+            	</aura:set>
+                          <!--<c:DealMakerRecord oppId="{!opp.key}" listCaseComment="{!opp.value}"  /> -->
+     
+		            <aura:set attribute="body">
+			            <div aura:id="oppDetails" class="slds-m-top--small">
+			                <ul class="slds-grid slds-wrap">       
+			                    <li class="slds-list__item slds-size--1-of-4"><span class="slds-text-color--weak slds-m-right--small">Account Id:</span></li> 
+			                    <li class="slds-list__item slds-size--3-of-4"><a onclick="{!c.navToAcctRecord}"> {!opp.AccountId} </a> </li>
+			                    <li class="slds-list__item slds-size--1-of-4"><span class="slds-text-color--weak slds-m-right--small">Stage Name:</span> </li>  
+			 					<li class="slds-list__item slds-size--3-of-4">  {!opp.StageName}</li>
+			                </ul>
+			            </div>
+		            </aura:set>          
+                </lightning:accordionSection>  
+                </aura:iteration>
+
+              </lightning:accordion>
+            </ul>
+        </div>
+<div class="slds-card__footer slds-hide" aura:id="viewAll" ><a onclick="{!c.gotoRelatedList}">View All <span class="slds-assistive-text">entity type</span></a></div>
+<!--     </lightning:card>   -->
+<lightning:formattedText value="{!v.errMessage}" />
+</aura:component>

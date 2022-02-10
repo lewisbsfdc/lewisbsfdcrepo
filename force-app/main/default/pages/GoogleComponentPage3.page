@@ -1,0 +1,4 @@
+<apex:page >
+<c:Google_Component id="billing" idcomponent="billingid" ></c:Google_Component>
+
+</apex:page>

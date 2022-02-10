@@ -1,0 +1,58 @@
+<aura:component implements="force:hasRecordId,force:LightningQuickActionWithoutHeader" 
+                access="global" controller="LeadEnrollButton_HF">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="lstRecertDate" type="String[]" access="global"/>
+	<aura:attribute name="lstReason" type="String[]" access="global"/>
+    <aura:attribute name="lstLOB" type="String[]" access="global"/>
+    <aura:attribute name="isDisabled" type="Boolean" access="global"/>
+	<aura:attribute name="lead" type="Object"/>
+    <aura:attribute name="leadFields" type="Object"/>
+    <aura:attribute name="status" type="String"/>
+
+    <div class="slds">
+    <aura:if isTrue="{!v.isDisabled}">
+        <div> 
+         <br/>
+         <lightning:select aura:id="LOB" name="LOB" label="Line of Business">
+                <option value="">choose one...</option>
+            
+         	<aura:iteration items="{!v.lstLOB}"  var="rec1">
+                     <option value="{!rec1}" text="{!rec1}" ></option>
+            </aura:iteration>
+         </lightning:select>
+         <br/>   
+         <lightning:select aura:id="recertDate" name="recertDate" label="Select a Recert Date">
+                <option value="">choose one...</option>  
+          	<aura:iteration items="{!v.lstRecertDate}"  var="rec">
+         	 	<option value="{!rec}" text="{!rec}" ></option>
+          	</aura:iteration>
+          </lightning:select>
+           <br/>
+           <lightning:select aura:id="reason" name="Reason" label="Reason">
+                <option value="">choose one...</option>
+            
+                <aura:iteration items="{!v.lstReason}"  var="res">
+                     <option value="{!res}" text="{!res}" ></option>
+                </aura:iteration>
+            </lightning:select>
+            <br/>
+            <div>  
+            	<lightning:button aura:id="button"  label="Continue" onclick="{!c.HandleContinue}"/> 
+        	</div>
+        </div>
+    	<aura:set attribute="else">
+            Put a message here
+
+          		</aura:set>
+		</aura:if>  
+          
+      <!--    
+          
+        <div>  
+            <lightning:button aura:id="button" disabled="{!v.isDiabled}" label="Continue" onclick="{!c.HandleContinue}"/> 
+        </div> 
+	-->
+    </div>
+    
+    
+</aura:component>

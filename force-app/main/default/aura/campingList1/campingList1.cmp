@@ -1,0 +1,26 @@
+<aura:component >
+    
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header" role="banner">
+      <div class="slds-grid">
+        <div class="slds-col">
+          <p class="slds-text-heading--label">Camping List</p>
+          <h1 class="slds-text-heading--medium">My Camping</h1>
+        </div>
+      </div>
+    </div>
+    <!-- / PAGE HEADER -->
+
+    <!-- NEW EXPENSE FORM -->
+    <div class="slds-col slds-col--padded slds-p-top--large">
+
+
+        <!-- [[ expense form goes here ]] -->
+
+
+    </div>
+    <!-- / NEW EXPENSE FORM -->    
+
+
+
+</aura:component>

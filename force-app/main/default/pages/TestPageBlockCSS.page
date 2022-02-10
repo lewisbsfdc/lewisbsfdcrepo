@@ -1,0 +1,25 @@
+<apex:page >
+    <apex:pageBlock >
+        <style>
+            body .bPageBlock .pbBody .red .pbSubheader{
+                background-color:#c00000;
+            }
+            body .bPageBlock .pbBody .grey .pbSubheader{
+                background-color:#c0c0c0;
+            }
+            body .bPageBlock .pbBody .grey .pbSubheader h3{
+                color:#000;
+            }
+        </style>
+        <apex:outputPanel styleClass="red" layout="block">
+            <apex:pageBlockSection title="hello" id="section1">
+
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+        <apex:outputPanel styleClass="grey" layout="block">
+            <apex:pageBlockSection title="world" id="section2">
+
+            </apex:pageBlockSection>
+        </apex:outputPanel>
+    </apex:pageBlock>
+</apex:page>

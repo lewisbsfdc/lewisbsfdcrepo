@@ -1,0 +1,2 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="PickTemplateController">
+    ></aura:component>

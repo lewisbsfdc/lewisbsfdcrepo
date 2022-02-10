@@ -1,0 +1,58 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+
+ 
+    
+    <aura:attribute name="options" type="List" default="[
+                                                       {'label': 'One Time', 'value': 'OTP'},
+                                                       {'label': 'Change Cycle', 'value': 'CC'},
+                                                       {'label': 'Update Method', 'value': 'UPM'}
+                                                       ]"/>
+    
+    <aura:attribute name="value" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <center><b>Please Select one</b></center>   
+
+
+   <!-- radio buttons in horizontal view --> 
+
+<div class="slds-grid slds-gutters customRadioCls">
+
+  <div class="slds-col slds-size_1-of-4">
+    <span></span>
+  </div>
+<!--   <div class="slds-col slds-size_2-of-4"> -->
+<!--    <lightning:radioGroup aura:id="mygroup1"
+                            name="myFruits" 
+                          label=""
+                          options="{! v.fruits }"
+                          value="{! v.value }"
+
+                          onChange="{!c.handleChange}"
+                         
+                          />   -->
+<!-- </div> -->
+    <lightning:radioGroup
+        aura:id="mygroup"
+        name="radioButtonGroup"
+        
+        options="{! v.options }"
+        value="{! v.value }"
+        onchange="{! c.handleChange }"
+         />
+</div>
+
+<!-- <lightning:button variant="base" label="Base" title="Base action" onclick="{! c.handleChange }"/> -->
+
+
+    <hr/>
+    <div aura:id="OTP" class="slds-hide">	
+    <c:AccountOneTimePayment />
+		</div>
+
+    <div aura:id="CC" class="slds-hide">	
+        <c:AccountChangeCycle />
+    </div>            
+    <div aura:id="UPM" class="slds-hide">
+            <c:AccountUpdatePaymentMethod/>
+    </div>
+</aura:component>

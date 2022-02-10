@@ -1,0 +1,6 @@
+<aura:component controller="LeadController" implements="force:LightningQuickActionWithoutHeader" >
+    <aura:attribute name="lead" type="Lead" 
+               default="{ 'sobjectType': 'Lead' }"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <force:outputField value="{!v.Lead.Status}"/>
+</aura:component>

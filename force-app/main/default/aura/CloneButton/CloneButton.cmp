@@ -1,0 +1,15 @@
+<aura:component controller="CloneOpp" implements="force:lightningQuickActionWithoutHeader,lightning:actionOverride">
+	<ltng:require styles="/resource/SLDS202/assets/styles/salesforce-lightning-design-system.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="oppName" type="String" />
+    <aura:attribute name="typePick" type="String" />
+    <aura:attribute name="campaign" type="String" />
+  
+     <aura:dependency resource="c:createRecord"/>
+    <!-- Load the navigation events in the force namespace. -->
+    <aura:dependency resource="markup://force:*" type="EVENT"/>
+    
+    
+</aura:component>

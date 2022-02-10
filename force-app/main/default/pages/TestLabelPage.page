@@ -1,0 +1,5 @@
+<apex:page showHeader="true" sidebar="true" controller="TestLabelController" action="{!onPageLoad}">
+
+<p> <apex:outputText value="{!contingentOfferStatement}" escape="false" style="text-align: left" /> </p>
+	
+</apex:page>

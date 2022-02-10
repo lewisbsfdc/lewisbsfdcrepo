@@ -1,0 +1,20 @@
+<!--c:createComponent-->
+<aura:component  controller="FieldSetController">
+    <aura:attribute name="label" type="Aura.Component[]"/>
+    <aura:attribute name="form" type="Aura.Component[]"/>
+    <aura:attribute name="typeName" type="String"/>
+    <aura:attribute name="fsName" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+
+<!--     <p>Dynamically created button</p>
+    {!v.body}
+      <br/>  
+    <p>Dynamically created input</p>
+    {!v.label} -->
+    <br/>
+    <p>Dynamically created from Fieldset</p>
+    {!v.form}
+    
+    <lightning:button label="Get Fields" onclick="{!c.doSelectFieldSet}" class="slds-m-top_medium" />
+</aura:component>

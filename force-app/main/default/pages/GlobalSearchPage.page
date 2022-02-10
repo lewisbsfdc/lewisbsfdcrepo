@@ -1,0 +1,68 @@
+<apex:page standardController="Account"  extensions="Searchclass" tabStyle="User">  
+  <apex:form > 
+  <apex:sectionHeader title="User Global Search" subtitle="Result"/> 
+  <apex:pageBlock >
+      <apex:pageBlockSection columns="1">
+          <apex:pageBlockSectionItem >
+              <label>Quick Search</label>
+              <apex:outputPanel >
+                  <apex:inputText value="{!searchstring}" label="Input"/>
+                  <apex:commandButton value="Search records" action="{!search}" reRender="oppyPgId, accPgId, conPgId" status="ajaxId"/>
+                  &nbsp;<apex:actionStatus startText="Searching..." id="ajaxId"></apex:actionStatus>
+              </apex:outputPanel>
+          </apex:pageBlockSectionItem>
+      </apex:pageBlockSection>
+  </apex:pageBlock>
+  
+  
+
+
+
+       <apex:pageBlock title="Search Account Result" id="accPgId">
+    <apex:pageblockTable value="{!acc}" var="a">  
+      
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!a.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="Phone" >  
+       <apex:outputlink >{!a.Phone}</apex:outputlink>
+     </apex:column>
+     
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+
+    <apex:pageBlock title="Search Contact Result" id="conPgId">
+    <apex:pageblockTable value="{!con}" var="c">  
+     
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!c.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="Phone" >  
+       <apex:outputlink >{!c.Phone}</apex:outputlink>
+     </apex:column>
+    
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+   
+     <apex:pageBlock title="Search Opportunity Result" id="oppyPgId">
+   
+    <apex:pageblockTable value="{!opty}" var="o">  
+   
+     <apex:column headerValue="Name" >  
+       <apex:outputlink >{!o.Name}</apex:outputlink>
+     </apex:column> 
+     <apex:column headerValue="StageName" >  
+       <apex:outputlink >{!o.StageName}</apex:outputlink>
+     </apex:column>
+     
+    </apex:pageBlockTable>     
+   </apex:pageBlock>  
+
+
+
+
+
+
+
+      </apex:form>  
+ </apex:page>

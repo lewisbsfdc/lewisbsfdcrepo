@@ -1,0 +1,49 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" controller="SimpleServerSideController">
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="leads" type="SimpleServerSideController.LeadWrapper[]"/>
+
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer" aura:id="lead-table">
+            <thead>
+                <tr class="slds-text-title_caps">
+                    <th scope="col">
+                        <div class="slds-truncate" title="Name">Name</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Email">Email</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate slds-align_absolute-center" title="SendEmail">Send Email</div>
+                    </th>
+                </tr>
+           </thead>
+
+           <tbody>
+               <aura:iteration items="{!v.leads}" var="leads">
+                    <tr>
+                        <td data-label="Lead Name">
+                            <div class="slds-truncate" title="Name">
+                                <ui:outputText value="{!leads.led.Name}"/>
+                            </div>
+                        </td>
+                        <td data-label="Email">
+                            <div class="slds-truncate" title="Email">
+                                <ui:outputText value="{!leads.led.Email}"/>
+                            </div>
+                        </td>
+                        <td data-label="Convert">
+                            <div class="slds-truncate slds-align_absolute-center" title="Email" style="text-align:center">
+                                <ui:inputCheckbox value="{!leads.led.sendEmail}" click="{!c.toggleConvertButton}"/>
+                            </div>
+                        </td>
+                   </tr>
+               </aura:iteration>
+            </tbody>
+    	</table>
+
+
+
+    <!--<lightning:button label="CallServer" onclick="{!c.callServer}"/>
+     <lightning:button label="Send Email" onclick="{!c.sendEmail}"/> -->
+      <lightning:button label="Send Email" onclick="{!c.sendEmailHelper}"/>
+      <lightning:button label="CloseWindow" onclick="{!c.CloseWindow}"/>
+</aura:component>

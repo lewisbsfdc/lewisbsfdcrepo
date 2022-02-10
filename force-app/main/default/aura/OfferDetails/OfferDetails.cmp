@@ -1,0 +1,44 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,forceCommunity:availableForAllPageTypes,force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global" controller="OfferInitController" >
+<aura:attribute name="lstRecords" type="OfferInitController.EmailTemplateWrapper[]" access="global"/>
+<aura:attribute name="candidateId" type="String" access="global" />
+<aura:attribute name="enteredLanguage" type="String" access="global" />
+<aura:attribute name="selectedTemplateId" type="String" access="global" />
+<aura:attribute name="leadId" type="String" access="global" />
+<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+
+
+<aura:handler event="c:CandidateDetailEvent" action="{!c.handleApplicationEvent}"/>
+<aura:registerEvent name="bubblingEvent" type="c:OfferSPANotifierEvent" /> 
+
+
+    <div class="slds">
+        <div>
+          
+            <br/>
+         
+            
+            <lightning:input type="text" name="Language" aura:id="language" 
+            label="Language" placeholder="Example: Spanish"/>
+            
+            
+            <lightning:select aura:id="templateSelect" name="select1" label="Select an Email Template">
+                <option value="">choose one...</option>
+            
+                <aura:iteration items="{!v.lstRecords}"  var="rec">
+          <!--          <option value="{!rec.emailTemplateID}" text="{!rec.emailTemplateName}"></option> -->
+                    <option value="{!rec.emailTemplate.Id}" text="{!rec.name}" ></option>
+                </aura:iteration>
+            </lightning:select>
+        
+        </div>
+    
+        <br/>
+        <div>  
+            <lightning:button aura:id="button" label="Next" onclick="{!c.HandleNextClick}"/> 
+        </div> 
+
+    </div>
+
+
+</aura:component>

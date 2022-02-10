@@ -1,0 +1,1847 @@
+public without sharing class ApplicationContactController {
+
+    public User oUser {get; set;}
+    public Contact oContact {get; set;}
+    public Application__c oApplication {get; set;}
+    public List < Attachment > lstAttachments {get; set;}
+    public List < Attachment__c > lstAttachmentCons {get; set;}
+    public List < AttachmentWrapper > lstAttachmentWrap {get; set;}
+    public String Locale {get; set;}
+    public String Language {get; set;}
+    public String Country {get; set;}
+    public Boolean showAttachments {get; set;}
+    public Boolean uploadedAttachmentList {get; set;}
+    public Boolean ignoreheader {get; set;}
+    public Boolean showContactInfo {get; set;}
+    public Boolean useStates {get; set;}
+    public Map < Id, Integer > lstAttachmentMap {get; set;}
+    public List < SelectOption > LanguageSelectList {get; set;}
+    public String SourceDetailList {get; set;}
+    public String dateRegex {get; set;}
+    public String appId {get; set;}
+    public Boolean agency {get; set;}
+    public String reqName {get; set;}
+    public Id reqId {get; set;}
+    public String currentPage {get; set;}
+    public transient List < AttachmentWrapper > lstAttachment {get; set;}
+    public Integer nDelAttachIndx {get; set;}
+    public String stage {get; set;}
+    public Boolean showButton {get; set;}
+    public String datestring {get; set;}
+    // added by lb 2019-05-21
+    public String stringAddressJSON {get; set;}
+
+    public String preferPhone {get; set;}
+    public Map < String, String > preferredNationalIDTypeByCode {get; private set;}
+    public String countryCode {get; set;}
+    public String nationalIdType {get; set;}
+    public String nationalIdNumber {get; set;}
+    public boolean CACheck {get; set;}
+    public Boolean useGermanPrivacyRules {get; private set;}
+    public boolean nationalIDException {get; private set;}
+    public string employeeReferralHintText {get; private set;}
+    public String appSrc {get; set;}
+    public String appSubSrc {get; set;}
+    public boolean PortalAppState {get; set;}
+    public boolean PortalAppTerritory {get; set;}
+    public boolean PortalAppProvince {get; set;}
+    public boolean displayNIDToolTip {get; set;}
+    public boolean BGCDisclaimerFlag {get; set;}
+    public MAP < String, Boolean > ZIP_REQUIRED_BY_COUNTRYCODE_MAP {get; set;}
+    public MAP < String, String > OTHER_SOURCE_DETAILS_MAP {get; set;}
+    public DateTime dt;
+    public boolean tier1Exceptions {get; set;}
+    public boolean nacsIndiaExceptions {get; set;}
+    public String timeZoneJSONMap {get; set;}
+    public Map < String, String > timeZoneMap = new Map < String, String > ();
+    public String nationalIdExemptionCheck {get; set;}
+    public String dobExemptionCheck {get; set;}
+    //Node workflow
+    public Boolean nodeWorkflow {get; private set;}
+
+    //private variables
+    private static final MAP < String, Locale_Settings__c > LOCALE_SETTINGS_BY_KEY_MAP = HelperCollection.getLocaleSettingsByKey();
+    private Map < String, Country_Codes__c > EXEMPTION_CHECK_BY_COUNTRY = HelperCollection.getExemptionCheckByCountry();
+    private final static String BGC_DISCLAIMER = 'BGC Disclaimer';
+    private final static String NATIONAL_ID_TOOL_TIP = 'National ID Tool Tip';
+    private final static String GERMAN_PRIVACY_PROVISIONS = 'German Privacy Provisions';
+    private final static String CA_APPLICATION_PROVISIONS = 'Canadian Application Provisions';
+    private final static String NATIONAL_ID_EXCEPTION = 'National ID Exception';
+    private final static String TIER_1_EXCEPTION_PROVISIONS = 'Tier1Workflow';
+
+    private final static Map < String, String > CountryMappingList = HelperCollection.getCountryMappingList();
+
+    // Map for dynamic sources
+    private Map < String, String[] > jobSourceMap {get; set;}
+
+    //Variables used for Phone Country Select List
+    public List < SelectOption > countries {get; set;}
+
+    /*   
+     * Changes for the dynamic application contact page   
+     */
+    public static List < Dynamic_UI_Field__c > contactPageFields {get; set;} //saving the info from the DB
+
+    // Dynamic labels 
+    // there are sections i nthe visual force page where the labels are given based on certain conditions
+    // to prevent duplicting code in the page, these containers have been created
+    public string StateLabel {get; set;}
+    public string line2AddressLabel {get; set;}
+
+    // the new version
+    public AppContactField nameBox {get; set;}
+    public AppContactField preferredNameBox {get; set;}
+    public AppContactField addressLine1Box {get; set;}
+    public AppContactField firstAvailStartDate {get; set;}
+    public AppContactField addressLine2Box {get; set;}
+    public AppContactField countryStateCity {get; set;}
+    public AppContactField emailAddressBox {get; set;}
+    public AppContactField phoneBox {get; set;}
+    public AppContactField previouslyUsedName1 {get; set;}
+    public AppContactField previouslyUsedName2 {get; set;}
+    public AppContactField previouslyUsedName3 {get; set;}
+    public AppContactField birthDMVBox {get; set;}
+    public AppContactField birthDateBox {get; set;}
+    public AppContactField NIDBox {get; set;}
+
+    // SMS fields
+    public Boolean smsAgreed {get; set;}
+    public Boolean showMobilePhoneNumberChangeMessage {get; set;}
+    public Boolean showMobilePhoneRemovedMessage {get; set;}
+    public Boolean isDuplicateMobileNumber {get; set;}
+    public Boolean originalSMSEnabled {get; set;}
+    public String originalMobilePhone {get; set;}
+
+    public boolean smsWFEnabled {get; set;}
+
+    public class AppContactField {
+        public String fieldName {get; set;} // the name of the field
+        public Boolean isVisible {get; set;} // mark whether the field is visible on the page 
+        public String StyleClass {get; set;} // dynamically attribute the css class to field
+        public Boolean isRequired {get; set;} // mark whether the field is required or not
+
+        public AppContactField(String valueFieldName, Boolean valueVisible, String valueClass, Boolean valueRequired) {
+            this.fieldName = valueFieldName; // is this needed?
+            this.isVisible = valueVisible;
+            this.StyleClass = valueClass;
+            this.isRequired = valueRequired;
+        }
+    }
+    // assign default values - in case the Dynamic_UI field was not given any values
+    //  <-- i.e. everything is not visible and not required  but the email and the reference box
+    public void AssignDefaultValues() {
+        system.debug('### assigning default values for an unspecified Dynamic_UI');
+        nameBox = new AppContactField('Name', false, 'form-control input-sm ', false);
+        preferredNameBox = new AppContactField('Preferred Name', false, 'form-control input-sm', false);
+        addressLine1Box = new AppContactField('MailingStreet', false, 'form-control input-sm ', false);
+        firstAvailStartDate = new AppContactField('First Available Start Date', false, 'form-control input-sm ', false);
+        addressLine2Box = new AppContactField('Address_Line_2__c', false, 'form-control input-sm', false);
+        countryStateCity = new AppContactField('Country/State/City/Zip', false, 'form-control input-sm  ', false);
+        emailAddressBox = new AppContactField('EmailAddress', true, 'form-control input-sm', false);
+        phoneBox = new AppContactField('Phone Number', false, 'form-control input-sm', false);
+
+        previouslyUsedName1 = new AppContactField('Previously used name 1', false, 'form-control input-sm', false);
+        previouslyUsedName2 = new AppContactField('Previously used name 2', false, 'form-control input-sm', false);
+        previouslyUsedName3 = new AppContactField('Previously used name 3', false, 'form-control input-sm', false);
+        birthDMVBox = new AppContactField('Day Month of Birth ', false, 'form-control input-sm ', false);
+        birthDateBox = new AppContactField('Birth Date', false, 'form-control input-sm', false);
+        NIDBox = new AppContactField('National ID', false, 'form-control input-sm', false);
+    }
+
+    // assign the default values for a non-flexi page
+    public void AssignNonFlexiValues() {
+        system.debug('### assigning default values for a non-flexi WF');
+        nameBox = new AppContactField('Name', true, 'form-control input-sm requiredfield', true);
+        system.debug(' ### nameBox=' + nameBox);
+        preferredNameBox = new AppContactField('Preferred Name', false, 'form-control input-sm', false);
+        system.debug(' ### preferredNameBox=' + preferredNameBox);
+        addressLine1Box = new AppContactField('MailingStreet', true, 'form-control input-sm requiredfield', true);
+        system.debug(' ### addressLine1Box=' + addressLine1Box);
+        addressLine2Box = new AppContactField('Address_Line_2__c', true, 'form-control input-sm', false);
+        system.debug(' ### addressLine2Box=' + addressLine2Box);
+        countryStateCity = new AppContactField('Country/State/City/Zip', true, 'form-control input-sm  ', true);
+        system.debug(' ### countryStateCity=' + countryStateCity);
+        emailAddressBox = new AppContactField('EmailAddress', true, 'form-control input-sm requiredfield', true);
+        system.debug(' ### emailAddressBox=' + emailAddressBox);
+        phoneBox = new AppContactField('Phone Number', true, 'form-control input-sm', true);
+        system.debug(' ### phoneBox=' + phoneBox);
+
+        previouslyUsedName1 = new AppContactField('Previously used name 1', true, 'form-control input-sm', false);
+        previouslyUsedName2 = new AppContactField('Previously used name 2', true, 'form-control input-sm', false);
+        previouslyUsedName3 = new AppContactField('Previously used name 3', true, 'form-control input-sm', false);
+
+        birthDMVBox = new AppContactField('Day Month of Birth ', false, 'form-control input-sm requiredselect', false);
+        system.debug(' ### birthDMVBox=' + birthDMVBox);
+        birthDateBox = new AppContactField('Birth Date', false, 'form-control input-sm requiredselect', false);
+        system.debug(' ### birthDateBox=' + birthDateBox);
+        NIDBox = new AppContactField('National ID', false, 'form-control input-sm requiredselect', false);
+        system.debug(' ### NIDBox=' + NIDBox);
+
+        line2AddressLabel = 'PortalProfileContactAddressLine2';
+    }
+
+    // assign values for the felxi page
+    public void AssignValues() {
+        system.debug('### Retrieved contactPageFields=' + contactPageFields);
+
+        if (contactPageFields == null) {
+            //EmailAddress <-- always default
+            AssignDefaultValues();
+        }
+        if (contactPageFields.size() == 0) {
+            //EmailAddress <-- always default
+            AssignDefaultValues();
+        }
+        for (Dynamic_UI_Field__c item: contactPageFields) {
+            system.debug('###  AssignValues for flexi WF');
+            // Name Box Flexi characteristics
+            if (item.Name == 'Name') {
+                if (item.Required__c == true) {
+                    nameBox = new AppContactField('Name', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    nameBox = new AppContactField('Name', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // Preferred Name Flexi characteristics
+            else if (item.Name == 'Preferred Name') {
+                if (item.Required__c == true) {
+                    preferredNameBox = new AppContactField('Preferred Name', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    preferredNameBox = new AppContactField('Preferred Name', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // MailingStreet Box Flexi characteristics
+            else if (item.Name == 'MailingStreet') {
+                if (item.Required__c == true) {
+                    addressLine1Box = new AppContactField('MailingStreet', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    addressLine1Box = new AppContactField('MailingStreet', item.Visible__c, 'form-control input-sm', false);
+                }
+            } else if (item.name == 'First Available Start Date') {
+                if (item.Required__c == true) {
+                    firstAvailStartDate = new AppContactField('First Available Start Date', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    firstAvailStartDate = new AppContactField('First Available Start Date', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // Address_Line_2 Box Flexi characteristics
+            else if (item.Name == 'Address_Line_2__c') {
+                if (item.Required__c == true) {
+                    addressLine2Box = new AppContactField('Address_Line_2__c', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    addressLine2Box = new AppContactField('Address_Line_2__c', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // City/Country/Zip Box Flexi characteristics
+            else if (item.Name == 'Country/State/City/Zip') {
+                if (item.Required__c == true) {
+                    countryStateCity = new AppContactField('Country/State/City/Zip', item.Visible__c, 'form-control input-sm requiredselect requiredfield', true);
+                } else {
+                    countryStateCity = new AppContactField('Country/State/City/Zip', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // EmailAddress Box Flexi characteristics
+            if (item.Name == 'EmailAddress') {
+                if (item.Required__c == true) {
+                    emailAddressBox = new AppContactField('EmailAddress', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    emailAddressBox = new AppContactField('EmailAddress', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // Phone Number Box Flexi characteristics
+            if (item.Name == 'Phone Number') {
+                if (item.Required__c == true) {
+                    phoneBox = new AppContactField('Phone Number', item.Visible__c, 'form-control input-sm requiredaltphone', true);
+                } else {
+                    phoneBox = new AppContactField('Phone Number', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // Previously used name Box Flexi characteristics
+
+            if (item.Name == 'Previously used name 1') {
+                if (item.Required__c == true) {
+                    previouslyUsedName1 = new AppContactField('Previously used name 1', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    previouslyUsedName1 = new AppContactField('Previously used name 1', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            if (item.Name == 'Previously used name 2') {
+                if (item.Required__c == true) {
+                    previouslyUsedName2 = new AppContactField('Previously used name 2', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    previouslyUsedName2 = new AppContactField('Previously used name 2', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            if (item.Name == 'Previously used name 3') {
+                if (item.Required__c == true) {
+                    previouslyUsedName3 = new AppContactField('Previously used name 3', item.Visible__c, 'form-control input-sm requiredfield', true);
+                } else {
+                    previouslyUsedName3 = new AppContactField('Previously used name 3', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // Day Month of Birth Box Flexi characteristics
+            if (item.Name == 'Birth Date') {
+                if (item.Required__c == true) {
+                    birthDMVBox = new AppContactField('Birth Date', item.Visible__c, 'form-control input-sm requiredselect', true);
+                } else {
+                    birthDMVBox = new AppContactField('Birth Date', item.Visible__c, 'form-control input-sm', false);
+                }
+            }
+            // Date of Birth Box Flexi characteristics
+            if (item.Name == 'Date of Birth') {
+                if (item.Required__c == true) {
+                    birthDateBox = new AppContactField('Date of Birth', item.Visible__c, 'form-control input-sm requiredfield makeItDatePicker', true);
+                } else {
+                    birthDateBox = new AppContactField('Date of Birth', item.Visible__c, 'form-control input-sm makeItDatePicker', false);
+                }
+            }
+            // National ID Box Flexi characteristics
+            system.debug('### item.Name=' + item.Name);
+            if (item.Name == 'National ID') {
+                if (item.Required__c == true) {
+                    NIDBox = new AppContactField('National ID', item.Visible__c, 'form-control input-sm requiredselect', true);
+                } else {
+                    NIDBox = new AppContactField('National ID', item.Visible__c, 'form-control input-sm ', false);
+                }
+            }
+
+        }
+    }
+
+    /*
+     * end changes for dynamic contact page
+     */
+    public String previousPage {get; set;}
+    //flexible workflow - begin
+    public boolean isFlex {get; set;}
+    public Country_Mapping__c reqCntry {get; set;}
+    private map < string, string > validCountrySettings {get; set;}
+    //flexible workflow - end
+
+    public String NIDHelpText {get; set;}
+
+    void SetDynamicRules() {
+        // based on the values of key boolean values, we determine the style class and whether the field is required or not
+        // these are set up here as oppsed to the page to prevent having conflicting conditions when rendering the page
+        // according to legal requirements, rules that are set up for specific workflows - e.g. India, Canada can override the conditions that are set up in the Dynamic_UI object
+        // i.e. if a field should appear for a specific country, but was not marked so in the dynamic_UI objec
+        // these rules are mostly for non-flexi
+
+        if (CACheck == true) {
+            preferredNameBox.isVisible = true;
+            preferredNameBox.isRequired = false;
+            preferredNameBox.StyleClass = 'form-control input-sm';
+
+            NIDBox.isVisible = true;
+            NIDBox.isRequired = true;
+            NIDBox.StyleClass = 'form-control input-sm requiredselect';
+
+        }
+        if (tier1Exceptions == true) {
+            previouslyUsedName1.isVisible = false;
+            previouslyUsedName2.isVisible = false;
+            previouslyUsedName3.isVisible = false;
+        }
+
+        if (!tier1Exceptions && !isFlex) {
+            previouslyUsedName1.isVisible = true;
+            previouslyUsedName2.isVisible = true;
+            previouslyUsedName3.isVisible = true;
+
+        }
+        if (nacsIndiaExceptions == true) {
+            phoneBox.isVisible = true;
+            phoneBox.isRequired = true;
+            phoneBox.StyleClass = 'form-control input-sm requiredaltphone';
+        }
+
+        if (nationalIdExemptionCheck == 'Optional') {
+            NIDBox.isVisible = true;
+            NIDBox.isRequired = false;
+            NIDBox.StyleClass = 'form-control input-sm';
+
+            // displayNIDToolTip
+            if (displayNIDToolTip == true) {
+                //title="{!$Label.SelectNationalIdType}" />
+                NIDHelpText = 'SelectNationalIdType';
+            } else {
+                //title="{!$Label.NationalIDTypeHelpText}" />
+                NIDHelpText = 'NationalIDTypeHelpText';
+            }
+        }
+        if (dobExemptionCheck == 'Alternate') {
+            birthDMVBox.isVisible = true;
+            birthDMVBox.isRequired = true;
+            birthDMVBox.StyleClass = 'form-control input-sm requiredselect';
+        }
+
+        if (nationalIdExemptionCheck == 'No' && !tier1Exceptions) {
+            NIDBox.isVisible = true;
+            NIDBox.isRequired = true;
+            NIDBox.StyleClass = 'form-control input-sm requiredselect';
+
+            if (displayNIDToolTip == true) {
+                //title="{!$Label.NationalIDTypeHelpText}" {!$Label[StateLabel]}
+                NIDHelpText = 'NationalIDTypeHelpText';
+            } else {
+                //title="{!$Label.SelectNationalIdType}"
+                NIDHelpText = 'SelectNationalIdType';
+            }
+        }
+
+    }
+
+    public SelectOption[] getJobSourcePrimaryOptions() {
+
+        JobSourceHelper jsh = new JobSourceHelper();
+        SelectOption[] options = new List < SelectOption > ();
+        options.add(new SelectOption('', ''));
+        for (String s: jobSourceMap.keySet()) {
+            options.add(new SelectOption(s, jsh.getTranslatedPrimary(s)));
+        }
+        options.sort();
+        return options;
+    }
+
+    public SelectOption[] getJobSourceDetailOptions() {
+
+        SelectOption[] options = new List < SelectOption > ();
+        options.add(new SelectOption('', ''));
+        JobSourceHelper jsh = new JobSourceHelper();
+
+        if (jobSourceMap.containsKey(appSrc)) {
+            for (String s: jobSourceMap.get(appSrc)) {
+                options.add(new SelectOption(s, jsh.getTranslatedDetail(s)));
+            }
+        }
+        options.sort();
+        return options;
+    }
+
+    public ApplicationContactController() {
+        AssignDefaultValues();
+        line2AddressLabel = 'PortalProfileContactAddressLine2';
+        // the address line 2 label varies depending on useGermanPrivacyRules; 
+        // !useGermanPrivacyRules Label.PortalProfileContactAddressLine2
+        // useGermanPrivacyRules PortalProfileContactAddress2
+
+        /* initializations */
+        isFlex = false; // mark wheher the workflow is Flexi or not
+        nationalIDException = false;
+
+        validCountrySettings = new map < string, string > ();
+        dateRegex = '[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}';
+
+        //Default Initialization of the Exemption Check
+        nationalIdExemptionCheck = 'No'; // validate that the NID is needed
+        dobExemptionCheck = 'No'; //validate that the dob is needed
+
+        //Get list of all Timezone Picklist entries in a Map and passing to VF (JSON)
+        Schema.DescribeFieldResult fieldResult = Account.Time_Zone__pc.getDescribe();
+        List < Schema.PicklistEntry > ple = fieldResult.getPicklistValues();
+        List < String > lstPickvals = new List < String > ();
+        for (Schema.PicklistEntry a: ple) {
+            lstPickvals.add(a.getValue()); //add the value  to our list
+        }
+        for (String tzple: lstPickvals) {
+            String partialkey = tzple.substringAfterLast('(');
+            String key = partialkey.remove(')');
+            timeZoneMap.put(key, tzple);
+        }
+
+        //Adding exception values like India/calcutta
+        timeZoneMap.put('Asia/Calcutta', '(GMT+05:30) India Standard Time (Asia/Kolkata)');
+
+        String euVal = timeZoneMap.get('Africa/Algiers');
+        //Keeping only one time zone for all GMT+01:00 timezones
+        timeZoneMap.put('Europe/Amsterdam', euVal);
+        timeZoneMap.put('Europe/Berlin', euVal);
+        timeZoneMap.put('Europe/Brussels', euVal);
+        timeZoneMap.put('Europe/Paris', euVal);
+        timeZoneMap.put('Europe/Prague', euVal);
+        timeZoneMap.put('Europe/Rome', euVal);
+
+        String gmtVal = timeZoneMap.get('GMT');
+        //Keeping only one time zone for all GMT+00:00 timezones
+        timeZoneMap.put('Africa/Casablanca', gmtVal);
+        timeZoneMap.put('Europe/Dublin', gmtVal);
+        timeZoneMap.put('Europe/Lisbon', gmtVal);
+        timeZoneMap.put('Europe/London', gmtVal);
+
+        timeZoneJSONMap = JSON.serialize(timeZoneMap);
+
+        //Application__c oapplication;
+        if (PortalUserUtil.isAuthenticated()) {
+
+            // state label 
+            PortalAppState = false;
+            PortalAppTerritory = false;
+            PortalAppProvince = false;
+
+            // initializations
+            BGCDisclaimerFlag = false; // determines whether you shou the disclaimer for PortalUSNationalIdNotification; used for both flexi & non-flexi
+            CACheck = false;
+            nationalIDException = false;
+
+            appId = ApexPages.CurrentPage().getParameters().get('appId');
+            // Added to validate that the page is being called from Review
+            stage = ApexPages.CurrentPage().getParameters().get('stage');
+
+            //Fetching ZIP code required or not values
+            ZIP_REQUIRED_BY_COUNTRYCODE_MAP = HelperCollection.getZipCodeRequiredByCountryCode();
+
+            // Fetching Other Source Details
+            OTHER_SOURCE_DETAILS_MAP = HelperCollection.getOtherSourceDetails();
+
+            //National Id tool tip required or not
+            displayNIDToolTip = false;
+
+            //Tier 1 workflow exceptions
+            tier1Exceptions = false;
+
+            //nacsIndia Exceptions
+            nacsIndiaExceptions = false;
+
+            lstAttachmentWrap = new List < AttachmentWrapper > ();
+
+            // Determine if agency requisition
+            agency = false;
+            if (ApexPages.currentPage().getParameters().containsKey('agency')) {
+                if (ApexPages.currentPage().getParameters().get('agency') == '1') {
+                    agency = true;
+                }
+            }
+            if (appId != null) {
+                oapplication = [SELECT Requisition__c,
+                    Requisition__r.Name,
+                    Requisition__r.Workflow__r.Name,
+                    Requisition__r.Workflow__c,
+                    Requisition__r.Req_Posting_Status__c,
+                    Requisition__r.Workflow__r.Workflow_Extras__c,
+                    Requisition__r.Country__c,
+                    step__c, substep__c,
+
+                    //Flexible Workflow - begin
+                    Requisition__r.Hiring_Function__c,
+                    Requisition__r.Country_Mapping__c,
+                    Requisition__r.Country_Mapping__r.Attachments_Enabled__c,
+                    Requisition__r.requisition_function__c,
+                    Requisition__r.Requisition_Function_Text__c,
+                    Step_Substep__c,
+                    Workflow__c,
+                    Workflow__r.SMSEnabled__c,
+                    //Flexible Workflow - end
+                    //HVHSF-1092
+                    Requisition__r.RecordType.DeveloperName,
+                    // dynamic sources
+                    Requisition__r.Requisition_Category__c,
+                    Location_Country__c,
+                    Requisition_Function__c
+                    // dynamic sources -- end
+                    FROM Application__c
+                    WHERE Id =: appId
+                ];
+
+                reqId = oapplication.Requisition__c;
+                smsWFEnabled = oapplication.Workflow__r.SMSEnabled__c;
+                // HVHSF-1092
+                nodeWorkflow = oapplication.Requisition__r.RecordType.DeveloperName.toLowerCase().contains('node');
+
+                reqId = oapplication.Requisition__c;
+                smsWFEnabled = oapplication.Workflow__r.SMSEnabled__c;
+
+                //flexible workflow - begin
+                isFlex = PortalUserUtil.isFlexibleWorkflow(oApplication);
+                system.debug('### In ApplicationContactController  isFlex=' + isFlex);
+
+                id cMap = oApplication.Requisition__r.Country_Mapping__c;
+                if (cMap != null) {
+                    reqCntry = HelperCollection.getCountryConfigurations().get(cMap);
+                    validCountrySettings = PortalUserUtil.getCountryMapValidValues(reqCntry, oApplication.Requisition__r.Country_Mapping__c);
+                }
+
+                /*Getting the values of the national Id Check and DOB Check.
+                          It will validate whether NID and DOB are required or not (or optional).
+                        */
+                if (oApplication.Requisition__c != null &&
+                    oApplication.Requisition__r.Country__c != null &&
+                    EXEMPTION_CHECK_BY_COUNTRY.containskey(oApplication.Requisition__r.Country__c)) {
+
+                    nationalIdExemptionCheck = EXEMPTION_CHECK_BY_COUNTRY.get(oApplication.Requisition__r.Country__c).National_Id_Exempted__c;
+                    dobExemptionCheck = EXEMPTION_CHECK_BY_COUNTRY.get(oApplication.Requisition__r.Country__c).Date_of_Birth_Exempted__c;
+
+                }
+                //flexible workflow - end
+                if (!isFlex) {
+                    // Non-flexible Workflow conditions 
+                    AssignNonFlexiValues();
+
+                    // --------- JIRA 2070 (START) ---------
+                    // decide whether to display StateLabel as State, Territory or Province
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase('PortalAppState')) {
+                        StateLabel = 'PortalAppState';
+                        PortalAppState = true;
+                    }
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase('PortalAppTerritory')) {
+                        StateLabel = 'PortalAppTerritory';
+                        PortalAppTerritory = true;
+                    }
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase('PortalAppProvince')) {
+                        StateLabel = 'PortalAppProvince';
+                        PortalAppProvince = true;
+                    }
+                    system.debug('### In ApplicationContactController  StateLabel=' + StateLabel);
+                    // ----------- JIRA 2070 (END) -----------
+
+                    // BGCDisclaimerFlag
+                    BGCDisclaimerFlag = oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase(BGC_DISCLAIMER) ? true : false;
+                    if (BGCDisclaimerFlag && oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase(CA_APPLICATION_PROVISIONS)) {
+                        BGCDisclaimerFlag = false;
+                    }
+
+                    // non-flexi Canada rule, CACheck, based on workflow extras
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase(CA_APPLICATION_PROVISIONS)) {
+                        CACheck = true;
+                    }
+
+                    // nationalIDException based on workflow extras
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase(NATIONAL_ID_EXCEPTION)) {
+                        nationalIDException = true;
+                    }
+
+                    //Set tier1Exceptions flag based on workflow extras
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase(TIER_1_EXCEPTION_PROVISIONS)) {
+                        tier1Exceptions = true;
+                    }
+
+                    //Set nacsIndiaExceptions flag based on workflow extras
+                    if (oapplication.Requisition__r.Workflow__r.Name != null &&
+                        oapplication.Requisition__r.Workflow__r.Name.containsIgnoreCase('NACS-IN Hiring Workflow')) {
+                        nacsIndiaExceptions = true;
+                    }
+
+                    //Set National Id Tool Tip
+                    if (oapplication.Requisition__r.Workflow__r.Workflow_Extras__c != null &&
+                        oapplication.Requisition__r.Workflow__r.Workflow_Extras__c.containsIgnoreCase(NATIONAL_ID_TOOL_TIP)) {
+                        displayNIDToolTip = true;
+                    }
+
+                    // determine the Dynamic_Ui AppContactField rules based on the Workflow Extras marked above
+                    SetDynamicRules();
+
+                } else {
+                    try {
+                        // code for the dynamic contact application for flexi
+                        Workflow_Step__c idAppWorkflow = [SELECT Id FROM Workflow_Step__c
+                            WHERE Workflow__c =: oapplication.Workflow__c
+                            AND Substep__c = 'Contact Information'
+
+                            LIMIT 1
+                        ];
+
+                        contactPageFields = [SELECT Name, Required__c, Visible__c
+                            FROM Dynamic_UI_Field__c
+                            WHERE Workflow_Step__c =: idAppWorkflow.Id
+                            AND Visible__c = true
+
+                        ];
+                        system.debug('### Current workflow step=' + idAppWorkflow.Id);
+                        system.debug('### contactPageFields = ' + contactPageFields);
+                        AssignValues();
+                        // end code for dynamic contact application for flexi
+                    } catch (Exception e) {
+                        system.debug('### Excaption realted to the dynamic UI: ' + e);
+                    }
+                    tier1Exceptions = true;
+                    //flexible workflow - begin
+                    if (validCountrySettings != null && isFlex) {
+
+                        if (validCountrySettings.get(CA_APPLICATION_PROVISIONS) != null) {
+                            CACheck = true;
+                        }
+                        if (validCountrySettings.get(BGC_DISCLAIMER) != null && !CACheck) {
+                            BGCDisclaimerFlag = true;
+                        } else {
+                            BGCDisclaimerFlag = false;
+                        }
+                        if (validCountrySettings.get('Portal State Label Display') != null) {
+                            if (validCountrySettings.get('Portal State Label Display') == 'State') {
+                                PortalAppState = true;
+                                StateLabel = 'PortalAppState';
+                            } else if (validCountrySettings.get('Portal State Label Display') == 'Territory') {
+                                PortalAppTerritory = true;
+                                StateLabel = 'PortalAppTerritory';
+                            } else if (validCountrySettings.get('Portal State Label Display') == 'Province') {
+                                PortalAppProvince = true;
+                                StateLabel = 'PortalAppProvince';
+                            }
+                        }
+                        if (validCountrySettings.get(NATIONAL_ID_EXCEPTION) != null) {
+                            nationalIDException = true;
+                        } else {
+                            nationalIDException = false;
+                        }
+                        if (validCountrySettings.get(NATIONAL_ID_TOOL_TIP) != null) {
+                            displayNIDToolTip = true;
+                        } else {
+                            displayNIDToolTip = false;
+                        }
+                        if (validCountrySettings.get('Country Code') == 'IN') {
+                            nacsIndiaExceptions = true;
+                        }
+                        ELSE {
+                            nacsIndiaExceptions = false;
+                        }
+                    }
+                    //flexible workflow - end
+                }
+            }
+            currentPage = PortalUserUtil.getCurrentPageString(ApexPages.currentPage().getUrl());
+            Locale = PortalUserUtil.getLocaleSidKey();
+            LanguageSelectList = PortalUserUtil.getLanguageSelectList();
+            stage = ApexPages.CurrentPage().getParameters().get('stage');
+            system.debug('The value of stage is:' + stage);
+            countries = PhoneCountryCodeSelectListController.getProperList();
+
+            if (stage == null && !tier1Exceptions) {
+                showAttachments = true;
+                showContactInfo = false;
+                showButton = true;
+            }
+            //review if contact needs to be shown for flex personal information page
+            if ((stage != null && stage == 'Contact') || tier1Exceptions || isFlex) {
+                showAttachments = false;
+                showContactInfo = true;
+                showButton = true;
+            }
+            if (stage != null && stage == 'Attach') {
+                showAttachments = true;
+                showContactInfo = false;
+                showButton = false;
+            }
+
+            if (stage == null && isFlex) {
+                showAttachments = true;
+                showContactInfo = false;
+                showButton = false;
+            }
+
+            if (stage == null && isFlex &&
+                currentPage != null && currentPage.equalsIgnoreCase('ApplicationPersonalInformation')) {
+                showAttachments = false;
+                showContactInfo = true;
+                showButton = false;
+            }
+            //HVHSF-1092
+            if (isFlex && nodeWorkflow) {
+                //showAttachments = oapplication.Requisition__r.Attachments_Section_Visible__c;
+                //nals CAS Srinivas
+                showAttachments =
+                    (oapplication.Requisition__r.Country_Mapping__r.Attachments_Enabled__c != null &&
+                        (oapplication.Requisition__r.Country_Mapping__r.Attachments_Enabled__c.contains(oapplication.Requisition__r.Requisition_Function_Text__c) ||
+                            oapplication.Requisition__r.Country_Mapping__r.Attachments_Enabled__c == 'All'));
+
+                showContactInfo = !showAttachments;
+                showButton = showContactInfo;
+            }
+            List < Locale_Settings__c > localesList = Locale_Settings__c.getAll().values();
+            for (Locale_Settings__c l: localesList) {
+                if (Locale == l.LocaleSidKey__c) {
+                    Language = l.Name;
+                    Country = l.Country__c;
+                    useStates = l.Use_States__c;
+                    break;
+                }
+            }
+
+            if (nacsIndiaExceptions) {
+                Locale = 'en_IN';
+                Language = 'English';
+            }
+
+            system.debug('req@@' + reqid);
+            system.debug('lang@@' + language);
+            try {
+                reqName = [Select id, Name from Job_Description__c where Requisition__c =: reqId AND Language__c =: language].Name;
+            } catch (Exception ex) {
+                reqName = oapplication.requisition__r.name;
+            }
+            system.debug(reqName);
+            for (User usr: [SELECT Id, UserType, ContactId, AccountId, LanguageLocaleKey, LocaleSidKey FROM User WHERE Id =: UserInfo.getUserId() LIMIT 1]) {
+                oUser = usr;
+                Language = oUser.LocaleSidKey;
+            }
+
+            for (Contact con: [Select Id, Name, Email, firstName, lastName, Birthdate, Country_Code_PS__c, First_Available_Start_Date__c,
+                    MailingPostalCode, MailingState, MailingCountry, MailingCity, MailingStreet, Home_Phone_Country_Code__c, Phone, Home_Phone_Country_Iso2__c, OtherPhone, Mobile_Phone_Country_Code__c, Mobile_Phone_Country_Iso2__c, MobilePhone, MailingCountryCode, MailingStateCode,
+                    Previously_Used_Full_Name_3__c, Previously_Used_Full_Name_2__c, Previously_Used_Full_Name_1__c, Suffix__c, Salutation, Middle_Name__c,
+                    National_ID_Type__c, Time_Zone__c, National_ID_Social_Security_Number__c, Address_Line_2__c, Preferred_Phone_Number__c,
+                    Birth_Month_Text__c, Birth_Day_Text__c, Bypass_Birthday_Required__c, Preferred_First_Name__c, Active_Canada_Application__c, Exclusive_National_Id_Exception__c, Current_App_National_ID_Exception__c, SMSEnabled__c, SMS_Enabled_Reply__c,
+                    (Select Id, Requisition__r.Name, Requisition__r.Location_Code__c, Requisition_ID__c, Requisition__r.Location_Code__r.Country__c, Requisition__r.Location_Code__r.State__c, Requisition__r.Location_Code__r.City__c,
+                        Requisition__r.Workflow__r.Name, Requisition__r.Req_Posting_Status__c, Source_Primary__c,
+                        Source_Details__c, Source_Other__c, Workflow__c, Workflow__r.Workflow_Extras__c, Step__c, Substep__c,
+                        Requisition__r.Location_Code__r.Location_Country_Code__c, Location_Country__c,
+                        //Flexible Workflow - begin
+                        Requisition__r.Hiring_Function__c,
+                        Requisition__r.Country_Mapping__c,
+                        Requisition__r.requisition_function__c,
+                        Requisition__r.Requisition_Category__c,
+                        Step_Substep__c
+                        //Flexible Workflow - end             
+                        From Applications__r Where Id =: appId)
+                    From Contact
+                    Where Id =: oUser.ContactId
+                ]) {
+                oContact = con;
+                preferPhone = (oContact.Preferred_Phone_Number__c != null) ? oContact.Preferred_Phone_Number__c : null;
+                originalMobilePhone = oContact.MobilePhone;
+                smsAgreed = PortalUserUtil.candidateOptedInForSms(oContact);
+                originalSMSEnabled = smsAgreed;
+                
+                if (String.isNotBlank(oContact.Mobile_Phone_Country_Iso2__c) && oContact.Mobile_Phone_Country_Code__c == null) {
+                    oContact.Mobile_Phone_Country_Code__c = PhoneCountryCodeSelectListController.getPhoneCountryCodeFromIso2Code(oContact.Mobile_Phone_Country_ISO2__c);
+                }
+
+                if (String.isNotBlank(oContact.Home_Phone_Country_Iso2__c) && oContact.Home_Phone_Country_Code__c == null) {
+                    oContact.Home_Phone_Country_Code__c = PhoneCountryCodeSelectListController.getPhoneCountryCodeFromIso2Code(oContact.Home_Phone_Country_Iso2__c);
+                }
+
+
+                if (con.Applications__r.size() > 0) {
+                    oApplication = con.Applications__r[0];
+                }
+            }
+            if (oContact.Applications__r.size() > 0) {
+                oApplication = oContact.Applications__r[0];
+                if (nacsIndiaExceptions) {
+                    if (oContact.Birthdate != null) {
+                        dt = DateTime.newInstance(oContact.Birthdate.year(), oContact.Birthdate.month(), oContact.Birthdate.day());
+                        datestring = dt.format('dd/MM/yyyy');
+                    }
+                }
+            }
+
+            useGermanPrivacyRules = false;
+            if (oApplication.Workflow__r.Workflow_Extras__c != null && oApplication.Workflow__r.Workflow_Extras__c.containsIgnoreCase(GERMAN_PRIVACY_PROVISIONS)) {
+                useGermanPrivacyRules = true;
+                line2AddressLabel = 'PortalProfileContactAddressLine2';
+                system.debug('### line2AddressLabel changed = ' + line2AddressLabel);
+            }
+
+            SourceDetailList = '';
+            List < Source_Detail_For_Other_Box__c > sdetailList = Source_Detail_For_Other_Box__c.getAll().values();
+            for (Source_Detail_For_Other_Box__c s: sdetailList) {
+                if (s.Name != null) {
+                    SourceDetailList += s.Name + ',';
+                }
+            }
+            SourceDetailList = SourceDetailList.removeEnd(',');
+
+        }
+
+        //Attachment Stuff
+        setupAttachment();
+
+        preferredNationalIDTypeByCode = HelperCollection.getPreferredNationIdTypeByCode();
+        system.debug('preferredNationalIDTypeByCode: ' + preferredNationalIDTypeByCode);
+
+        if (oContact.National_ID_Social_Security_Number__c == oApplication.Requisition_ID__c) {
+            oContact.addError('Error:' + Label.NIDDupValidationError);
+        }
+        //anand commented out the below - check
+        //previousPage =    PortalUserUtil.getPreviousWorkflowStepInWorkflow(oApplication,currentPage).Portal_Page_Text__c;
+        try {
+            previousPage = PortalUserUtil.getPreviousWorkflowStepInWorkflow(oApplication, currentPage).Portal_Page_Text__c;
+        } catch (exception e) {
+            previousPage = '';
+        }
+        // Defaulting the country to the requistion.
+        try {
+            if (oContact.MailingCountryCode == null) {
+                oContact.MailingCountryCode = CountryMappingList.get(oApplication.Requisition__r.Location_Code__r.Location_Country_Code__c);
+            }
+        } catch (exception e) {
+
+        }
+
+        //dynamic sources
+        jobSourceHelper jsh = new JobSourceHelper();
+        jobSourceMap = new Map < String, String[] > ();
+        jobSourceMap = jsh.getSecondaryByPrimaryMap(oApplication.Location_Country__c, oApplication.Requisition__r.Requisition_Category__c);
+
+        appSrc = oApplication.Source_Primary__c;
+        appSubSrc = oApplication.Source_Details__c;
+        //dynamic sources -- end
+
+        // Set default SMS message variables
+        showMobilePhoneNumberChangeMessage = false;
+        showMobilePhoneRemovedMessage = false;
+        isDuplicateMobileNumber = PortalUserUtil.isDuplicateMobilePhone(oContact.MobilePhone, oContact.Id);
+        
+        setNationalIdType(oContact);
+    }
+
+    public static void setNationalIdType(Contact oContact) {
+        List < Country_Codes__c > codes = Country_Codes__c.getall().values();
+
+        for (Country_Codes__c code: codes) {
+            if (code.PeopleSoft_Country_Code__c == oContact.Country_Code_PS__c) {
+                oContact.National_ID_Type__c = code.Preferred_National_ID_Type__c;
+                return;
+            }
+        }
+    }
+
+    public void setupAttachment() {
+
+        ignoreheader = true;
+        lstAttachments = new List < Attachment > ();
+        lstAttachmentWrap = new List < AttachmentWrapper > ();
+        lstAttachmentCons = new List < Attachment__c > ([
+            select id, Candidate__c, Application__c, Document_Title__c, AttachmentId__c,
+            (select id, name, Description, ParentId, ContentType from Attachments)
+            from Attachment__c
+            where candidate__c =: oContact.Id
+            order by createdDate ASC
+        ]);
+
+        if (lstAttachmentCons.size() > 0) {
+            uploadedAttachmentList = true;
+            for (Attachment__c customAtt: lstAttachmentCons) {
+                system.debug('The value of customAtt is :' + customAtt);
+                for (Attachment att: customAtt.Attachments) {
+                    AttachmentWrapper wrapp = new AttachmentWrapper(att, customAtt);
+                    system.debug('the value of wrap is:' + wrapp.attachmentConnector.Document_Title__c);
+                    lstAttachmentWrap.add(wrapp);
+                    lstAttachments.add(att);
+                }
+            }
+        }
+
+    }
+    public List < SelectOption > getPhoneOptions() {
+        // the values for the PreferPhone drop down
+        List < SelectOption > options = new List < SelectOption > ();
+        options.add(new SelectOption('Mobile Phone', Label.PortalProfileContactAlternatePhone));
+        options.add(new SelectOption('Home Phone', Label.AlternatePhone));
+        return options;
+    }
+
+    public String getpreferPhone() {
+
+        return preferPhone;
+    }
+
+    public void setpreferPhone(String preferPhone) {
+        this.preferPhone = preferPhone;
+    }
+
+    public void setWirelessCarrier() {
+        update new Contact(
+            Id = oContact.Id,
+            Mobile_Phone_Carrier__c = ApexPages.currentPage().getParameters().get('wirelesscarrier')
+        );
+    }
+
+    @RemoteAction
+    public static PinpointServices.PP_NumberValidateResponse validateMobilePhoneWithPinpointRA(
+        String phoneNumber,
+        String countryIso2Code
+    ) {
+
+        try {
+            // Do not execute the Pinpoint integration if either of the following conditions are true.
+            // Note, that the PinPoint integration is not executed when the Mobile number contains alpha
+            // characters because the Contact validation rule will handle the exception in this scenario
+            if (String.isBlank(phoneNumber) || String.isBlank(countryIso2Code) || !phoneNumber.isNumeric()) {
+                return null;
+            }
+
+            // Execute call to Pinpoint Number Validate API
+            Decimal countryCode = PhoneCountryCodeSelectListController.getPhoneCountryCodeFromIso2Code(countryIso2Code);
+            String phoneNumberWithCountryCode = String.valueOf(countryCode) + phoneNumber;
+            PinpointServices.PP_NumberValidateResponse response =
+                PinpointServices.PP_NumberValidateRequest_SendReq(countryIso2Code, phoneNumberWithCountryCode);
+
+            // Set validation properties within response object and return
+            response.setMobileProperties();
+
+            return response;
+        } catch (Exception e) {
+            PinpointServices.addError(countryIso2Code, phoneNumber, null, 'ApplicationContactController', null, e);
+        }
+
+        return null;
+    }
+
+    private void validatePhoneNumbersHaveCountryCodes() {
+        Boolean homePhoneInvalid = String.isNotBlank(oContact.Phone) && oContact.Home_Phone_Country_Code__c == null;
+        Boolean mobilePhoneInvalid = String.isNotBlank(oContact.MobilePhone) && oContact.Mobile_Phone_Country_Code__c == null;
+
+        if (homePhoneInvalid || mobilePhoneInvalid) {
+            throw new ApplicationContactControllerException(Label.Require_Country_Code);
+        }
+    }
+
+    private void validatePostalCode() {
+        // Check Postal Code validity
+        // Note : some countries don't require postal codes, this is handled in the page JavaScript.
+        //        If one's provide we're checking it, otherwise ignore
+        if (!CandidateHelper.isValidPostalCode(oContact.MailingPostalCode)) {
+            throw new ApplicationContactControllerException(Label.PostalCodeInstructions);
+        }
+    }
+
+    public PageReference doSave(String path) {
+
+        Locale_Settings__c localeSetting = LOCALE_SETTINGS_BY_KEY_MAP.get(language);
+
+
+        try {
+            //Require Phone Country Code if Phone is entered
+            validatePhoneNumbersHaveCountryCodes();
+
+            validatePostalCode();
+
+            // Update contact record
+            // Remove any charactersfrom the Phone Numbers - Laila
+            if (!String.isBlank(oContact.Phone)) {
+                oContact.Phone = oContact.Phone.replaceAll('[^0-9]', '');
+            }
+            if (!String.isBlank(oContact.OtherPhone)) {
+                oContact.OtherPhone = oContact.OtherPhone.replaceAll('[^0-9]', '');
+            }
+            if (!String.isBlank(oContact.MobilePhone)) {
+                oContact.MobilePhone = oContact.MobilePhone.replaceAll('[^0-9]', '');
+            }
+
+            oContact.Contact_Profile_Submitted__c = true;
+            oContact.Preferred_Phone_Number__c = preferPhone;
+            oContact.Active_Canada_Application__c = CACheck;
+            oContact.Current_App_National_ID_Exception__c = false;
+            oContact.Bypass_Birthday_Required__c = false;
+            oContact.Current_App_National_ID_Exception__c = (nationalIdExemptionCheck == 'Yes' || nationalIdExemptionCheck == 'Optional') ? true : false;
+            
+            if (smsAgreed) {
+                oContact.SMSEnabled__c = smsAgreed;
+            } else {
+                oContact.SMS_Enabled_Reply__c = 'Opted Out';
+            }
+            
+            if (!originalSMSEnabled && oContact.SMSEnabled__c) {
+                oContact.SMS_Opt_In_Requested_On__c = DateTime.now();
+            }
+
+            //flexible workflow - begin
+            if (!isFlex) {
+                if (!oContact.Exclusive_National_Id_Exception__c) {
+                    oContact.Exclusive_National_Id_Exception__c = CandidateHelper.isExclusive_NationalIdException(oApplication);
+                }
+
+                //For Optional NID - If no NID entered, set NID Type to NULL upon save
+                if (nationalIdExemptionCheck == 'Yes' ||
+                    (nationalIdExemptionCheck == 'Optional' &&
+                        (oContact.National_ID_Social_Security_Number__c == '' ||
+                            oContact.National_ID_Social_Security_Number__c == null))) {
+                    oContact.National_ID_Type__c = null;
+                }
+                Map < String, Double > subStepOrderMap = new Map < String, Double > ();
+                List < Workflow_Step__c > tier1WorkflowSteps = PortalUserUtil.getBackgroundCheckInfoWorkflowSteps(oapplication);
+                for (Workflow_Step__c ws: tier1WorkflowSteps) {
+                    subStepOrderMap.put(ws.Substep__c, ws.Order__c);
+                }
+
+                if (oapplication.Workflow__r.Workflow_Extras__c.containsIgnoreCase(TIER_1_EXCEPTION_PROVISIONS) &&
+                    currentPage.containsIgnoreCase('ApplicationContact') || dobExemptionCheck != 'No') {
+                    oContact.Current_App_National_ID_Exception__c = true;
+                    oContact.Bypass_Birthday_Required__c = true;
+                }
+            } else {
+                if (currentPage.containsIgnoreCase('ApplicationContact')) {
+                    //CS Columbia- If no NID entered, set NID Type to NULL upon save
+                    if (oContact.National_ID_Social_Security_Number__c == '' ||
+                        oContact.National_ID_Social_Security_Number__c == null) {
+                        oContact.National_ID_Type__c = null;
+                    }
+                    oContact.Current_App_National_ID_Exception__c = true;
+                    oContact.Bypass_Birthday_Required__c = true;
+                }
+
+            }
+            //flexible workflow - end
+            if (nacsIndiaExceptions && datestring != null) {
+                oContact.Birthdate = DateTimeUtil.getFormattedDate(datestring);
+            }
+
+            String FnLName = oContact.firstName + ' ' + oContact.lastName;
+            FnLName = FnLName.trim();
+            //ignore case
+            if (oContact.Previously_Used_Full_Name_1__c != null && oContact.Previously_Used_Full_Name_1__c.equalsIgnoreCase(FnLName))
+                oContact.Previously_Used_Full_Name_1__c = null;
+            if (oContact.Previously_Used_Full_Name_2__c != null && oContact.Previously_Used_Full_Name_2__c.equalsIgnoreCase(FnLName))
+                oContact.Previously_Used_Full_Name_2__c = null;
+            if (oContact.Previously_Used_Full_Name_3__c != null && oContact.Previously_Used_Full_Name_3__c.equalsIgnoreCase(FnLName))
+                oContact.Previously_Used_Full_Name_3__c = null;
+
+            if (oContact.Previously_Used_Full_Name_1__c != null) {
+                if (oContact.Previously_Used_Full_Name_2__c != null && oContact.Previously_Used_Full_Name_1__c.equalsIgnoreCase(oContact.Previously_Used_Full_Name_2__c))
+                    oContact.Previously_Used_Full_Name_2__c = null;
+                if (oContact.Previously_Used_Full_Name_3__c != null && oContact.Previously_Used_Full_Name_1__c.equalsIgnoreCase(oContact.Previously_Used_Full_Name_3__c))
+                    oContact.Previously_Used_Full_Name_3__c = null;
+            }
+            if (oContact.Previously_Used_Full_Name_2__c != null) {
+                if (oContact.Previously_Used_Full_Name_3__c != null && oContact.Previously_Used_Full_Name_2__c.equalsIgnoreCase(oContact.Previously_Used_Full_Name_3__c))
+                    oContact.Previously_Used_Full_Name_3__c = null;
+                if (oContact.Previously_Used_Full_Name_1__c != null && oContact.Previously_Used_Full_Name_2__c.equalsIgnoreCase(oContact.Previously_Used_Full_Name_1__c))
+                    oContact.Previously_Used_Full_Name_1__c = null;
+            }
+            if (oContact.Previously_Used_Full_Name_3__c != null) {
+                if (oContact.Previously_Used_Full_Name_1__c != null && oContact.Previously_Used_Full_Name_3__c.equalsIgnoreCase(oContact.Previously_Used_Full_Name_1__c))
+                    oContact.Previously_Used_Full_Name_1__c = null;
+                if (oContact.Previously_Used_Full_Name_2__c != null && oContact.Previously_Used_Full_Name_3__c.equalsIgnoreCase(oContact.Previously_Used_Full_Name_2__c))
+                    oContact.Previously_Used_Full_Name_2__c = null;
+            }
+
+            update oContact;
+
+            // Update user record
+            ApplicationContactController.updateUserDetails(new List < String > {
+                oContact.Email,
+                oContact.FirstName,
+                oContact.LastName
+            }, DateTimeUtil.getTimeZoneSidKey(oContact.Time_Zone__c), UserInfo.getUserId());
+
+
+            // Update application record
+            if (oApplication == null) {
+                oApplication = new Application__c();
+                oApplication.Id = Id.valueof(appId);
+                oApplication.Candidate__c = oUser.ContactId;
+            }
+
+            //dynamic sources
+            oApplication.Source_Primary__c = appSrc;
+            oApplication.Source_Details__c = appSubSrc;
+            //dynamic sources -- end
+
+            update oApplication;
+            return new PageReference(path);
+        } catch (Exception ex) {
+            ApexPages.addMessages(ex);
+            return null;
+        }
+    }
+
+
+    /* Move forward from attachments panel */
+    public PageReference forwardFromAttachments() {
+        if (stage != null && stage == 'Attach') {
+            return save();
+        }
+        showAttachments = false;
+        showContactInfo = true;
+        oAttachment = new Attachment(); //clear to not get viewstate size error       
+
+        try {
+            // Update application record
+            if (oApplication == null) {
+                oApplication = new Application__c();
+                oApplication.Id = Id.valueof(appId);
+                oApplication.Candidate__c = oUser.ContactId;
+            }
+            oApplication.Acknowledge_No_Attachment_Provided__c = false;
+            update oApplication;
+        } catch (Exception ex) {
+            ApexPages.addMessages(ex);
+            return null;
+        }
+        return null;
+    }
+
+    /* Move forward from attachments panel without Attachment*/
+    public PageReference forwardFromAttachmentsNoAttach() {
+        if (stage != null && stage == 'Attach') {
+            return save();
+        }
+        showAttachments = false;
+        showContactInfo = true;
+        oAttachment = new Attachment(); //clear to not get viewstate size error
+
+        try {
+            // Update application record
+            if (oApplication == null) {
+                oApplication = new Application__c();
+                oApplication.Id = Id.valueof(appId);
+                oApplication.Candidate__c = oUser.ContactId;
+            }
+            oApplication.Acknowledge_No_Attachment_Provided__c = true;
+            update oApplication;
+        } catch (Exception ex) {
+            ApexPages.addMessages(ex);
+            return null;
+        }
+        oAttachment = new Attachment();
+        return null;
+    }
+
+    public PageReference save() {
+        String agencyStr = agency ? '&agency=1' : '';
+        String stageStr = '&stage=';
+        stageStr += showAttachments ? 'attach' : 'contact';
+        return doSave('/ApplicationContact?appid=' + appId + agencyStr + stageStr);
+    }
+
+    public PageReference saveBack() {
+        PageReference pageRef;
+
+        doSave('/JobDetails?reqid=' + reqId + '&isapply=1');
+        if (ApexPages.hasMessages()) {
+            pageRef = null;
+        } else {
+            pageRef = new PageReference('/JobDetails?reqid=' + reqId + '&isapply=1');
+        }
+        return pageRef;
+    }
+
+    public PageReference saveContinue() {
+
+        PageReference pageRef;
+        String nextPage;
+        Workflow_Step__c nextWF;
+        system.debug('Current Page : ' + currentPage);
+
+        if (stage == null) {
+            nextWF = PortalUserUtil.getNextWorkflowStepInWorkflow(oApplication, currentPage);
+            system.debug('@@@nextWF: ' + nextWF);
+
+            nextPage = nextWF.Portal_Page_Text__c;
+        } else {
+            nextPage = 'ApplicationReview';
+        }
+
+        //flexible workflow - begin
+        if (!isFlex) {
+            //flexible workflow - end        
+            // ApplicationEligibility should always precede ApplicationPrescreening
+            if (nextPage == 'ApplicationPrescreening') {
+                nextPage = 'ApplicationEligibility';
+            }
+        }
+
+        if (agency) {
+            doSave('/' + nextPage + '?agency=1&appid=' + appId);
+        } else {
+            doSave('/' + nextPage + '?appid=' + appId);
+        }
+
+        if (ApexPages.hasMessages()) {
+            pageRef = null;
+        } else {
+            AppReq ar = AppReq.getAppReq(reqId, appId);
+            Workflow_Step__c firstWF;
+            //flexible workflow - begin
+            if (!isFlex) {
+                if (ar.getReqWorkflowExtras().contains('Tier1Workflow')) {
+                    firstWF = PortalUserUtil.getFirstApplicationWorkflowSteps(appId, reqId);
+                } else {
+                    firstWF = PortalUserUtil.getFirstPreApplicationWorkflowSteps(appId, reqId);
+                }
+            } else {
+                firstWF = PortalUserUtil.getFirstWorkflowPortalStep(oApplication);
+            }
+            //flexible workflow - end
+
+
+            if (stage == null) {
+                //try {
+                //flexible workflow - begin
+                if (!isFlex) {
+                    PortalUserUtil.updateApplicationStep(appId, null, firstWF.Step__c, nextWF.Substep__c);
+                } else {
+                    PortalUserUtil.updateApplicationStep(appId, null, nextWF.Step__c, nextWF.Substep__c);
+                }
+                //flexible workflow - end
+
+                /*}
+                catch(Exception ex){
+                    ApexPages.addMessages(ex);
+                    return null;
+                }*/
+                if (agency) {
+                    pageRef = new PageReference('/' + nextPage + '?agency=1&appid=' + appId);
+                } else {
+                    pageRef = new PageReference('/' + nextPage + '?appid=' + appId);
+                }
+            } else {
+                if (agency) {
+                    pageRef = new PageReference('/ApplicationReview?agency=1&appid=' + appId);
+                } else {
+                    pageRef = new PageReference('/ApplicationReview?appid=' + appId);
+                }
+            }
+        }
+        System.debug('______contact next page___' + nextPage);
+        return pageRef;
+    }
+
+
+    public PageReference savePersonalInfoAndContinue() {
+
+        PageReference pageRef;
+        String nextPage;
+        Workflow_Step__c nextWF;
+
+        system.debug('Test : ' + oApplication + ' : ' + currentPage);
+        if (stage == null) {
+
+            nextWF = PortalUserUtil.getNextWorkflowStepInBackGroundInfoWorkflow(oApplication, currentPage);
+            system.debug('@@@nextWF: ' + nextWF);
+            nextPage = nextWF.Portal_Page_Text__c;
+        } else {
+            nextPage = 'ApplicationReviewPart2';
+        }
+
+        if (agency) {
+            doSave('/' + nextPage + '?agency=1&appid=' + appId);
+        } else {
+            doSave('/' + nextPage + '?appid=' + appId);
+        }
+
+        if (ApexPages.hasMessages()) {
+            pageRef = null;
+        } else {
+            if (stage == null) {
+                try {
+                    if (nodeWorkflow) {
+                        Application__c appToUpdate = new Application__c(id = appId, Step__c = nextWF.Step__c, Substep__c = nextWF.Substep__c);
+                        update appToUpdate;
+                    } else
+                        PortalUserUtil.updateApplicationStep(appId, null, nextWF.Step__c, nextWF.Substep__c);
+                } catch (Exception ex) {
+                    ApexPages.addMessages(ex);
+                    return null;
+                }
+                if (agency) {
+                    pageRef = new PageReference('/' + nextPage + '?agency=1&appid=' + appId);
+                } else {
+                    pageRef = new PageReference('/' + nextPage + '?appid=' + appId);
+                }
+            } else {
+                if (agency) {
+                    pageRef = new PageReference('/ApplicationReviewPart2?agency=1&appid=' + appId);
+                } else {
+                    pageRef = new PageReference('/ApplicationReviewPart2?appid=' + appId);
+                }
+            }
+        }
+        System.debug('______personal info next page___' + nextPage);
+        return pageRef;
+    }
+
+    public PageReference savePersonalInformation() {
+        if (stage == null)
+            if (agency) {
+                return doSave('/ApplicationPersonalInformation?agency=1&appid=' + appId);
+            } else {
+                return doSave('/ApplicationPersonalInformation?appid=' + appId);
+            }
+        else
+        if (agency) {
+            return doSave('/ApplicationReviewPart2?agency=1&appId=' + appId);
+        } else {
+            return doSave('/ApplicationReviewPart2?appId=' + appId);
+        }
+
+    }
+
+    public PageReference savePersonalInfoBack() {
+        PageReference pageRef;
+
+        doSave('/ApplicationBackgroundCheckConvictions?appid=' + appId);
+        if (ApexPages.hasMessages()) {
+            pageRef = null;
+        } else {
+            pageRef = new PageReference('/ApplicationBackgroundCheckConvictions?appid=' + appId);
+        }
+        return pageRef;
+    }
+
+    /* Redirect unauthenticated user to index */
+    public PageReference checkpageAuthentication() {
+        //return PortalUserUtil.pageAuthentication();
+        PageReference pageRef = new PageReference('/Dashboard');
+        return (oApplication.Requisition__r.Req_Posting_Status__c != 'Posted') ? pageRef : PortalUserUtil.pageAuthentication();
+    }
+
+    public PageReference checkPageAuthenticationPart2() {
+        return PortalUserUtil.pageAuthentication();
+    }
+
+    /* * * * Attachment stuff * * * */
+    // Declare class variables
+
+    /* Add new row to attachment on portal page */
+
+
+    public Attachment oAttachment {
+        get {
+            if (oAttachment == null) {
+                oAttachment = new Attachment();
+                //oAttachment.parentId = oContact.Id;
+            }
+            return oAttachment;
+        }
+        set;
+    }
+
+    public Attachment__c oCustomAttach {
+        get {
+            if (oCustomAttach == null) {
+                oCustomAttach = new Attachment__c();
+                oCustomAttach.Candidate__c = oContact.Id;
+                oCustomAttach.Application__c = appId;
+            }
+            return oCustomAttach;
+        }
+        set;
+    }
+
+    public String attErrMsg {get; set;}
+    public string documentTitle {get; set;}
+    public PageReference addAttRow() {
+
+        attErrMsg = '';
+        if (documentTitle == null || documentTitle == '') {
+            system.debug('the value of oattachment is :' + oAttachment);
+            ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR, Label.PortalFileNameValidation));
+            oAttachment = null;
+            return null;
+        }
+        if (oAttachment == null || oAttachment.ContentType == null) {
+            system.debug('the value of oattachment is :' + oAttachment);
+            system.debug('the value of body is :' + oAttachment.ContentType);
+            ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR, Label.PortalFileNotAttachValidation));
+            return null;
+        }
+
+
+
+        //Validating to Check whether the item is already present in the list
+        Boolean dupeFound = false;
+        for (Attachment att: lstAttachments) {
+            if (att.Name.equalsIgnoreCase(oAttachment.Name)) {
+                system.debug('The file is already present.  Use overwrite method to override.');
+                return null;
+            }
+        }
+
+        system.debug('the value of oAttachment is :' + oAttachment);
+
+        try {
+            Attachment__c attachConnector = new Attachment__c(Candidate__c = oContact.Id, Document_Title__c = documenttitle, Document_Description__c = oAttachment.Description, Application__c = appId);
+            insert attachConnector;
+
+            Attachment customAtt = new Attachment(ParentId = attachConnector.Id, Name = oAttachment.Name, Body = oAttachment.Body, Description = oAttachment.Description, ContentType = oAttachment.ContentType);
+
+            insert customAtt;
+            attachConnector.AttachmentId__c = customAtt.Id;
+            update attachConnector;
+            setupAttachment();
+            oAttachment = null;
+            oCustomAttach = null;
+            documentTitle = '';
+            uploadedAttachmentList = true;
+
+        } catch (Exception e) {
+            system.debug('the System generated error is:' + e);
+            return null;
+        }
+        return null;
+    }
+
+    public PageReference overwriteAttach() {
+
+        attErrMsg = '';
+        if (documentTitle == null || documentTitle == '') {
+            system.debug('the value of oattachment is :' + oAttachment);
+            ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR, Label.PortalFileNameValidation));
+            return null;
+        }
+        if (oAttachment == null || oAttachment.ContentType == null) {
+            system.debug('the value of oattachment is :' + oAttachment);
+            system.debug('the value of body is :' + oAttachment.ContentType);
+            ApexPages.addMessage(new ApexPages.message(ApexPages.severity.ERROR, Label.PortalFileNotAttachValidation));
+            return null;
+        }
+
+        //Validating to Check whether the item is already present in the list
+        Boolean dupeFound = false;
+        for (Attachment att: lstAttachments) {
+            if (att.Name.equalsIgnoreCase(oAttachment.Name)) {
+                dupeFound = true;
+                att.Body = oAttachment.Body;
+                att.Description = oAttachment.Description;
+                att.ContentType = oAttachment.ContentType;
+                for (Attachment__c attcon: lstAttachmentCons) {
+                    if (attcon.Id == att.ParentId) {
+                        attcon.Document_Title__c = documenttitle;
+                        attcon.Document_Description__c = oAttachment.Description;
+                    }
+                }
+            }
+        }
+
+        system.debug('the value of oAttachment is :' + oAttachment);
+
+        try {
+            if (dupeFound == true) {
+                update lstAttachmentCons;
+                update lstAttachments;
+            }
+            setupAttachment();
+            oAttachment = null;
+            oCustomAttach = null;
+            documentTitle = '';
+            uploadedAttachmentList = true;
+
+        } catch (Exception e) {
+            system.debug('the System generated error is:' + e);
+            return null;
+        }
+        return null;
+    }
+
+    // Remove Row from the Table
+    public String rowNumber {get; set;}
+    public List < Attachment > deleteAttachments {get; set;}
+
+
+    public void deleteRow() {
+
+        Id attachmentId = Apexpages.currentPage().getParameters().get('row');
+
+        List < Attachment > attachlist = [select Id, ParentId from Attachment where Id =: attachmentId limit 1];
+        if (attachlist != null || attachlist.size() > 0) {
+            Attachment attach = attachlist.get(0);
+            List < Attachment__c > attachmentConnect = [select Id, Name from Attachment__c where Id =: attach.ParentId limit 1];
+            if (attachmentConnect != null || attachmentConnect.size() > 0) {
+                delete attachmentConnect;
+
+            }
+        }
+        setupAttachment();
+    }
+
+
+    public void LoadData() {
+        lstAttachments = new List < Attachment > ();
+        List < Attachment > attachments = [SELECT Id, Name, ContentType, Description FROM Attachment where ParentId =: oContact.Id];
+        for (Attachment att: attachments) {
+            lstAttachments.add(att);
+        }
+    }
+
+    public string SelectedAccountId {get; set;}
+    public PageReference DeleteAccount() {
+        // if for any reason we are missing the reference 
+        if (SelectedAccountId == null) {
+            return null;
+        }
+        // find the account record within the collection
+        Attachment tobeDeleted = null;
+        system.debug('SelectedAccountId Delete : ' + SelectedAccountId);
+        for (Attachment a: lstAttachments)
+            if (a.Id == SelectedAccountId) {
+                system.debug('Attachment Delete : ' + a.Name);
+                tobeDeleted = a;
+                break;
+            }
+        //if account record found delete it
+        if (tobeDeleted != null) {
+            Delete tobeDeleted;
+        }
+        //refresh the data
+        LoadData();
+        return null;
+    }
+
+
+
+
+
+    /* Save page */
+    public PageReference saveAttachments() {
+        return doSaveAttachments(null);
+    }
+
+    /* Perform save DML action for page */
+    private PageReference doSaveAttachments(PageReference pr) {
+        PageReference pageRef = pr;
+        try {
+            update oContact;
+            saveAttchmentList();
+        } catch (Exception e) {
+            ApexPages.addMessages(e);
+            pageRef = null;
+        }
+        return pageRef;
+    }
+
+
+    /* Perform save DML action for Attachments list */
+    private void saveAttchmentList() {
+
+        // Declare method variables
+        List < Attachment > lstAtt = new List < Attachment > ();
+
+        if (!lstAttachment.isEmpty()) {
+            for (AttachmentWrapper oAtt: lstAttachment) {
+                Attachment attach = new Attachment();
+                System.debug('I am in saveAttchmentList : ' + UserInfo.getUserId() + ' : ' + oAtt.attachment.OwnerId + ' : ' + oAtt.attachment.ParentId);
+                attach.ParentId = oContact.Id;
+                attach.OwnerId = UserInfo.getUserId();
+                //attachment.IsPrivate = true;
+                attach.Name = oAtt.attachment.Name;
+                attach.Body = oAtt.attachment.Body;
+                attach.Description = oAtt.attachment.Description;
+                lstAtt.add(attach);
+                System.debug('I am in saveAttchmentList : ' + attachment.OwnerId + ' : ' + attachment.ParentId);
+            }
+            upsert lstAtt;
+        }
+    }
+
+    /* Save page and navigate forwards */
+    public PageReference saveAndContinue() {
+        String nextPage =
+            PortalUserUtil.getNextWorkflowStepInWorkflow(oApplication, currentPage).Portal_Page_Text__c;
+        PageReference pageRef = doSaveAttachments(new PageReference('/' + nextPage + '?appid=' + appId));
+        try {
+            //PortalUserUtil.updateApplicationStep(appId,null,'Pre-Application','Assessment');
+        } catch (Exception e) {
+            ApexPages.addMessages(e);
+            pageRef = null;
+        }
+
+        return pageRef;
+    }
+
+    public void preferredNationalIdType() {
+
+        // update the National ID Type on the in memory contact object.
+        // the page rerender does not work unless this is updated explicitly
+        // the action function is called with the Immediate=True attribute to prevent
+        // validations on the page from tripping early thus the setters are not called.
+        system.debug('@@@nationalIdType: ' + nationalIdType);
+        oContact.National_ID_Type__c = nationalIdType;
+
+        system.debug('@@@countryCode: ' + countryCode);
+        system.debug('@@@nacsIndiaExceptions: ' + nacsIndiaExceptions);
+        system.debug('@@@NIDNUMBER: ' + nationalIdNumber);
+
+        If(nacsIndiaExceptions && nationalIdNumber != '') {
+            oContact.National_ID_Social_Security_Number__c = nationalIdNumber;
+        }
+        system.debug('@@@preferredNationalIDTypeByCode.get(countryCode): ' + preferredNationalIDTypeByCode.get(countryCode));
+        //For Non INDIA CS workflows
+        if (!nacsIndiaExceptions && preferredNationalIDTypeByCode.get(countryCode) != null) {
+            oContact.National_ID_Type__c = preferredNationalIDTypeByCode.get(countryCode);
+        }
+
+        //For India CS Workflow
+        if (nacsIndiaExceptions && countryCode != null && nationalIdNumber == '') {
+            oContact.National_ID_Type__c = preferredNationalIDTypeByCode.get(countryCode);
+        }
+        /* JIRA 2070 : requirement of Zip code  reRender logic based on custom settings
+            set previously loaded state code to NULL to avoid invalid state code error*/
+        oContact.MailingStateCode = NULL;
+        system.debug('The value of Contact.National_ID_Type__c is :' + oContact.National_ID_Type__c);
+    }
+
+
+
+    public void setEmployeeReferralText() {
+        // Fetching Other Source Details
+        OTHER_SOURCE_DETAILS_MAP = HelperCollection.getOtherSourceDetails();
+
+        String labelText = '';
+        if (useGermanPrivacyRules) {
+            system.debug('@@@appSrc param: ' + appSrc);
+            system.debug('@@@appSubSrc param: ' + appSubSrc);
+            if (appSrc.equalsIgnoreCase('Referral') && appSubSrc.equalsIgnoreCase('Current Employee Referral')) {
+                labelText = System.Label.PortalApplicationEmployeeReferralHint;
+            }
+        }
+
+        if (OTHER_SOURCE_DETAILS_MAP.containsKey(appSubSrc)) {
+            labelText = System.Label.GiveOtherExplanation;
+        } else {
+            labelText = '';
+        }
+
+        employeeReferralHintText = labelText;
+
+        system.debug('@@@employeeReferralHintText: ' + employeeReferralHintText);
+    }
+
+    @future
+    private static void updateUserDetails(List < String > userDetails, String timeZoneSidKey, Id userId) {
+
+        Admin_Settings__c adminSetting = Admin_Settings__c.getOrgDefaults();
+        // can't pass sObject to future method so find the user object again.
+        User fUser = [SELECT Id, AccountId, ContactId, Email, LanguageLocaleKey, LocaleSidKey, UserName, UserType
+            FROM User
+            WHERE Id =: userId
+        ];
+
+
+        if (timeZoneSidKey != null) {
+            fUser.TimeZoneSidKey = timeZoneSidKey;
+        }
+        // Update user record
+        fUser.Email = userDetails.get(0);
+        fUser.FirstName = userDetails.get(1);
+        fUser.LastName = userDetails.get(2);
+
+        fUser.TimeZoneSidKey = timeZoneSidKey;
+        fUser.Username = userDetails.get(0) + ((adminSetting != null) ? ('.' + adminSetting.Community_User_Suffix__c) : '');
+        update fUser;
+    }
+
+    public PageReference HomePhoneCountryChanged() {
+        // Determine new country code value (ie: 1)
+        Decimal newCountryCodeValue = PhoneCountryCodeSelectListController.getPhoneCountryCodeFromIso2Code(oContact.Home_Phone_Country_ISO2__c);
+        // Set that value on the contact object
+        oContact.Home_Phone_Country_Code__c = newCountryCodeValue;
+
+        return null;
+    }
+
+    public PageReference MobilePhoneCountryChanged() {
+        // Determine new country code value (ie: 1)
+        Decimal newCountryCodeValue = PhoneCountryCodeSelectListController.getPhoneCountryCodeFromIso2Code(oContact.Mobile_Phone_Country_ISO2__c);
+        // Set that value on the contact object
+        oContact.Mobile_Phone_Country_Code__c = newCountryCodeValue;
+
+        return null;
+    }
+
+    /**
+     * When the user changes their mobile number determine the following:
+     *  - The state of smsAgreed
+     *  - Set state of message to show
+     */
+    public void mobileNumberOnChange() {
+        // Default all messages to false;
+        isDuplicateMobileNumber = false;
+        showMobilePhoneRemovedMessage = false;
+        showMobilePhoneNumberChangeMessage = false;
+
+        // Determine if we should show duplicate phone number message
+        if (PortalUserUtil.isDuplicateMobilePhone(oContact.MobilePhone, oContact.Id)) {
+            isDuplicateMobileNumber = true;
+            smsAgreed = false;
+        }
+        // Determine if we should show mobile number removed message
+        else if (String.isBlank(oContact.MobilePhone)) {
+            Boolean currentSmsOptinStatus = PortalUserUtil.candidateOptedInForSms(oContact.Id);
+
+            smsAgreed = false;
+            showMobilePhoneRemovedMessage = currentSmsOptinStatus;
+        }
+        // Determine if we should show mobile number changed message
+        else if (oContact.MobilePhone != originalMobilePhone) {
+            Boolean currentSmsOptinStatus = PortalUserUtil.candidateOptedInForSms(oContact.Id);
+
+            // Dont update smsAgreed value
+            showMobilePhoneNumberChangeMessage = currentSmsOptinStatus;
+        }
+    }
+
+    @RemoteAction
+    public static String addressAutoComplete(Decimal latitude, Decimal longitude, String address) {
+        String endpoint = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=1&location=40.8437777,-73.1136284&radius=500&key=AIzaSyBJpqM1gX8A3tzRBb13op5ci9tiZOJZWeY';
+
+        // Init callout
+        Http httpProtocol = new Http();
+        HttpRequest request = new HttpRequest();
+
+        request.setMethod('GET');
+        request.setTimeout(120000);
+        request.setEndPoint(endpoint);
+        request.setHeader('Content-Type', 'application/json');
+
+        // Handle Response
+        HttpResponse response = httpProtocol.send(request);
+
+        // Response
+        // System.debug('******** ' + response.getStatusCode());
+        System.debug('******** ' + JSON.serialize(response.getBody()));
+
+        return response.getBody();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void setAddress(){
+        //system.assert(false, 'In Set Address');
+        
+        
+        system.debug('setAddress called');
+        system.debug('stringAddressJSON -> ' + stringAddressJSON);
+
+        String strJSON = system.currentPageReference().getParameters().get('searchAddressParam');
+        system.debug('strJson -> ' + strJSON);
+        Map<String, Object> mapAddress = new Map<String, Object> ();
+        // mapAddress = (Map<String, Object>) JSON.deserializeUntyped(strJSON);
+                                            
+        // for (String key : mapAddress.keySet() ) {
+        //     system.debug('key -> ' + key);
+        //     system.debug('value -> ' + String.valueOf(mapAddress.get(key) ) ) ;
+        //     setAddressField(key, String.valueOf(mapAddress.get(key) ) );
+        // } 
+        //oContact.MailingStreet = '123 Main Street'; 
+
+      //  system.assert(false, 'In Set Address');
+      //  return null;
+    }
+
+    private void setAddressField(String key, String value){
+        switch on key {
+            when 'street_number', 'route' {
+                oContact.MailingStreet = value;       
+            }
+            when 'locality' {
+                oContact.MailingCity = value;       
+            }
+            when 'administrative_area_level_1' {
+                oContact.MailingStateCode= value;       
+            }
+            when 'postal_code' {
+                oContact.MailingPostalCode = value;       
+            }
+            when 'country' {
+                oContact.MailingCountry = value;       
+            }
+        }
+    }
+
+    private class ApplicationContactControllerException extends Exception {}
+}

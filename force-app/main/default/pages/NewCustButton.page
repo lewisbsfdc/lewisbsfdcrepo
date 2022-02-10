@@ -1,0 +1,16 @@
+<apex:page standardController="Cust_Object_2__c">
+    <apex:includeLightning />
+
+    <div id="lightning" />
+
+    <script>
+        $Lightning.use("c:NewCust2App", function() {
+          $Lightning.createComponent("ui:button",
+          { label : "Press Me!" },
+          "lightning",
+          function(cmp) {
+            // do some stuff
+          });
+        });
+    </script>
+</apex:page>

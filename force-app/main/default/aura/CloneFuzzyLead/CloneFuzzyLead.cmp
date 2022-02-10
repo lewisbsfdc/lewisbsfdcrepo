@@ -1,0 +1,41 @@
+<!--<aura:component implements="force:lightningQuickAction,force:hasRecordId" 
+                access="global" > -->
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickActionWithoutHeader">  
+   <!--
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div class="slds">
+    <force:recordData aura:id="forceRecordCmp"
+        recordId="{!v.recordId}"
+        layoutType="{!v.layout}"
+        fields="{!v.fieldsToQuery}"
+        mode="VIEW"
+        targetRecord="{!v.record}"
+        targetFields="{!v.simpleRecord}"
+        targetError="{!v.error}" />
+    </div>
+   --> 
+    <aura:attribute name="newObject" type="Object"/>
+    <aura:attribute name="simpleNewObject" type="Object"/>
+    <aura:attribute name="newObectError" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+<!--	
+    <force:recordData aura:id="objectRecordCreator" 
+                      layoutType="FULL"
+                      targetRecord="{!v.newObject}"
+                      targetFields="{!v.simpleNewObject}"
+                      targetError="{!v.newObectError}" />
+
+	    <force:recordData aura:id="objectRecordCreator" 
+                      layoutType="FULL"
+                      recordid="{!v.recordId}"
+                      targetRecord="{!v.newObject}"
+                      targetError="{!v.newObectError}" />
+    {!v.recordId}
+    
+    cccc
+       --> 
+ <force:recordEdit aura:id="edit" recordId="{!v.recordId}"/>
+<lightning:button label="Save" onclick="{!c.save}"/>   
+    
+</aura:component>

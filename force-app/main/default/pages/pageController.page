@@ -1,0 +1,16 @@
+<apex:page controller="PageController" >
+    <apex:form >  
+         <c:ComponentData compData="{!theData}"> </c:ComponentData>   
+        <!--<c:ComponentData  controller="{!pageCont}"> </c:ComponentData> -->  
+        <apex:outputText value="{!theData}"  />    
+        <apex:outputPanel id="eval">
+            {!theData}
+        </apex:outputPanel>
+        
+        <apex:actionfunction name="rerenderZ" rerender="eval">
+            <apex:param assignTo="{!theData.theInput}" name="tdata" value="sds"/>
+            <apex:param assignTo="{!theData.theOutput}" name="todata" value="Z"/>
+        </apex:actionfunction>   
+    
+    </apex:form> 
+</apex:page>

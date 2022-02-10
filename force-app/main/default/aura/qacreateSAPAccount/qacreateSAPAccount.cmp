@@ -1,0 +1,73 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global" controller="CreateSAPAccount">
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="doCreditCheck" type="Boolean" default="true"/>
+   <!-- <aura:handler name="init" value="{!this}" action="{!c.handleClick}" /> -->
+    <aura:attribute name="accountRecord" type="Object"/>
+
+    
+    <force:recordData aura:id="recordLoader"
+    recordId="{!v.recordId}"
+    fields="Name,Description, Industry,Phone, ShippingCity,ShippingPostalCode,ShippingState,ShippingStreet"
+    targetFields="{!v.accountRecord}"
+    targetError="{!v.recordLoadError}"
+    />
+  
+ 
+    
+    
+    
+    <div> 
+        <lightning:card iconName="standard:account" title="{!v.accountRecord.Name}" >
+            <div class="slds-p-horizontal--small">
+                <p class="slds-text-heading--medium"><lightning:formattedPhone title="Phone" value="{!v.accountRecord.Phone}" /></p>
+         		<!--<p class="slds-truncate"><lightning:formattedAddress title="BillingAddress" value="{!v.accountRecord.BillingAddress}" /></p>
+ -->
+                Shipping Address->
+                <lightning:formattedAddress
+        			street="{!v.accountRecord.ShippingStreet}"
+        			city="{!v.accountRecord.ShippingCity}"
+        			province="{!v.accountRecord.ShippingState}"
+        			postalCode="{!v.accountRecord.ShippingPostalCode}"
+    			/>
+                 &nbsp;
+                <p class="slds-truncate"><b>Description -> </b><lightning:formattedText title="Description" value="{!v.accountRecord.Description}" /></p>
+                <p class="slds-truncate"><b>Industry -> </b><lightning:formattedText title="Industry" value="{!v.accountRecord.Industry}" /></p>
+                &nbsp;
+				<p class="slds-truncate"></p>
+                Do Credit Check? -><ui:inputCheckbox  aura:id="checkbox"  value="{!v.doCreditCheck}"/>
+      <!--<div class="slds-form-element">
+          <ui:inputCheckbox aura:id="reimbursed" label="Do Credit Check?"
+              class="slds-checkbox"
+              labelClass="slds-form-element__label"
+              />
+      </div> -->
+                
+            </div>
+        </lightning:card>
+    </div>
+ <lightning:button variant="Brand" label="Create SAP Id" title="Base action" onclick="{! c.handleClick }"/> 
+    
+    
+        <!--
+<lightning:spinner variant="brand" lass="slds-show backgroundSpinner" size="medium" />
+
+<aura:html tag="style">
+    .slds-backdrop {
+        background: rgba(43, 40, 38, 0) !important;
+    }
+    .backgroundSpinner{
+        background: rgba(0, 0, 0, 0) !important;
+    }
+    .modal-body {
+        background: rgba(0, 0, 0, 0) !important;
+        box-shadow: none !important;
+    }
+    .closeIcon {
+        display:none !important;
+    }
+    .desktop {
+        overflow: visible !important;
+    }
+</aura:html>
+    -->
+</aura:component>

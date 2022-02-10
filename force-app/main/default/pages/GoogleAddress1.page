@@ -1,0 +1,355 @@
+<apex:page showHeader="true" sidebar="true" controller="GoogleAddressController">
+<!-- <apex:includeLightning /> -->
+<html>
+  <head>
+    <title>Place Autocomplete Address Form</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta charset="utf-8"/>
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"/>
+    <style>
+      #locationField, #controls {
+        position: relative;
+        width: 480px;
+      }
+      #autocomplete {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 99%;
+      }
+      .label {
+        text-align: right;
+        font-weight: bold;
+        width: 100px;
+        color: #303030;
+        font-family: "Roboto";
+      }
+      #address {
+        border: 1px solid #000090;
+        background-color: #f0f9ff;
+        width: 480px;
+        padding-right: 2px;
+      }
+      #address td {
+        font-size: 10pt;
+      }
+      .field {
+        width: 99%;
+      }
+      .slimField {
+        width: 80px;
+      }
+      .wideField {
+        width: 200px;
+      }
+      #locationField {
+        height: 20px;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+
+
+
+
+    <style>
+      ui-menu-item {
+        background-color: white;
+      }
+      li {
+        background-color: white;
+      }
+      ul {
+        background-color: white;
+      }
+    </style>
+
+    <form autocomplete="false">
+
+      user auto complete
+      <div class="ui-widget">
+        <label for="userInputAddressForAutocomplete">Address: </label>
+        <input type="text" 
+          onkeyup="addressAutocompleteOnChange()"
+          
+          id="userInputAddressForAutocomplete"/>
+      </div>
+    </form>
+
+
+  <table id="address">
+      <tr>
+        <td class="label">Street address</td>
+        <td class="slimField"><input class="field" id="street_number" disabled="true" value="{!streetNumber}"/></td>
+        <td class="wideField" colspan="2"><input class="field" id="route" disabled="true"/></td>
+      </tr>
+      <tr>
+        <td class="label">City</td>
+        <td class="wideField" colspan="3"><input class="field" id="locality" disabled="true"/></td>
+      </tr>
+      <tr>
+        <td class="label">State</td>
+        <td class="slimField"><input class="field" id="administrative_area_level_1" disabled="true"/></td>
+        <td class="label">Zip code</td>
+        <td class="wideField"><input class="field" id="postal_code" disabled="true"/></td>
+      </tr>
+      <tr>
+        <td class="label">Country</td>
+        <td class="wideField" colspan="3"><input class="field" id="country" disabled="true"/></td>
+      </tr>
+    </table>
+
+
+
+
+
+
+<script>
+// This sample uses the Autocomplete widget to help the user select a
+// place, then it retrieves the address components associated with that
+// place, and then it populates the form fields with those details.
+// This sample requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script
+// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+var placeSearch, autocomplete;
+var myMap ;
+
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+ console.log('initAutocomplete');
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), {types: ['geocode']});
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  autocomplete.setFields(['address_component']);
+
+  // When the user selects an address from the drop-down, populate the
+  // address fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+  //myMap = new Map();
+  console.log('myMap Before', myMap);
+
+
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+    document.getElementById(component).disabled = false;
+  }
+  myMap = new Map();
+  // { "name":"John", "age":30, "city":"New York"}
+
+  // Get each component of the address from the place details,
+  // and then fill-in the corresponding field on the form.
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+
+      var val = place.address_components[i][componentForm[addressType]];
+
+      
+      //myMap = myMap + addressType + '|' + val + '|';
+      myMap.set(addressType, val);
+      console.log('val', val);
+      document.getElementById(addressType).value = val;
+    }    
+  }
+  console.log('componentForm', componentForm);
+  console.log('myMap', myMap);
+
+var myJson = {};
+myJson = mapToObj(myMap);
+var json = JSON.stringify(myJson);
+console.log('json', json);
+
+}
+
+function fillInAddress1() {
+    console.log('fillInAddress1');
+    console.log('autocomplete' , autocomplete);
+
+    for (var key in autocomplete) {
+        //console.log(key, autocomplete[key]);
+        document.getElementById(key).value = autocomplete[key];
+    }
+
+}
+
+</script>
+
+<script type="text/javascript">
+var addresses;
+var addressLatitude
+var addressLongitutde
+
+function addressAutocompleteOnChange() {
+ console.log('In: addressAutocompleteOnChange');
+
+ // TODO: Potentially clear current results incase no callback is returned
+
+ // Get user address input
+ var addressElement = $('#userInputAddressForAutocomplete');
+ if (!addressElement) {
+   return;
+ }
+ console.log('addressElement', addressElement);
+ 
+ var addressForAutocomplete = addressElement.val();
+ console.log('addressForAutocomplete', addressForAutocomplete);
+ if (addressForAutocomplete == '' 
+      || addressForAutocomplete == undefined
+      || addressForAutocomplete == null) {
+   return;
+ }
+
+ // TODO: Get geolocation from browser
+ // var addressLatitude = 40.8437777;
+ // var addressLongitutde = -73.1136284;
+ console.log ('addressLatitude: ' + addressLatitude + ' addressLongitutde: ' + addressLongitutde);
+
+ // Execute remote action
+ GoogleAddressController.addressAutoComplete(
+   addressLatitude,
+   addressLongitutde,
+   addressForAutocomplete,
+   callbackFn
+ );
+ 
+ function callbackFn(response, event) {
+   console.log('In: callbackFn');
+   if (event.type === 'exception' || !response) {
+     console.log('Autocomplete RA failed');
+     return;
+   }
+
+   // Convert string response into usable object
+   // --- TODO: JSON.deserialize to a custom class on the controller side
+   //console.log('response', response);
+   var responseObject = JSON.parse(response.replace(/(&quot\;)/g,"\""));
+   addresses = responseObject.predictions;
+
+   // for (var j=0; j<addresses.length; j++) {
+   //      console.log (' addresses[' + j + '].place_id', addresses[j].place_id);
+   // }
+
+    // Execute remote action
+    // console.log ('remoteAction', GoogleCitySearch.getPlaceDetails(
+    // addresses[0].place_id)
+    // ) );
+
+   //console.log('addresses', addresses);
+   $("#userInputAddressForAutocomplete" ).autocomplete({
+      minLength: 0,
+      source: function(request, response) {
+        var displayResults = [];
+        
+        if (addresses) {
+          for (var i=0; i<addresses.length; i++) {
+            console.log(i);
+            console.log('place_id', addresses[i].place_id);
+            console.log('description', addresses[i].description);
+            
+
+            displayResults.push({label: addresses[i].description, value: i});
+          }
+        }
+        //console.log('displayResults',displayResults)
+        response(displayResults);
+      },
+      select: function( event, ui ) {
+        console.log('ui', ui);
+        // Not working for now..
+        console.log('ui.item.value', ui.item.value);
+        // var placeAddress;
+        console.log('addresses[0].place_id', addresses[ui.item.value].place_id);
+        var placeAddress = GoogleAddressController.getPlaceDetails(
+            addresses[ui.item.value].place_id,
+            function(result, event){
+                console.log('result', result);
+                autocomplete = result;
+                fillInAddress1();
+            }
+        );
+        console.log ('placeAddress', placeAddress);
+        //console.log('displayResults',  displayResults);
+        var selected = addresses[ui.item.value];
+        // console.log('selected', selected);
+        // console.log('addresses=[0]', addresses[0]);
+        // console.log('addresses=[1]', addresses[1]);
+
+
+        //console.log('addresses[selected]', addresses[selected]);
+
+        // if (ui &&  ui.item) {
+        //   alert('Label: ' + ui.item.label + '\nValue: ' + ui.item.value);
+        // }
+      }
+   });
+   
+
+ }
+
+}
+
+
+</script>
+
+
+    <script>
+
+
+
+    navigator.geolocation.getCurrentPosition(function(e) {
+        console.log(e.coords.latitude + ', ' + e.coords.longitude);
+        addressLatitude = e.coords.latitude;
+        addressLongitutde =e.coords.longitude;
+       // component.set("v.latitude",e.coords.latitude);
+       // component.set("v.longitude",e.coords.longitude);
+    }, function() {
+        console.log('There was an error.');
+    });
+
+</script>
+
+
+<apex:includeScript value="{!$Resource.jquery_min_js}"/>
+<apex:includeScript value="https://code.jquery.com/jquery-1.12.4.js"/>
+<apex:includeScript value="https://code.jquery.com/ui/1.12.1/jquery-ui.js"/>
+
+
+  </body>
+</html>
+</apex:page>

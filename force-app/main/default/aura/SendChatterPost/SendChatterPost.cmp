@@ -1,0 +1,6 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader,force:hasRecordId" access="global" controller="SendChatterPost" >
+	<aura:attribute name="recordId" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <c:LDTQuotes recordId="{!v.recordId}"/>
+    <lightning:button variant="Brand" label="Create Blocked Order" title="Base action" onclick="{! c.handleClick }"/> 
+</aura:component>

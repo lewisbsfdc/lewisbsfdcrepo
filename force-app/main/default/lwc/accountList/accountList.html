@@ -1,0 +1,28 @@
+<template>
+
+    <lightning-card title="Organizations" icon-name="standard:account">
+
+        <div class="slds-m-around_medium">
+      
+            <template if:true={accounts.data}>
+
+
+                 <lightning-datatable
+                key-field="id"
+                data={accounts.data}
+                columns={columns}
+                onrowaction={handleRowAction}>
+        </lightning-datatable>
+
+            </template>
+  
+        </div>
+<!--
+                           <lightning-datatable  
+                </lightning-datatable>
+                            key-field="Id"
+                    data={accounts.data}
+                    columns={columns}-->
+      
+    </lightning-card> 
+</template>

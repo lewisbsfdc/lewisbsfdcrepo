@@ -1,0 +1,327 @@
+<aura:component implements="force:appHostable,lightning:actionOverride" controller="TestAddRemoveClass">
+
+	<aura:attribute name="value" type="List" />
+    <aura:attribute name="selectedOptions" type="List" />
+	<aura:attribute name="fuzzyLead" type="Fuzzy_Lead__c" />
+
+    <aura:attribute name="textStatus" type="String"/>
+	<aura:attribute name="lstPlace" type="String"/>
+    <aura:attribute name="emailStatus" type="String"/>
+    <aura:attribute name="emailType" type="String"/>
+	<aura:attribute name="lstTAR" type="List"/>
+    <aura:attribute name="lstLang" type="List"/>
+    
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Text Ads', 'value': 'Text'},
+    {'label': 'Email', 'value': 'Email'},
+    {'label': 'Phone', 'value': 'Phone'},
+    {'label': 'Paid Search', 'value': 'Paid Search'},
+    {'label': 'Paid Social Media', 'value': 'Paid Social Media'},
+    {'label': 'Banner Ads', 'value': 'Banner Ads'},                                                          
+    {'label': 'External Links', 'value': 'External Links'}                                                        
+    ]"/>
+ 
+    <aura:attribute name="targetAudienceRole" type="List" default="[
+    {'label': 'All', 'value': 'All'},
+    {'label': 'Business Decision Maker', 'value': 'Business Decision Maker'},
+    {'label': 'Developer', 'value': 'Developer'},
+    {'label': 'IT Professional', 'value': 'IT Professional'},
+    {'label': 'Partner', 'value': 'Partner'},
+    {'label': 'Technical Decision Maker', 'value': 'Technical Decision Maker'}, 
+    {'label': 'CIO', 'value': 'CIO'},
+    {'label': 'IT Leader', 'value': 'IT Leader'},
+    {'label': 'BI', 'value': 'BI'},                                                                   
+    {'label': 'Student', 'value': 'Student'}                                                                    
+     ]"/>
+ 
+     <aura:attribute name="lstLanguage" type="List" default="[
+    {'label': 'Chinese', 'value': 'Chinese'},
+    {'label': 'English', 'value': 'English'},
+    {'label': 'French', 'value': 'French'},
+    {'label': 'German', 'value': 'German'},
+    {'label': 'Italian', 'value': 'Italian'},
+    {'label': 'Japanese', 'value': 'Japanese'}, 
+    {'label': 'Korean', 'value': 'Korean'},
+    {'label': 'Portuguese', 'value': 'Portuguese'},
+    {'label': 'Russian', 'value': 'Russian'},                                                                   
+    {'label': 'Spanish', 'value': 'Spanish'},
+    {'label': 'All', 'value': 'All'}
+     ]"/>   
+    
+      <aura:attribute name="lstPlacement" type="List" default="[
+    {'label': 'Console', 'value': 'Console'},
+    {'label': '1up', 'value': '1up'},
+    {'label': '2up', 'value': '2up'},
+    {'label': 'Editorial', 'value': 'Editorial'},
+    {'label': 'Console', 'value': 'Console'},
+    {'label': 'Hero', 'value': 'Hero'}, 
+    {'label': 'Other', 'value': 'Other'},
+    {'label': 'Sign In Page', 'value': 'Sign In Page'},
+    {'label': 'Ribbon', 'value': 'Ribbon'},                                                                   
+    {'label': 'Mid Page Banner', 'value': 'Mid Page Banner'}
+     ]"/>  
+    
+    
+    <lightning:button onclick="{!c.hideSection1}" label="hide section 1" />
+    <lightning:button onclick="{!c.showSection1}" label="show section 1" />
+     <lightning:button onclick="{!c.hideSection2}" label="hide section 2" />
+    <lightning:button onclick="{!c.showSection2}" label="show section 2" />    
+    <lightning:button onclick="{!c.hideSection3}" label="hide section 3" />
+    <lightning:button onclick="{!c.showSection3}" label="show section 3" />
+    
+    
+    
+    <div aura:id="section1" class="row">
+        <h2 class="header">Section 1</h2>
+        <div class="slds-align_absolute-center">
+        	<lightning:checkboxGroup name="Campaign Type"
+                                 label="Campaign Type"
+                                 options="{! v.options }"
+                                 value="{! v.value }"
+                                 onchange="{! c.handleCheckboxChange }"/>
+            
+
+                
+            
+            
+		</div>
+        <br />
+        <div class="slds-align_absolute-center">
+    		<lightning:button onclick="{!c.showSection2a}" label="show section 2" />
+        </div>   
+    </div>
+  
+     <div aura:id="section2" class="row slds-hide">
+        <h2 class="header">Section 2</h2>
+  
+ 
+         <div aura:id="Text" class="slds-hide">
+             <h2> Show Text Section </h2>
+
+                <div class="slds-box slds-theme_shade" style="background-color: ghostwhite;">
+                  <h3> Text</h3>
+                </div>                 
+                  <div class="slds-grid slds-gutters ">
+  					<div class="slds-col slds-size_1-of-2">
+  						<span>
+                            <lightning:select name="selectStatus" label="Status" required="true" value="{!v.textStatus}" >
+                                <option value="">None...</option>
+                                <option value="Planned">Planned</option>
+                                <option value="Active">Active</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </lightning:select>  
+      					</span>
+                      </div>    
+                        <div class="slds-col slds-size_1-of-2">
+                            <span>
+                                <lightning:dualListbox name="Placement"  
+                                   label= "Select Placement" 
+                                   sourceLabel="Available" 
+                                   selectedLabel="Selected" 
+                                   options="{!v.lstPlacement}" 
+                                   onchange="{! c.handlePlacementChange }"/>         
+                            </span>
+  						</div>  
+                      </div>
+
+                
+         </div>
+         
+         
+         
+         <div aura:id="Email" class="slds-hide">
+ 
+             <h2> Show Email Section </h2>
+                <div class="slds-box slds-theme_shade" style="background-color: grey;" >
+                  <h3> Email</h3>
+             	</div>     
+          
+             <div class="slds-grid slds-gutters slds-wrap">
+  					<div class="slds-col slds-size_1-of-2">
+  						<span>
+     						<lightning:dualListbox name="Target Audience Role"  
+                               label= "Select Target Audience Role" 
+                               sourceLabel="Available" 
+                               selectedLabel="Selected"  
+                               options="{!v.targetAudienceRole}" 
+                               onchange="{! c.handleTarAudRoleChange }"/>         
+      					</span>
+  					</div>
+  					<div class="slds-col slds-size_1-of-2">
+  						<span>
+     						<lightning:dualListbox name="Language"  
+                               label= "Select Languages" 
+                               sourceLabel="Available" 
+                               selectedLabel="Selected" 
+                               options="{!v.lstLanguage}" 
+                               onchange="{! c.handleLanguageChange }"/>         
+      					</span>
+  					</div> 
+  					<div class="slds-col slds-size_1-of-2">
+  						<span>
+                            <lightning:select name="selectStatus" label="Status" required="true" value="{!v.emailStatus}" >
+                                <option value="">None...</option>
+                                <option value="Planned">Planned</option>
+                                <option value="Active">Active</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </lightning:select>       
+      					</span>
+  					</div>                    
+   					<div class="slds-col slds-size_1-of-2">
+  						<span>
+                            <lightning:select name="selectType" label="Type" required="true" value="{!v.emailType}" >
+                                <option value="">None...</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Operational">Operational</option>
+                            </lightning:select>       
+      					</span>
+  					</div>                    
+                </div> 
+      
+                    
+                <!--  <c:MultiSelectPicklist ControllingField="Target_Audience_Role__c"  ObjectName="Promotion__c" /> -->
+                </div>  
+  
+         
+         
+         
+         
+         <div aura:id="Phone" class="slds-hide">
+             <h2> Show Phone Section </h2>
+                <div class="slds-box slds-theme_shade">
+                  <p> Phone</p>
+                </div>  
+         </div>
+         
+         <lightning:button onclick="{!c.showSection3a}" label="show section 3" />
+    </div>
+    <br />
+     <div aura:id="section3" class="row slds-hide">
+         Section 3
+                <div class="slds-box slds-theme_shade" style="background-color: ghostwhite;">
+                  <p> Data Section</p>
+                </div> 
+                      <div class="slds-grid slds-gutters slds-gutters_x-small slds-wrap" style="margin-left: 5px">
+                             <div class="slds-col slds-size_1-of-2">
+                                     <div class="row">
+                                        <lightning:input name="PromotionName" label="Promotion Name" />
+                                        <lightning:input name="Offering" type="search" label="Offering" />
+                                        <lightning:input name="Start Date" type="date" label="Start Date" />
+                                    </div>
+                             </div>
+                             <div class="slds-col slds-size_1-of-2">
+                                     <div class="row">
+                                        <lightning:input name="PromotionDescription" label="Promotion Description" />
+                                        <lightning:select name="selectMRPActivity" label="Create an MRP Activity" required="true">
+                                            <option value="">None...</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                            			</lightning:select> 
+                                        <lightning:input name="End Date" type="date" label="End Date" />
+                                    </div>
+                             </div>
+         				</div>
+         			  
+                  <div class="slds-box slds-theme_shade" style="background-color: ghostwhite;">
+                  <p> Select Region</p>
+                </div>  
+		  <div  class="row">
+                 <div class="slds-grid slds-gutters slds-gutters_x-small slds-wrap slds-align_absolute-center" style="margin-left: 5px">
+                     <div class="slds-col slds-size_1-of-1">
+                            <c:MultiSelectPicklist ControllingField="Geo__c" DependentField="Country__c" ObjectName='Promotion__c' 
+                                                   msDependLabel="Countries" msControlLabel="Regions"/>
+                    </div>
+                     <br />
+                     &nbsp;
+                     <div class="slds-align_absolute-center slds-col slds-size_1-of-1">
+                    <lightning:button onclick="{!c.saveRecord}" label="Save Record" />
+                 </div>
+                                        &nbsp;
+                 </div>
+         </div>
+                  <div class="slds-box slds-theme_shade" style="background-color: ghostwhite;">
+               			Data Selected Information
+                </div>
+
+         <div aura:id="sec3Text" class="slds-hide">
+
+                <div class="slds-box slds-theme_shade" style="background-color: lightGreen;">
+                  <center><h3> Text</h3></center>
+                </div>
+            
+             <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <tr>
+                    <center><td>Status: {!v.textStatus}</td></center>
+                </tr>
+                <tr>
+                    <center><td>Placement: {!v.lstPlace}</td></center>
+                </tr>
+             </table>
+
+         </div>
+          <div aura:id="sec3Email" class="slds-hide">
+             <h2> Show Email Section </h2>
+
+                <div class="slds-box slds-theme_shade" style="background-color: ghostwhite;">
+                  <h3> Email</h3>
+                </div>
+             <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <tr>
+                    <td>Status:</td>
+                    <td>{!v.emailStatus}</td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td>{!v.emailType}</td>
+                </tr>
+                 <tr>
+                    <td>Target Audience Role:</td>
+                    <td>{!v.lstTAR}</td>
+                </tr>
+                <tr>
+                    <td>Language:</td>
+                    <td>{!v.lstLang}</td>
+                </tr>             
+             </table> 
+         
+         </div>
+           <div aura:id="sec3Phone" class="slds-hide">
+             <h2> Show Phone Section </h2>
+
+                <div class="slds-box slds-theme_shade" style="background-color: ghostwhite;">
+                  <h3> Phone</h3>
+                </div>
+         </div>   
+    </div>
+    
+ 
+    
+    
+    <div aura:id="section3hide" class="row slds-hide">
+        <h2 class="header">Section 3</h2>
+        <lightning:textarea name="input4" readonly="true" value="initial value" label="Read-only textarea field" />
+        <lightning:textarea name="input5" disabled="true" value="initial value" label="Disabled textarea field" />
+        <lightning:textarea name="input6" required="true" value="initial value" label="Required textarea field with a maximum length of 60 characters" maxlength="60" />
+        <lightning:textarea name="input7" required="true" value="" placeholder="compose your tweet" label="Required textarea field with a maximum length of 140 characters" maxlength="140" messageWhenTooLong="A maximum of 140 characters are allowed in a tweet." messageWhenValueMissing="An empty tweet cannot be posted." />
+		<lightning:button onclick="{!c.showSection1a}" label="show section 1" />
+    </div>
+
+     <div aura:id="section2hide" class="row slds-hide">
+        <h2 class="header">Section 2</h2>
+        <lightning:textarea name="input1" label="Enter some text" />
+        <lightning:textarea name="input2" label="Textarea field with a predefined value" value="initial value"/>
+        <lightning:textarea name="input3" label="Textarea field with a placeholder" placeholder="type here..."/>
+             <lightning:button onclick="{!c.showSection3a}" label="show section 3" />
+    </div>
+    <!--
+          	<lightning:recordEditForm aura:id="recordViewForm"
+                	                  objectApiName="Fuzzy_Lead__c">
+            
+                
+            <lightning:inputField fieldName="Car_Make__c" />
+            <lightning:inputField fieldName="Lead__c" /> 
+            </lightning:recordEditForm> -->
+    
+</aura:component>
